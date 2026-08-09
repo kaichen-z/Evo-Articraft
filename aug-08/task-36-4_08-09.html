@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Evo-Articraft：面向关节式3D资产的人类对齐、工具驱动、自演化验证系统。">
+  <title>Evo-Articraft · 人类对齐、工具驱动、自演化验证系统</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="long-report">
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
+
+  <nav class="site-nav" aria-label="主导航">
+    <div class="nav-inner">
+      <a class="brand" href="task-36-4_08-09.html" aria-current="page">Evo-Articraft</a>
+      <div class="nav-links">
+        <a href="index.html">总体方案</a>
+        <a href="metrics.html">14项对齐</a>
+        <a href="auto-verifier.html">精确计算</a>
+        <a href="self-evolution.html">自演化闭环</a>
+        <a href="task-36-4_08-09.html" aria-current="page">完整提案</a>
+        <a href="verifier-evolution.html">演化协议</a>
+        <a href="#problem">提案</a>
+        <a href="#benchmark">基准</a>
+        <a href="https://failure-datasets-for-articraft.onrender.com/" target="_blank" rel="noopener">标注平台 ↗</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="page-shell">
+      <span class="eyebrow">任务36-4 · Pro-12 规范综合方案 · 2026-08-09</span>
+      <h1>面向关节式3D资产的人类对齐、工具驱动、自演化验证系统</h1>
+      <p class="lede">Evo-Articraft 是一个无真实值研究方案：不用单一参考资产或黑箱裁判，而以逐项人类对齐的原子证据驱动验证、修复与安全的验证器演化。</p>
+      <div class="hero-actions" aria-label="提案资源">
+        <a class="button primary" href="metrics.html">阅读14项指标规范</a>
+        <a class="button teal" href="verifier-evolution.html">阅读演化协议</a>
+        <a class="button" href="https://failure-datasets-for-articraft.onrender.com/" target="_blank" rel="noopener">打开在线标注平台 ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="page-shell">
+      <section class="section" id="problem">
+        <div class="section-header">
+          <div class="section-number">01 · 问题</div>
+          <div>
+            <h2>开放式设计没有唯一正确的重建结果</h2>
+            <p>“折叠椅”之类的提示可以对应许多机械上有效的设计。这是一项一对多任务：若强制与单一真实值比较，就会惩罚合理的创造性，并悄然把设计评估变成重建评估。</p>
+          </div>
+        </div>
+
+        <div class="thesis">
+          <strong>提示 + 生成的关节式资产 → 可执行验证报告。</strong><br>
+          报告必须说明测试了哪些明确的语义、运动学、功能与物理约束，哪些工具产生了每项测量，以及证据支持怎样的修复。
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <h3>为什么真实值比较会失败</h3>
+            <p>一个柜子可以采用不同的部件拆分、铰链硬件、比例和运动布局，同时仍然正确。单一真实值无法表示这种有效的设计空间。</p>
+          </article>
+          <article class="card">
+            <h3>用什么取而代之</h3>
+            <p>人类评分项定义问题，提示派生的契约定义适用性，几何、FK、碰撞和冻结的仿真协议提供可审计证据。</p>
+          </article>
+        </div>
+
+        <h3>带标注的柜子 URDF：可解析、可运动，但仍然错误</h3>
+        <p class="muted">这个例子刻意保留原始失败构成：实心柜体、嵌入其中的抽屉、缺失的导轨几何，以及绕虚拟铰链旋转的柜门。</p>
+        <div class="code-wrap" aria-label="带标注的柜子 URDF 示例">
+<pre><code>&lt;robot name="cabinet_with_drawer"&gt;
+  &lt;link name="cabinet_body"&gt;
+    &lt;visual&gt;&lt;geometry&gt;&lt;box size="0.60 0.40 0.80"/&gt;&lt;/geometry&gt;&lt;/visual&gt;
+    &lt;collision&gt;&lt;geometry&gt;&lt;box size="0.60 0.40 0.80"/&gt;&lt;/geometry&gt;&lt;/collision&gt;
+    <span class="annotation">&lt;!-- 1 · 实心盒体：没有容纳抽屉的空腔 --&gt;</span>
+    &lt;inertial&gt;&lt;mass value="12.0"/&gt;&lt;/inertial&gt;
+  &lt;/link&gt;
+
+  &lt;link name="drawer"&gt;
+    &lt;visual&gt;&lt;geometry&gt;&lt;box size="0.50 0.35 0.20"/&gt;&lt;/geometry&gt;&lt;/visual&gt;
+    &lt;collision&gt;&lt;geometry&gt;&lt;box size="0.50 0.35 0.20"/&gt;&lt;/geometry&gt;&lt;/collision&gt;
+  &lt;/link&gt;
+  &lt;joint name="drawer_slide" type="prismatic"&gt;
+    &lt;parent link="cabinet_body"/&gt;
+    &lt;child link="drawer"/&gt;
+    &lt;origin xyz="0 0 0.25" rpy="0 0 0"/&gt; <span class="annotation">&lt;!-- 2 · q0 穿入实心柜体 --&gt;</span>
+    &lt;axis xyz="0 1 0"/&gt;
+    &lt;limit lower="0" upper="0.35" effort="50" velocity="0.5"/&gt; <span class="annotation">&lt;!-- 3 · 没有导向件或导轨几何 --&gt;</span>
+  &lt;/joint&gt;
+
+  &lt;link name="door"&gt;
+    &lt;visual&gt;&lt;geometry&gt;&lt;box size="0.02 0.38 0.60"/&gt;&lt;/geometry&gt;&lt;/visual&gt;
+    &lt;collision&gt;&lt;geometry&gt;&lt;box size="0.02 0.38 0.60"/&gt;&lt;/geometry&gt;&lt;/collision&gt;
+  &lt;/link&gt;
+  &lt;joint name="door_hinge" type="revolute"&gt;
+    &lt;parent link="cabinet_body"/&gt;
+    &lt;child link="door"/&gt;
+    &lt;origin xyz="0.31 -0.19 -0.10" rpy="0 0 0"/&gt;
+    &lt;axis xyz="0 0 1"/&gt; <span class="annotation">&lt;!-- 4 · 没有铰链几何；旋转是虚拟的 --&gt;</span>
+    &lt;limit lower="0" upper="1.57" effort="20" velocity="1.0"/&gt;
+  &lt;/joint&gt;
+&lt;/robot&gt;</code></pre>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <caption>为什么表面合理性和求解器运动并不足够</caption>
+            <thead>
+              <tr><th scope="col">失败</th><th scope="col">误导性的成功</th><th scope="col">所需证据</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>实心柜体，没有抽屉空腔</td><td>文件能够解析，外观也可能渲染得很合理。</td><td>移动走廊与扫掠碰撞查询。</td></tr>
+              <tr><td>抽屉在 q0 时嵌入柜体</td><td>从外部视角看不到这种穿透。</td><td>零位姿成对穿透与允许接触证据。</td></tr>
+              <tr><td>声明了滑动，但没有导轨</td><td>求解器会强制执行所声明的移动关节。</td><td>接口间隙、漂移、锚定与局部走廊证据。</td></tr>
+              <tr><td>声明了铰链，但没有硬件</td><td>求解器会让柜门绕虚拟轴旋转。</td><td>接口支撑、旋转间隙与重力证据。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="insight">
+        <div class="section-header">
+          <div class="section-number">02 · 核心洞察</div>
+          <div>
+            <h2>几何验证必须先于动力学结论</h2>
+            <p>验证器把关节文件所声明的内容、几何实际能够支撑的内容，以及时间步进引擎在冻结协议下观察到的内容区分开来。</p>
+          </div>
+        </div>
+        <div class="callout critical">
+          <p class="no-margin"><strong>声明运动 ≠ 可实现运动</strong><br><strong>仿真成功 ≠ 物理可实现</strong></p>
+        </div>
+        <div class="grid-3" style="margin-top:1rem">
+          <article class="card">
+            <h3>声明</h3>
+            <p>父部件、子部件、关节类型、原点、轴和限位说明文件要求求解器强制执行什么。</p>
+          </article>
+          <article class="card">
+            <h3>几何可实现性</h3>
+            <p>接口支撑、局部间隙和无碰撞扫掠能够有力地证伪假关节，但不能证明隐藏硬件确实存在。</p>
+          </article>
+          <article class="card">
+            <h3>动力学证据</h3>
+            <p>驱动、接触、重力、载荷和耦合测试只有在通过强制几何/FK 门后，才会增加时域证据。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="contributions">
+        <div class="section-header">
+          <div class="section-number">03 · 贡献</div>
+          <div>
+            <h2>五项核心贡献，共用一条可审计证据链</h2>
+            <p>人类问题、工具测量、仿真器动态证据和演化记忆各司其职；任何验证器族总分都不能替代 A1–B14 的逐项结论。</p>
+          </div>
+        </div>
+        <div class="grid-3">
+          <article class="card"><span class="pill blue">C1 · 基准</span><h3>14项原子人类评分准则</h3><p>标注员对 A1–B14 分别给出 1/0/N/A，让几何部件、声明运动学、实体可实现性与复杂物理保持可区分。</p></article>
+          <article class="card"><span class="pill teal">C2 · 可实现性</span><h3>假关节的几何证伪</h3><p>接口支撑、局部间隙与扫掠碰撞联合识别“文件声明了关节、几何却没有机构”的关键失败。</p></article>
+          <article class="card"><span class="pill amber">C3 · 指标路由</span><h3>按指标组合工具</h3><p>契约/VLM 回答语义问题，几何/FK 回答结构问题；只有需要时间、接触或载荷的指标才调用冻结仿真器。</p></article>
+          <article class="card"><span class="pill blue">C4 · 对齐</span><h3>人类指标 ↔ 原子谓词</h3><p>逐项输出预测、覆盖程度、置信度、证据与修复建议，而不是把14项硬塞进四个诊断族。</p></article>
+          <article class="card"><span class="pill teal">C5 · 自演化</span><h3>测试程序级演化</h3><p>人类分歧触发可执行测试、触发器与成功条件；留出测试协议、族权重和人类定义保持冻结。</p></article>
+        </div>
+      </section>
+
+      <section class="section" id="benchmark">
+        <div class="section-header">
+          <div class="section-number">04 · 基准</div>
+          <div>
+            <h2>覆盖2,000个资产的冻结 500 / 1,500 协议</h2>
+            <p>每个生成的关节式资产都获得14个独立的人类标签。划分单元包含资产、提示/模板和生成种子，因此同一个模板实例不能跨阶段泄漏。</p>
+          </div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat"><span class="value">2,000</span><span class="label">生成的关节式资产总数</span></div>
+          <div class="stat"><span class="value">500</span><span class="label">用于校准和验证器演化的开发案例</span></div>
+          <div class="stat"><span class="value">1,500</span><span class="label">两个系统均冻结的留出案例</span></div>
+          <div class="stat"><span class="value">14</span><span class="label">每个适用资产的原子人类标签</span></div>
+        </div>
+        <div class="callout evidence" style="margin-top:1rem">
+          <p><strong>泛化范围是明确的。</strong>1,500 个留出案例包含已见类别和未见类别。“未见”表示该类别未出现在 500 案例开发集中，而不只是出现频率较低。</p>
+        </div>
+      </section>
+
+      <section class="section" id="system">
+        <div class="section-header">
+          <div class="section-number">05 · 系统</div>
+          <div>
+            <h2>从提示到修复的一条可追溯链路</h2>
+            <p>验证器族仍然是诊断聚合视图。人类对齐发生在它们之下，每个指标都映射到一个或多个可执行原子谓词。</p>
+          </div>
+        </div>
+        <div class="pipeline" aria-label="验证流水线">
+          <div><strong>契约提取</strong><small>明确需求、来源和适用性。</small></div>
+          <div><strong>人类对齐的原子谓词</strong><small>每个人类指标对应一项或多项可执行检查。</small></div>
+          <div><strong>指标向量与证据</strong><small>分数、预测、置信度、覆盖程度和原始测量。</small></div>
+          <div><strong>诊断族与最终分数</strong><small>仅使用有效切片；排除 N/A 与弃权。</small></div>
+          <div><strong>修复反馈</strong><small>失败原因、证据位置和有边界的修复建议。</small></div>
+        </div>
+        <div class="grid-2" style="margin-top:1rem">
+          <article class="card">
+            <h3>LLM 负责转译</h3>
+            <p>语言模型提取可计分的明确需求，并提出可执行测试规范。提示未支持的先验只用于诊断。</p>
+          </article>
+          <article class="card">
+            <h3>工具负责验证</h3>
+            <p>解析器、几何、FK、碰撞和冻结的仿真器协议产生数值证据。任何自由形式的模型分数都不能取代这些测量。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="evaluation">
+        <div class="section-header">
+          <div class="section-number">06 · 评估</div>
+          <div>
+            <h2>四条评估轨道，共用一种留出纪律</h2>
+            <p>评估分别考察验证器质量、设计器质量、类别泛化和因果贡献。自动分数绝不能成为设计器唯一报告的结果。</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <caption>最终评估轨道</caption>
+            <thead><tr><th scope="col">轨道</th><th scope="col">数据</th><th scope="col">必须报告的内容</th></tr></thead>
+            <tbody>
+              <tr><td><strong>验证器评估</strong></td><td>留出的 1,500 个案例</td><td>覆盖程度；逐项精确率、召回率、F1、平衡准确率、κ；族诊断；分数相关性；选择性风险。</td></tr>
+              <tr><td><strong>设计器评估</strong></td><td>留出的 1,500 个输出</td><td>同一批资产上的人类结果和冻结验证器结果、修复成功率、迭代成本与严重失败率。</td></tr>
+              <tr><td><strong>泛化</strong></td><td>已见/未见分组</td><td>按类别暴露程度报告覆盖与一致性差距，禁止提示/模板/种子泄漏。</td></tr>
+              <tr><td><strong>消融</strong></td><td>留出的 1,500 个案例</td><td>依次移除记忆、仿真器、几何、契约提取、可实现性门控和设计器演化。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="human-summary">
+        <div class="section-header">
+          <div class="section-number">07 · 人类对齐</div>
+          <div>
+            <h2>十四个独立问题，而不是四个替代性的族分数</h2>
+            <p>人类标签向量由 A1–A6 与 B7–B14 组成。每个适用指标都独立判断；只有得到这些逐项输出之后，诊断族才汇总证据。</p>
+          </div>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <div class="pill-row"><span class="pill blue">A1–A6</span><span class="pill teal">语义结构</span></div>
+            <h3>部件、完整性、真实感、装配和 q0 完整性</h3>
+            <p>部件拆分/可动性；数量/类型；结构完整性；几何/尺度/比例真实感；相对位置/朝向；初始穿透、脱离和悬空。</p>
+          </article>
+          <article class="card">
+            <div class="pill-row"><span class="pill blue">B7–B14</span><span class="pill amber">运动学与可实现性</span></div>
+            <h3>图结构、关节、范围、支撑、干涉和耦合</h3>
+            <p>父部件/子部件；关节存在性与类型；原点/轴；可用范围；实体安装；运动干涉；多部件机构关系。</p>
+          </article>
+        </div>
+        <div class="section-actions">
+          <a class="button primary" href="metrics.html">查看全部14项公式、路由与边界</a>
+        </div>
+      </section>
+
+      <section class="section" id="evolution-summary">
+        <div class="section-header">
+          <div class="section-number">08 · 演化</div>
+          <div>
+            <h2>扩充可执行测试；优化设计器之前先冻结裁判</h2>
+            <p>演化改变的是版本化测试程序库、几何/拓扑触发器、证据字段、修复建议和有限阈值，而不是自由形式的分数或留出标签。</p>
+          </div>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <h3>阶段1 · 验证器</h3>
+            <p>仅使用 500 个开发案例。诊断逐项 FN/FP，让可复用测试通过回归与人类审查的触发器后准入，然后冻结。</p>
+          </article>
+          <article class="card">
+            <h3>阶段2 · 设计器</h3>
+            <p>保持验证器冻结，同时在训练提示上演化生成策略、修复算子选择和设计记忆。</p>
+          </article>
+          <article class="card">
+            <h3>最终阶段 · 评估</h3>
+            <p>在全部 1,500 个留出资产上冻结两个系统。任何新发现的失败模式都推迟到下一版本处理。</p>
+          </article>
+        </div>
+        <div class="section-actions">
+          <a class="button teal" href="verifier-evolution.html">查看准入门与冻结清单</a>
+        </div>
+      </section>
+
+      <section class="section" id="limitations">
+        <div class="section-header">
+          <div class="section-number">09 · 边界</div>
+          <div>
+            <h2>本提案主张什么，又不主张什么</h2>
+            <p>V2 公式是拟议的计算方式，并不意味着每个操作数、校准集或覆盖门已经可以直接实现。</p>
+          </div>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <h3>证伪，而非机械证明</h3>
+            <p>几何可以暴露不可能的接口、碰撞与间隙，但不一定能观察到隐藏支撑。当证据可见性不足时，B12 必须弃权。</p>
+          </article>
+          <article class="card">
+            <h3>有条件的拟议能力</h3>
+            <p>在具备人类校准的 VLM/尺度证据之前，A4 仍不受支持。在存在明确的耦合/闭环契约和专用仿真器路由之前，B14 仍不受支持或为 N/A。</p>
+          </article>
+          <article class="card">
+            <h3>物理参数来源很重要</h3>
+            <p>推断或默认的质量、摩擦、阻尼与执行器数值只能得到协议特定的估计物理证据，而不是以资产为依据的物理真相。</p>
+          </article>
+          <article class="card">
+            <h3>聚合尚未完全可执行</h3>
+            <p>族切片归属和若干指标操作数仍未解决，必须先在机器可读契约中冻结，才能实现或用于排行榜。</p>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="page-footer">
+    <div class="page-shell">
+      <strong>Evo-Articraft · 任务36-4 · 2026-08-09</strong><br>
+      本地综合研究包：提案、人类对齐的 V2 验证器与验证器演化协议。
+    </div>
+  </footer>
+</body>
+</html>

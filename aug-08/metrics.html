@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>人类 × 自动验证器 · 14项精确对齐</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="page">
+  <header class="hero" data-mark="14">
+    <div class="eyebrow">PRO-12 · 人类–自动对齐</div>
+    <h1>人类 × 自动验证器<br>14项精确对齐</h1>
+    <p class="subtitle">人类指标体系描述“人要判断什么”，自动验证器的原子判据描述“工具实际测什么”。二者在原子证据层对应，而不是把14项强行压进四个类别总分。</p>
+    <div class="hero-links">
+      <a href="auto-verifier.html">查看14项精确公式</a>
+      <a href="self-evolution.html">查看分歧如何驱动演化</a>
+      <a href="../pro-10/human-verifier-alignment.html">原始对齐页面</a>
+      <a href="../pro-9/human-annotation.html">原始人类指标体系</a>
+    </div>
+  </header>
+
+  <nav class="site-nav" aria-label="Pro-12 主导航">
+    <a href="index.html">总体方案</a>
+    <a href="metrics.html" aria-current="page">14项对齐</a>
+    <a href="auto-verifier.html">精确计算</a>
+    <a href="self-evolution.html">自演化闭环</a>
+    <a href="task-36-4_08-09.html">完整提案</a>
+    <a href="verifier-evolution.html">演化协议</a>
+    <span class="nav-spacer"></span>
+    <a href="#protocol">对齐实验</a>
+  </nav>
+
+  <section id="alignment-level">
+    <div class="kicker">01 · 正确对齐层级</div>
+    <h2>正确的对齐位置：人类指标 ↔ 原子验证判据</h2>
+    <div class="thesis">
+      <span class="big">执行门不是第15个人类质量指标。</span>
+      执行门只回答资产是否具备可执行评测条件；A1–B14 回答资产质量。V1–V4 或语义/静态/运动/物理是汇报与聚合类别，也不能冒充逐项人类预测。
+    </div>
+    <div class="flow">
+      <div class="flow-row"><div class="flow-node human"><h4>人类指标体系</h4><p>A1–B14：宽泛但可解释的 0/1/N/A 判断</p></div></div>
+      <div class="arrow">↕ 对齐</div>
+      <div class="flow-row"><div class="flow-node tool"><h4>原子证据</h4><p>匹配数量、相对变换、穿透、间隙、净空、q(t)、接触冲量、约束误差</p></div></div>
+      <div class="arrow">↓ 分别聚合</div>
+      <div class="flow-row"><div class="flow-node human"><h4>人类对齐输出</h4><p>逐项分数 / 预测 / 置信度 / 覆盖程度</p></div><div class="flow-node sim"><h4>诊断输出</h4><p>执行门 + 语义/静态/运动/物理 + 失败报告</p></div></div>
+    </div>
+  </section>
+
+  <section id="relations">
+    <div class="kicker">02 · 映射基数</div>
+    <h2>五种对应关系分别是什么意思？</h2>
+    <div class="grid three">
+      <article class="card"><span class="relation">1:1</span><h3>一对一</h3><p>一个人类指标主要由一个清晰判据决定。例如 B13 的核心确定性证据是全范围扫掠碰撞。</p></article>
+      <article class="card"><span class="relation">1:N</span><h3>一对多</h3><p>一个人类判断同时包含多个失败面。例如 B12 要看接口间隙、锚点、净空、重力漂移与约束误差。</p></article>
+      <article class="card"><span class="relation">N:1</span><h3>多对一</h3><p>多个人类切片共用同一底层类别。例如 A2、B8、B9、B10 的语义部分都会进入语义诊断。</p></article>
+      <article class="card"><span class="relation">部分对应</span><h3>部分对应</h3><p>工具能证伪一部分但不能完整模仿人类常识。例如 A4 的多视角 VLM 在校准前只能报告部分覆盖。</p></article>
+      <article class="card"><span class="relation">覆盖边界</span><h3>适用边界</h3><p>没有预期耦合时 B14 应为 N/A；工具故障应为不支持/部分覆盖。它们都不等于资产失败，更不能自动记0。</p></article>
+    </div>
+  </section>
+
+  <section id="master-map">
+    <div class="kicker">03 · 总映射</div>
+    <h2>A1–B14：逐项人类问题、工具证据与覆盖</h2>
+    <p class="lead">下列每张卡把人类语言拆成可审计原子证据。这里解释“对应关系与原因”；具体数值、公式和阈值在 <a href="auto-verifier.html">自动验证器页面</a>。</p>
+    <div class="metric-list">
+
+      <article class="metric-card" data-human-metric="A1">
+        <div class="metric-head"><div class="metric-id">A1</div><div class="metric-title"><h3>零件拆分与活动属性</h3><p>该动的是否拆成独立活动件？是否出现多余活动件？</p></div><div class="metric-route"><span class="relation">1:N</span> <span class="status partial">近似</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>人类问题</h4><p>拆分粒度与活动/固定属性是否合理。</p></div><div class="metric-field"><h4>标签键</h4><p><code>part_activity_split</code></p></div>
+          <div class="metric-field"><h4>原子证据</h4><p>预期活动件↔连杆匹配、缺失/多余活动件、活动件精确率/召回率。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag llm">LLM 匹配</span> <span class="tag geometry">图结构</span></p></div>
+          <div class="metric-field"><h4>对应关系</h4><p>1:N：人类一项同时看过度合并、过度拆分和活动属性。</p></div><div class="metric-field"><h4>覆盖程度</h4><p>显式活动件契约下较强；极简提示词时降低置信度。</p></div>
+          <div class="metric-field"><h4>为什么</h4><p>一个 F1 无法区分“少拆”和“多拆”，必须保留两方向证据。</p></div><div class="metric-field"><h4>例子</h4><p>抽屉与柜体合成一个连杆：缺失活动件=1，A1 失败。</p></div>
+        </div><div class="metric-footer"><a href="auto-verifier.html#calc-A1">查看 A1 精确公式 →</a></div>
+      </article>
+
+      <article class="metric-card" data-human-metric="A2">
+        <div class="metric-head"><div class="metric-id">A2</div><div class="metric-title"><h3>零件数量和种类</h3><p>提示词明确要求的主要部件，其类别与数量是否满足？</p></div><div class="metric-route"><span class="relation">1:N</span> <span class="status full">显式要求下完整</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>人类问题</h4><p>部件数量与类型是否符合描述。</p></div><div class="metric-field"><h4>标签键</h4><p><code>part_count_type</code></p></div>
+          <div class="metric-field"><h4>原子证据</h4><p>语义二分图匹配、每类要求/实际数量、类型匹配权重。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag llm">LLM 匹配</span> <span class="tag geometry">数量</span></p></div>
+          <div class="metric-field"><h4>对应关系</h4><p>1:N：数量与类型是两个独立判据。</p></div><div class="metric-field"><h4>覆盖程度</h4><p>只对来源=显式计分；类别先验仅诊断。</p></div>
+          <div class="metric-field"><h4>为什么</h4><p>“数量正确但种类错误”和“种类正确但少一个”需要不同修复方式。</p></div><div class="metric-field"><h4>例子</h4><p>要求三层抽屉柜但只有两个抽屉：数量覆盖程度=2/3。</p></div>
+        </div><div class="metric-footer"><a href="auto-verifier.html#calc-A2">查看 A2 精确公式 →</a></div>
+      </article>
+
+      <article class="metric-card" data-human-metric="A3">
+        <div class="metric-head"><div class="metric-id">A3</div><div class="metric-title"><h3>必要结构完整性</h3><p>显式部件和已声明功能的必要接口是否齐全？</p></div><div class="metric-route"><span class="relation">1:N</span> <span class="status partial">显式完整</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>人类问题</h4><p>门、把手、支架、轨道或功能接口是否缺失。</p></div><div class="metric-field"><h4>标签键</h4><p><code>structure_complete</code></p></div>
+          <div class="metric-field"><h4>原子证据</h4><p>必需部件覆盖程度、必需接口覆盖程度、缺失清单。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag llm">契约</span> <span class="tag geometry">存在性</span></p></div>
+          <div class="metric-field"><h4>对应关系</h4><p>1:N：部件完整与接口完整分开测。</p></div><div class="metric-field"><h4>覆盖程度</h4><p>显式要求完整覆盖；隐含常识结构仅作辅助。</p></div>
+          <div class="metric-field"><h4>为什么</h4><p>LLM 补出的常识若直接扣分，会把未写要求误当参考答案。</p></div><div class="metric-field"><h4>例子</h4><p>提示词明确要求把手，但模型没有：C_parts 下降并给出缺失部件修复建议。</p></div>
+        </div><div class="metric-footer"><a href="auto-verifier.html#calc-A3">查看 A3 精确公式 →</a></div>
+      </article>
+
+      <article class="metric-card" data-human-metric="A4">
+        <div class="metric-head"><div class="metric-id">A4</div><div class="metric-title"><h3>形状、尺寸与比例真实感</h3><p>多视角几何和尺度是否符合该类别的人类判断？</p></div><div class="metric-route"><span class="relation">部分对应</span> <span class="status partial">VLM 校准</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>人类问题</h4><p>外观、比例与尺度是否自然、可信。</p></div><div class="metric-field"><h4>标签键</h4><p><code>geometry_realism</code></p></div>
+          <div class="metric-field"><h4>原子证据</h4><p>八视角真实感概率、跨视角一致性、类别尺度偏差。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag llm">VLM</span> <span class="tag geometry">尺度先验</span></p></div>
+          <div class="metric-field"><h4>对应关系</h4><p>部分对应：只能近似人类类别常识与风格判断。</p></div><div class="metric-field"><h4>覆盖程度</h4><p>VLM 未与 A4 人类标签校准前标为部分覆盖。</p></div>
+          <div class="metric-field"><h4>为什么</h4><p>仿真器不能解决视觉比例；未经校准的 LLM 置信度也不能当真值。</p></div><div class="metric-field"><h4>例子</h4><p>椅腿比座面宽五倍：多视角 p_real 与尺度分数同时低。</p></div>
+        </div><div class="metric-footer"><a href="auto-verifier.html#calc-A4">查看 A4 精确公式 →</a></div>
+      </article>
+
+      <article class="metric-card" data-human-metric="A5">
+        <div class="metric-head"><div class="metric-id">A5</div><div class="metric-title"><h3>位置、朝向与装配关系</h3><p>部件是否处于正确侧面、方向和连接邻域？</p></div><div class="metric-route"><span class="relation">1:N</span> <span class="status partial">基于模板</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>人类问题</h4><p>主要部件的相对位置与朝向是否合理。</p></div><div class="metric-field"><h4>标签键</h4><p><code>assembly_relation</code></p></div>
+          <div class="metric-field"><h4>原子证据</h4><p>相对位置/朝向、功能侧面、连接邻域。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag llm">关系契约</span> <span class="tag geometry">变换</span></p></div>
+          <div class="metric-field"><h4>对应关系</h4><p>1:N：位置、方向、侧面与邻域分别测量。</p></div><div class="metric-field"><h4>覆盖程度</h4><p>已有关系模板时完整覆盖，否则近似覆盖。</p></div>
+          <div class="metric-field"><h4>为什么</h4><p>装配错误可来自多个独立空间关系，必须给可定位证据。</p></div><div class="metric-field"><h4>例子</h4><p>门把手装在铰链侧：S_side 低，但位置/朝向可能仍高。</p></div>
+        </div><div class="metric-footer"><a href="auto-verifier.html#calc-A5">查看 A5 精确公式 →</a></div>
+      </article>
+
+      <article class="metric-card" data-human-metric="A6">
+        <div class="metric-head"><div class="metric-id">A6</div><div class="metric-title"><h3>初始状态完整性</h3><p>q₀ 是否无非预期穿插、悬浮与脱离？</p></div><div class="metric-route"><span class="relation">1:N</span> <span class="status full">几何完整覆盖</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>人类问题</h4><p>初始姿态是否具有完整、连贯的结构。</p></div><div class="metric-field"><h4>标签键</h4><p><code>initial_integrity</code></p></div>
+          <div class="metric-field"><h4>原子证据</h4><p>q₀ 穿透深度/D、脱离体积比例、无支撑间隙/D。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag geometry">碰撞/连通分量</span> <span class="tag simulator">可选重力测试</span></p></div>
+          <div class="metric-field"><h4>对应关系</h4><p>1:N：穿插、脱离与悬浮是三个不同失败。</p></div><div class="metric-field"><h4>覆盖程度</h4><p>静态几何主判；支撑不明确时仿真器可选辅助。</p></div>
+          <div class="metric-field"><h4>为什么</h4><p>只看最大穿透深度会漏掉完全脱离和离地悬浮。</p></div><div class="metric-field"><h4>例子</h4><p>抽屉零位嵌入实心柜体：新增穿透明确证伪。</p></div>
+        </div><div class="metric-footer"><a href="auto-verifier.html#calc-A6">查看 A6 精确公式 →</a></div>
+      </article>
+
+      <article class="metric-card" data-human-metric="B7">
+        <div class="metric-head"><div class="metric-id">B7</div><div class="metric-title"><h3>父子关系与连接对象</h3><p>关节是否连接正确父体/子体，并影响正确子树？</p></div><div class="metric-route"><span class="relation">1:N</span> <span class="status partial">依赖契约</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>人类问题</h4><p>运动是否发生在正确零件与正确参考体之间。</p></div><div class="metric-field"><h4>标签键</h4><p><code>parent_child_relation</code></p></div>
+          <div class="metric-field"><h4>原子证据</h4><p>预期子体匹配、父体匹配、受影响子树纯度。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag llm">语义契约</span> <span class="tag geometry">图结构</span></p></div>
+          <div class="metric-field"><h4>对应关系</h4><p>1:N：父体、子体与子树三项可能独立失败。</p></div><div class="metric-field"><h4>覆盖程度</h4><p>连接语义明确时完整覆盖；父体可互换时降低置信度。</p></div>
+          <div class="metric-field"><h4>为什么</h4><p>图合法不代表语义连接对象正确。</p></div><div class="metric-field"><h4>例子</h4><p>门关节错接抽屉：子体匹配=0，受影响子树也异常。</p></div>
+        </div><div class="metric-footer"><a href="auto-verifier.html#calc-B7">查看 B7 精确公式 →</a></div>
+      </article>
+
+      <article class="metric-card" data-human-metric="B8">
+        <div class="metric-head"><div class="metric-id">B8</div><div class="metric-title"><h3>关节存在性</h3><p>每个预期活动件是否拥有对应非固定关节？</p></div><div class="metric-route"><span class="relation">1:1</span> <span class="status full">契约明确后完整</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>人类问题</h4><p>该活动件是否真正被声明为可动。</p></div><div class="metric-field"><h4>标签键</h4><p><code>joint_present</code></p></div>
+          <div class="metric-field"><h4>原子证据</h4><p>预期活动件集合↔非固定关节覆盖程度、缺失/误固定数量。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag geometry">解析器</span> <span class="tag llm">匹配</span></p></div>
+          <div class="metric-field"><h4>对应关系</h4><p>1:1：主要由关节覆盖程度直接决定。</p></div><div class="metric-field"><h4>覆盖程度</h4><p>预期活动件契约有效时为确定性覆盖。</p></div>
+          <div class="metric-field"><h4>为什么</h4><p>是否存在关节是结构事实，不需要仿真器。</p></div><div class="metric-field"><h4>例子</h4><p>三层抽屉只有一个移动关节：覆盖程度=1/3，B8 失败。</p></div>
+        </div><div class="metric-footer"><a href="auto-verifier.html#calc-B8">查看 B8 精确公式 →</a></div>
+      </article>
+
+      <article class="metric-card" data-human-metric="B9">
+        <div class="metric-head"><div class="metric-id">B9</div><div class="metric-title"><h3>关节类型</h3><p>声明类型与预期类型、FK 轨迹是否一致？</p></div><div class="metric-route"><span class="relation">1:N</span> <span class="status full">确定性</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>人类问题</h4><p>应该转动、滑动或固定的零件是否使用正确关节类型。</p></div><div class="metric-field"><h4>标签键</h4><p><code>joint_type</code></p></div>
+          <div class="metric-field"><h4>原子证据</h4><p>声明类型比较器、轨迹类型分类器。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag geometry">解析器/FK</span> <span class="tag llm">契约</span></p></div>
+          <div class="metric-field"><h4>对应关系</h4><p>1:N：字符串声明与实际轨迹都要一致。</p></div><div class="metric-field"><h4>覆盖程度</h4><p>预期类型明确时完整覆盖。</p></div>
+          <div class="metric-field"><h4>为什么</h4><p>错误解析器字段或异常轨迹都能单独暴露问题。</p></div><div class="metric-field"><h4>例子</h4><p>门被声明为移动关节，但预期为旋转关节：类型准确率=0。</p></div>
+        </div><div class="metric-footer"><a href="auto-verifier.html#calc-B9">查看 B9 精确公式 →</a></div>
+      </article>
+
+      <article class="metric-card" data-human-metric="B10">
+        <div class="metric-head"><div class="metric-id">B10</div><div class="metric-title"><h3>关节位置与轴向</h3><p>关节原点、轴向与实际运动方向是否合理？</p></div><div class="metric-route"><span class="relation">1:N</span> <span class="status full">几何/FK</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>人类问题</h4><p>轴是否放在正确接口，方向是否与预期运动一致。</p></div><div class="metric-field"><h4>标签键</h4><p><code>joint_origin_axis</code></p></div>
+          <div class="metric-field"><h4>原子证据</h4><p>d_anchor/D、轴角误差、轨迹方向误差。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag geometry">几何/FK</span></p></div>
+          <div class="metric-field"><h4>对应关系</h4><p>1:N：原点、轴向与轨迹三个证据相乘/聚合。</p></div><div class="metric-field"><h4>覆盖程度</h4><p>几何与 FK 可执行时完整覆盖。</p></div>
+          <div class="metric-field"><h4>为什么</h4><p>轴向正确但位置偏到门中心，仍然是错误合页。</p></div><div class="metric-field"><h4>例子</h4><p>门轴线与边缘相差0.2D：S_anchor 极低。</p></div>
+        </div><div class="metric-footer"><a href="auto-verifier.html#calc-B10">查看 B10 精确公式 →</a></div>
+      </article>
+
+      <article class="metric-card sim-required" data-human-metric="B11">
+        <div class="metric-head"><div class="metric-id">B11</div><div class="metric-title"><h3>可用关节运动范围</h3><p>声明行程是否合理，并能在几何和实际驱动下完成？</p></div><div class="metric-route"><span class="relation">1:N</span> <span class="status required">完整覆盖需仿真器</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>人类问题</h4><p>运动范围是否足以完成用途，又不会异常过大。</p></div><div class="metric-field"><h4>标签键</h4><p><code>joint_range</code></p></div>
+          <div class="metric-field"><h4>原子证据</h4><p>无碰撞范围、动态完成度、跟踪 RMSE、超调量。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag geometry">32步扫掠</span> <span class="tag simulator">驱动仿真</span></p></div>
+          <div class="metric-field"><h4>对应关系</h4><p>1:N：声明范围、几何可用范围和动态可达范围可能不同。</p></div><div class="metric-field"><h4>覆盖程度</h4><p>只有扫掠时为部分覆盖；几何 + 仿真器才完整覆盖。</p></div>
+          <div class="metric-field"><h4>为什么</h4><p>FK 无碰撞不代表执行器与接触下能实际走完。</p></div><div class="metric-field"><h4>例子</h4><p>抽屉55%处碰侧板并停滞：B11 失败。</p></div>
+        </div><div class="metric-footer"><a href="auto-verifier.html#calc-B11">查看 B11 精确公式 →</a></div>
+      </article>
+
+      <article class="metric-card sim-required" data-human-metric="B12">
+        <div class="metric-head"><div class="metric-id">B12</div><div class="metric-title"><h3>实体连接与物理支撑</h3><p>活动件是否有可信接口，并在重力/载荷下保持？</p></div><div class="metric-route"><span class="relation">1:N</span> <span class="status required">完整覆盖需仿真器</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>人类问题</h4><p>是否存在可信合页、滑轨、支架或其他实体支撑。</p></div><div class="metric-field"><h4>标签键</h4><p><code>physical_mount_support</code></p></div>
+          <div class="metric-field"><h4>原子证据</h4><p>g₀、间隙漂移、锚点、净空、重力位移、约束误差、载荷。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag geometry">接口</span> <span class="tag simulator">重力/载荷</span></p></div>
+          <div class="metric-field"><h4>对应关系</h4><p>1:N：几何接口与动态支撑缺一不可。</p></div><div class="metric-field"><h4>覆盖程度</h4><p>仅几何证据可证伪但不完整；仿真器补齐支撑。</p></div>
+          <div class="metric-field"><h4>为什么</h4><p>仿真成功不能证明接口，必须与 S_interface 相乘。</p></div><div class="metric-field"><h4>例子</h4><p>门绕虚拟轴转但无合页，重力下漂移：B12 失败。</p></div>
+        </div><div class="metric-footer"><a href="auto-verifier.html#calc-B12">查看 B12 精确公式 →</a></div>
+      </article>
+
+      <article class="metric-card sim-required" data-human-metric="B13">
+        <div class="metric-head"><div class="metric-id">B13</div><div class="metric-title"><h3>运动穿模、干涉与动态阻塞</h3><p>全行程是否没有新增穿透、异常冲量或卡死？</p></div><div class="metric-route"><span class="relation">1:1 + 扩展</span> <span class="status required">完整覆盖需仿真器</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>人类问题</h4><p>运动过程中是否发生非预期穿模、碰撞或干涉。</p></div><div class="metric-field"><h4>标签键</h4><p><code>motion_interference</code></p></div>
+          <div class="metric-field"><h4>原子证据</h4><p>扫掠穿透/通过比例、接触冲量、停滞比例、动态穿透。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag geometry">扫掠碰撞</span> <span class="tag simulator">接触仿真</span></p></div>
+          <div class="metric-field"><h4>对应关系</h4><p>几何核心接近1:1；动态接触与停滞扩展完整含义。</p></div><div class="metric-field"><h4>覆盖程度</h4><p>扫掠为确定性部分覆盖；加接触仿真才完整覆盖。</p></div>
+          <div class="metric-field"><h4>为什么</h4><p>静态采样能抓穿模，但不能完整测异常力和动态卡死。</p></div><div class="metric-field"><h4>例子</h4><p>抽屉后半程出现穿透 + 冲量 + 停滞：多证据共同失败。</p></div>
+        </div><div class="metric-footer"><a href="auto-verifier.html#calc-B13">查看 B13 精确公式 →</a></div>
+      </article>
+
+      <article class="metric-card sim-required" data-human-metric="B14">
+        <div class="metric-head"><div class="metric-id">B14</div><div class="metric-title"><h3>多部件机构连接与运动关系</h3><p>同步、耦合比、闭环约束与任务是否合理？</p></div><div class="metric-route"><span class="relation">1:N</span> <span class="status required">适用时需仿真器</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>人类问题</h4><p>复杂机构的多个部件是否按预期联动。</p></div><div class="metric-field"><h4>标签键</h4><p><code>multi_part_mechanism</code></p></div>
+          <div class="metric-field"><h4>原子证据</h4><p>同步 RMSE、耦合比例误差、闭环残差、违规时长、任务完成度。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag llm">耦合契约</span> <span class="tag simulator">多关节仿真</span></p></div>
+          <div class="metric-field"><h4>对应关系</h4><p>1:N：不同机构只激活适用的同步/比例/闭环判据。</p></div><div class="metric-field"><h4>覆盖程度</h4><p>无预期耦合/闭环 → N/A；适用时完整覆盖需仿真器。</p></div>
+          <div class="metric-field"><h4>为什么</h4><p>单关节逐个检查无法验证剪式机构、齿轮或双侧同步。</p></div><div class="metric-field"><h4>例子</h4><p>剪式升降台两侧相位漂移，闭环残差持续超阈值。</p></div>
+        </div><div class="metric-footer"><a href="auto-verifier.html#calc-B14">查看 B14 精确公式 →</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="reverse-map">
+    <div class="kicker">04 · 反向视角</div>
+    <h2>为什么多个人类指标会汇入一个诊断类别？</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>诊断</th><th>汇入的人类切片</th><th>保留逐项输出的理由</th></tr></thead>
+        <tbody>
+          <tr><td class="id">语义</td><td>A1/A2/A3、B7/B8/B9、B10 语义切片</td><td>类别高分可能掩盖缺失关节或错误类型；修复需要知道具体项。</td></tr>
+          <tr><td class="id">静态</td><td>A5/A6、B10–B13 几何切片</td><td>初始穿插、错误轴与接口缺失是不同失败，不能只给一个几何分。</td></tr>
+          <tr><td class="id">运动</td><td>B11/B13/B14 与运动功能</td><td>范围、干涉与耦合使用不同原始数值和仿真器展开试验。</td></tr>
+          <tr><td class="id">物理</td><td>B12、动态功能、稳定性/接触/载荷</td><td>物理参数来源不同，覆盖程度必须逐项保留。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="protocol">
+    <div class="kicker">05 · 对齐协议</div>
+    <h2>对齐实验应按什么顺序报告？</h2>
+    <div class="grid three">
+      <article class="card"><h3>1 · 人类参照</h3><p>至少10%双标注并报告人类–人类 κ。对 A4/B12 这类低一致性项，κ 是自动精度的实际参照上界。</p></article>
+      <article class="card"><h3>2 · 逐项一致性</h3><p>每项分别报告精确率、召回率、F1、平衡准确率与人类–自动 κ，不允许只展示聚合后总分。</p></article>
+      <article class="card"><h3>3 · 选择性预测</h3><p>画置信度阈值–覆盖程度的选择性风险曲线；不支持与弃权必须显式进入覆盖程度。</p></article>
+      <article class="card"><h3>4 · 最终排序</h3><p>人类 S_mech 与自动 Score_full 报告 Spearman 排序相关性；不要求两个体系的数值刻度完全相等。</p></article>
+      <article class="card"><h3>5 · 修复效用</h3><p>执行修复后，检查目标原子判据与对应人类标签是否同时失败→通过，避免只优化评分器。</p></article>
+      <article class="card"><h3>6 · 冻结测试</h3><p>在留出集上冻结解析器、测试库、触发条件、阈值、权重；新分歧只进下一版本待办。</p></article>
+    </div>
+  </section>
+
+  <section id="sources">
+    <div class="kicker">06 · 来源</div>
+    <h2>本页依据</h2>
+    <div class="source-grid">
+      <div class="source-card"><a href="../pro-10/human-verifier-alignment.html">PRO-10 人类–验证器对齐</a><p>映射基数、逐项例子与对齐实验。</p></div>
+      <div class="source-card"><a href="../pro-9/human-annotation.html">PRO-9 人类标注</a><p>A1–B14 的原始人工定义与标注协议。</p></div>
+      <div class="source-card"><a href="auto-verifier.html">PRO-12 自动验证器</a><p>本页14项对应的原始数值、公式、阈值与仿真器路由。</p></div>
+    </div>
+  </section>
+
+  <footer>PRO-12 · 人类 × 自动验证器 · 14项精确对齐 · 中文综合版</footer>
+</main>
+</body>
+</html>

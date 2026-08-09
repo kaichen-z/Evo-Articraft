@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>自演化闭环｜Evo-Articraft 自动验证器</title>
+  <meta name="description" content="测试程序级自演化：从人机分歧、FN/FP、记忆条目到准入、冻结和设计器反馈。">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="self-evolution">
+  <a class="skip-link" href="#main">跳到正文</a>
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a class="brand" href="index.html">Evo-Articraft <span>PRO-12</span></a>
+      <nav class="site-nav" aria-label="主导航">
+        <a href="index.html">总体方案</a>
+        <a href="metrics.html">14项对齐</a>
+        <a href="auto-verifier.html">精确计算</a>
+        <a class="active" aria-current="page" href="self-evolution.html">自演化闭环</a>
+        <a href="task-36-4_08-09.html">完整提案</a>
+        <a href="verifier-evolution.html">演化协议</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero compact-hero">
+      <div class="eyebrow">04 · 自演化</div>
+      <h1>让测试程序进化，<br><span>而不是让分数偷偷漂移</span></h1>
+      <p class="lead">系统从人类–自动分歧中发现覆盖漏洞，把可复现的失败沉淀为新的测试程序、触发条件与证据字段；评分语义、聚合公式和冻结测试集不随实验结果临时修改。</p>
+      <div class="principle-callout">
+        <strong>核心原则</strong>
+        <p>自演化发生在测试程序层，而不是评分层。</p>
+      </div>
+      <div class="hero-links">
+        <a class="button primary" href="#loop">查看六步闭环</a>
+        <a class="button secondary" href="auto-verifier.html">返回精确计算</a>
+      </div>
+    </section>
+
+    <section class="section" id="boundary">
+      <div class="section-heading">
+        <span class="section-number">01</span>
+        <div><p class="kicker">演化边界</p><h2>什么会演化，什么必须冻结</h2></div>
+      </div>
+      <p>“自演化”不是允许验证器在看到结果后任意调分。它只允许系统补齐此前没有覆盖、覆盖不充分或触发错误的测试程序；人类问题 A1–B14 的含义必须稳定，否则前后版本失去可比性。</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>可演化对象</th><th>具体内容</th><th>不可演化对象</th><th>冻结原因</th></tr></thead>
+          <tbody>
+            <tr><td>测试程序库</td><td>新几何检查、运动测试、仿真器场景与反事实试验</td><td>14项人类定义</td><td>保持评价问题的语义不变</td></tr>
+            <tr><td>触发条件</td><td>何时运行某项工具、何时要求仿真器、何时输出 N/A</td><td>总分公式与权重</td><td>防止围绕当前模型进行奖励投机</td></tr>
+            <tr><td>成功条件</td><td>可由证据支持的边界、容差及其适用范围</td><td>已冻结的 500/1,500 划分</td><td>避免测试泄漏和追着留出集调参</td></tr>
+            <tr><td>证据字段</td><td>失败帧、碰撞对、关节状态、轨迹、日志、工具版本</td><td>人类标签与历史预测</td><td>审计记录不能被后续版本改写</td></tr>
+            <tr><td>修复建议</td><td>把可定位的错误传给设计器，建议修改对应部件或约束</td><td>人类–自动对齐协议</td><td>κ、平衡准确率、选择性风险、Spearman 的口径必须固定</td></tr>
+            <tr><td>有限阈值</td><td>只在校准集、跨类别证据和人工批准下更新</td><td>留出集结果</td><td>结果只能用于报告和下一版本待办</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <aside class="note warning"><strong>边界：</strong>LLM 可以提出测试程序，但不能在看见目标分数后直接改权重，也不能把“更容易让当前设计器通过”的规则当作改进。</aside>
+    </section>
+
+    <section class="section alt" id="memory">
+      <div class="section-heading">
+        <span class="section-number">02</span>
+        <div><p class="kicker">结构化记忆</p><h2>记忆条目：每次演化都必须可追溯</h2></div>
+      </div>
+      <p>验证器记忆不是自由文本经验库，而是版本化测试程序仓库。每条记忆条目都要指明它修复了哪个人类指标、针对哪类 FN 或 FP、运行什么工具、产生哪些原子证据，以及在哪些回归集上通过。</p>
+      <pre class="code-block"><code>{
+  "id": "mem-b12-sliding-corridor-v3",
+  "version": 3,
+  "responsible_human_metrics": ["B12"],
+  "failure_type": "FN",
+  "test_template": "sampled_swept_volume_corridor",
+  "trigger": "joint.type == prismatic &amp;&amp; travel_ratio &gt; 0.25",
+  "tool": ["geometry", "kinematics", "simulator"],
+  "parameters": {"samples": 32, "speed_scale": [0.8, 1.0, 1.2]},
+  "success_condition": "minimum_clearance &gt; tolerance",
+  "evidence_fields": ["q", "colliding_pair", "clearance", "failure_frame"],
+  "repair_hint": "扩大滑槽间隙，或缩短移动件行程",
+  "provenance": {"case_ids": ["c17", "c44", "c81"], "reviewer": "human"},
+  "regression": {"full_14_items": true, "heldout_access": false}
+}</code></pre>
+      <div class="grid three">
+        <article class="card"><h3>可复现</h3><p>保存工具版本、参数、随机种子和失败证据；同一资产再次运行应得到相同结论。</p></article>
+        <article class="card"><h3>有责任边界</h3><p><code>responsible_human_metrics</code> 明确说明测试服务于 A1–B14 中的哪一项，防止一个工具输出被无依据地复用于所有指标。</p></article>
+        <article class="card"><h3>可回滚</h3><p>每个条目拥有版本和来源。若新规则造成跨指标回归，可以禁用该版本而不改写历史结果。</p></article>
+      </div>
+    </section>
+
+    <section class="section" id="loop">
+      <div class="section-heading">
+        <span class="section-number">03</span>
+        <div><p class="kicker">六步闭环</p><h2>从人机分歧到经过准入的测试程序</h2></div>
+      </div>
+      <div class="steps vertical">
+        <article class="step">
+          <span>1</span><div><h3>收集当前版本预测</h3><p>在开发集上同时保存人类的 A1–B14 标签、自动验证器的分数/通过/失败/N/A、置信度以及原子证据。只比较同一问题，不把诊断头当成人类标签。</p></div>
+        </article>
+        <article class="step">
+          <span>2</span><div><h3>定位 FN 与 FP</h3><p><strong>FN</strong>：人类发现问题但自动验证器通过，表示漏检；<strong>FP</strong>：人类通过但自动验证器拒绝，表示规则过严、触发错误或人类信息不足。低置信样本进入选择性复核，不强行二值化。</p></div>
+        </article>
+        <article class="step">
+          <span>3</span><div><h3>诊断：覆盖漏洞还是已有测试失效</h3><p>先检查输入解析、工具失败、单位与证据链。如果已有测试本应捕获失败，就修复实现；如果当前库根本没有对应反事实或运动场景，才定义缺失测试。</p></div>
+        </article>
+        <article class="step">
+          <span>4</span><div><h3>提出候选程序</h3><p>LLM 读取失败证据和工具接口，生成受限 DSL/配置：测试模板、触发条件、参数、成功条件、证据字段和修复建议。候选必须落到确定性工具或仿真器，不能仅输出一句自然语言判断。</p></div>
+        </article>
+        <article class="step">
+          <span>5</span><div><h3>严格准入</h3><p>同一失败模式需由 <strong>k ≥ 3</strong> 个独立样本支持；随后运行正例、反例、邻近类别和<strong>全14项回归</strong>，并由人工确认指标责任与物理合理性。只有改善目标错误且不显著伤害其他指标，才进入记忆。</p></div>
+        </article>
+        <article class="step">
+          <span>6</span><div><h3>收敛、版本化与冻结</h3><p>若<strong>连续两轮</strong>开发迭代没有新增高支持度失败簇，且对齐指标稳定，则冻结验证器版本。冻结后不再利用测试集修改本版本。</p></div>
+        </article>
+      </div>
+      <div class="flow-line" aria-label="闭环摘要">
+        <span>人类/自动验证器分歧</span><b>→</b><span>FN / FP 聚类</span><b>→</b><span>候选测试</span><b>→</b><span>准入与回归</span><b>→</b><span>版本化记忆</span>
+      </div>
+    </section>
+
+    <section class="section alt" id="responsibility">
+      <div class="section-heading">
+        <span class="section-number">04</span>
+        <div><p class="kicker">按指标路由的演化</p><h2>不同指标，演化责任不同</h2></div>
+      </div>
+      <p>自演化必须沿用 V2 的指标路由。不是每个人类指标都要加入仿真器，也不是每次分歧都由 LLM 解决。程序提议与最终执行被严格分开。</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>指标组</th><th>主要错误来源</th><th>可演化内容</th><th>仿真器角色</th></tr></thead>
+          <tbody>
+            <tr><td>A1–A5</td><td>资产解析、部件完整性、拓扑、静态穿插、尺度先验</td><td>解析规则、几何阈值的校准范围、视觉证据模板、类别尺度先验</td><td>不要求；静态几何/视觉工具足够</td></tr>
+            <tr><td>A6</td><td>小间隙、接触外观、受载后才显现的几何问题</td><td>可见性采样、接触对筛选、局部扰动测试</td><td>可选辅助，不改变其以视觉/几何为主的定义</td></tr>
+            <tr><td>B7–B10</td><td>关节存在性、轴线、方向、活动范围与语义不一致</td><td>关节模板、FK 采样、轴线容差、语义条件和反事实姿态</td><td>通常不要求；运动学工具可完整计算</td></tr>
+            <tr><td>B11–B14</td><td>碰撞、稳定性、应力、耦合和动态序列错误</td><td>场景初始化、速度/载荷扰动、接触条件、时域成功条件</td><td>完整覆盖必需；仅 LLM 或静态几何不能证明动态可实现性</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <aside class="note"><strong>责任链：</strong>LLM/VLM 负责读懂任务契约、发现可能缺失的测试并生成候选程序；几何、运动学、碰撞与仿真器负责计算；人类负责处理歧义、批准新测试及审计异常样本。</aside>
+    </section>
+
+    <section class="section" id="admission">
+      <div class="section-heading">
+        <span class="section-number">05</span>
+        <div><p class="kicker">准入与防护</p><h2>准入标准与六道防护</h2></div>
+      </div>
+      <div class="grid two">
+        <article class="card accent-card">
+          <h3>候选测试的最小准入条件</h3>
+          <ul class="check-list">
+            <li>由 k ≥ 3 个独立案例支持，而非单案例补丁；</li>
+            <li>明确负责的人类指标和失败类型；</li>
+            <li>有正例、反例和边界例，且结果可复现；</li>
+            <li>输出结构化原子证据，不只输出最终分数；</li>
+            <li>通过全14项回归，没有不可解释的跨指标下降；</li>
+            <li>人类审核员批准测试语义和修复建议；</li>
+            <li>只用开发集数据准入，不能查看留出集标签。</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>停止与回滚条件</h3>
+          <ul class="check-list">
+            <li>连续两轮无稳定的新失败簇，则停止扩张；</li>
+            <li>若规则只提高训练类别、损害新类别，立即回滚；</li>
+            <li>若工具自身失败率上升，标记工具故障，不归咎资产；</li>
+            <li>若记忆条目互相冲突，保留更窄且证据更强的规则；</li>
+            <li>若阈值变更会改写指标含义，必须创建新基准版本。</li>
+          </ul>
+        </article>
+      </div>
+      <div class="guardrail-grid">
+        <article><strong>01 单例过拟合</strong><p>禁止为一个失败资产写带 ID、网格名或类别名的特殊分支。</p></article>
+        <article><strong>02 类别捷径</strong><p>“这是抽屉所以应通过”不能代替对轴线、行程和碰撞的真实测量。</p></article>
+        <article><strong>03 跨指标回归</strong><p>修复 B12 的测试不能无意中改变 A2 或 B8 的判定。</p></article>
+        <article><strong>04 阈值漂移</strong><p>阈值只在校准集上更新，并记录旧值、新值、证据和适用域。</p></article>
+        <article><strong>05 测试库膨胀</strong><p>合并等价程序，优先参数化模板；监控运行成本和边际覆盖增益。</p></article>
+        <article><strong>06 标注噪声</strong><p>低人类–人类 κ 的问题先复核指标体系，不能把分歧全部当成验证器漏洞。</p></article>
+      </div>
+    </section>
+
+    <section class="section alt" id="example">
+      <div class="section-heading">
+        <span class="section-number">06</span>
+        <div><p class="kicker">计算案例</p><h2>B12 滑动走廊漏检：一个记忆条目如何产生</h2></div>
+      </div>
+      <div class="case-study">
+        <div class="case-header"><span class="tag red">FN失败簇</span><h3>抽屉在起点和终点都无碰撞，但运动中段刮到侧壁</h3></div>
+        <div class="case-grid">
+          <article><span class="mini-label">旧测试</span><p>只在 q=0 和 q=q<sub>max</sub> 两个端点做碰撞检测，因此自动验证器给 B12=通过；人类通过交互拖动发现中段卡住，给 B12=失败。</p></article>
+          <article><span class="mini-label">失败归因</span><p>不是分数阈值问题，而是测试覆盖不足：端点采样不能代表整个扫掠体积。三个不同抽屉都出现同类 FN，满足 k ≥ 3。</p></article>
+          <article><span class="mini-label">候选程序</span><p>加入 32 个行程采样点，记录每个 q 的最小净空；对窄间隙案例再以 0.8×、1.0×、1.2× 速度运行仿真器，保存首次接触帧和碰撞对。</p></article>
+          <article><span class="mini-label">准入结果</span><p>新测试捕获全部三个 FN，正例保持通过，全14项回归无退化。它被写为 <code>mem-b12-sliding-corridor-v3</code>，不修改 B12 权重。</p></article>
+        </div>
+      </div>
+      <div class="formula-box">
+        <span>测试演化的收益</span>
+        <code>Δcoverage = corrected_FN + corrected_FP − new_cross_metric_errors</code>
+        <p>只有覆盖收益为正、证据可复现并通过人工审计，候选测试才进入下一验证器版本。</p>
+      </div>
+    </section>
+
+    <section class="section" id="freeze">
+      <div class="section-heading">
+        <span class="section-number">07</span>
+        <div><p class="kicker">基准冻结</p><h2>500 用来演化，1,500 用来证明泛化</h2></div>
+      </div>
+      <div class="split-diagram">
+        <article class="split-card dev"><span>开发集</span><strong>500</strong><p>可查看人类–自动分歧，用于聚类 FN/FP、提出程序、校准有限阈值、执行回归和决定准入。</p></article>
+        <div class="split-arrow">冻结验证器版本 →</div>
+        <article class="split-card test"><span>留出测试集</span><strong>1,500</strong><p>只运行一次正式评估。不得根据其逐例标签修改本版本；结果用于报告泛化能力。</p></article>
+      </div>
+      <p>如果在 1,500 个留出集案例中发现新的系统性失败，它可以被记录为<strong>下一版本待办</strong>，但不能回流到当前版本再重新报告同一测试成绩。下一版本必须建立新的冻结协议或独立测试集。</p>
+      <div class="grid three">
+        <article class="card"><h3>报告对齐</h3><p>逐项给出平衡准确率、人类–自动 κ、选择性风险与覆盖程度；总分另报 Spearman，不用总分掩盖单项失配。</p></article>
+        <article class="card"><h3>报告演化</h3><p>给出每轮新增/删除记忆条目数量、FN/FP 改善、跨指标回归、计算成本和人工审核量。</p></article>
+        <article class="card"><h3>报告泛化</h3><p>按资产类别、关节类型、复杂度和新颖失败模式分层，说明程序是否只记住开发集分布。</p></article>
+      </div>
+    </section>
+
+    <section class="section alt" id="designer">
+      <div class="section-heading">
+        <span class="section-number">08</span>
+        <div><p class="kicker">下游设计器闭环</p><h2>验证器记忆如何帮助设计器，而不形成共谋</h2></div>
+      </div>
+      <p>冻结后的验证器输出两类信息给设计器：人类指标对齐头提供 A1–B14 的目标一致性反馈；诊断头提供失败部件、失败姿态、碰撞对、轨迹和修复建议。设计器可以据此修改资产，但不能修改验证器，也不能读取留出集标签。</p>
+      <div class="flow-cards">
+        <article><span>1</span><h3>设计器生成资产</h3><p>输出几何、层级、关节和设计意图。</p></article>
+        <article><span>2</span><h3>冻结验证器测试</h3><p>运行版本化程序，生成分数与原子证据。</p></article>
+        <article><span>3</span><h3>结构化修复</h3><p>设计器依据证据调整几何、轴线、范围或约束。</p></article>
+        <article><span>4</span><h3>独立人类审核</h3><p>确认真实质量提升，而非只学会通过测试。</p></article>
+      </div>
+      <aside class="note warning"><strong>防止奖励投机：</strong>验证器先演化并冻结，设计器后优化；两阶段使用隔离数据和版本化接口。若设计器反复利用测试盲点，该失败进入下一版本待办，而不是在线改动当前评分器与设计器共同追分。</aside>
+    </section>
+
+    <section class="section sources" id="sources">
+      <div class="section-heading">
+        <span class="section-number">09</span>
+        <div><p class="kicker">来源可追溯性</p><h2>本页依据与继续阅读</h2></div>
+      </div>
+      <div class="source-list">
+        <a href="../pro-9/verifier-evolution.html"><strong>验证器演化</strong><span>测试程序记忆、FN/FP 闭环、准入与收敛。</span></a>
+        <a href="../pro-9/designer-evolution.html"><strong>设计器演化</strong><span>冻结验证器后的下游设计优化与反馈关系。</span></a>
+        <a href="../pro-9/verifier.html"><strong>自动验证器技术规格</strong><span>工具化验证、证据链与仿真成功边界。</span></a>
+        <a href="auto-verifier.html"><strong>PRO-12 精确计算</strong><span>14项指标的输入、公式、阈值、仿真器与失败证据。</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div><strong>Evo-Articraft · PRO-12</strong><p>测试程序级自演化：可复现、可回归、可冻结、可审计。</p></div>
+    <nav aria-label="页脚导航"><a href="index.html">总体方案</a><a href="metrics.html">14项对齐</a><a href="auto-verifier.html">精确计算</a><a href="#main">返回顶部</a></nav>
+  </footer>
+</body>
+</html>

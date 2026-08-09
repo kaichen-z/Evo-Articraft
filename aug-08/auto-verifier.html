@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>自动验证器 · 14项精确计算与按指标仿真</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="page">
+  <header class="hero" data-mark="AUTO">
+    <div class="eyebrow">PRO-12 · 精确自动验证器</div>
+    <h1>自动验证器：14项精确计算<br>与按指标调用的仿真器</h1>
+    <p class="subtitle">每项都明确输入、原始数值、归一化、公式、阈值、工具、覆盖程度、失败证据与修复建议；LLM/VLM、几何/FK/碰撞和仿真器只在各自擅长的位置产生证据。</p>
+    <div class="hero-links">
+      <a href="metrics.html">查看人类对齐解释</a>
+      <a href="self-evolution.html">查看测试程序如何演化</a>
+      <a href="../pro-10/auto-verifier-solution-v2.html">原始 V2 精确方案</a>
+      <a href="../pro-9/verifier.html">原始验证器定义</a>
+    </div>
+  </header>
+
+  <nav class="site-nav" aria-label="Pro-12 主导航">
+    <a href="index.html">总体方案</a>
+    <a href="metrics.html">14项对齐</a>
+    <a href="auto-verifier.html" aria-current="page">精确计算</a>
+    <a href="self-evolution.html">自演化闭环</a>
+    <a href="task-36-4_08-09.html">完整提案</a>
+    <a href="verifier-evolution.html">演化协议</a>
+    <span class="nav-spacer"></span>
+    <a href="#simulator">仿真器协议</a>
+  </nav>
+
+  <section id="principles">
+    <div class="kicker">01 · 原则</div>
+    <h2>四条不可违反的计算原则</h2>
+    <div class="grid four">
+      <article class="card accent-amber"><h3>LLM 负责转换</h3><p>LLM 抽取显式契约、做语义匹配、提出测试规范；不能读取几何/仿真摘要后重新主观打物理分。</p></article>
+      <article class="card accent-green"><h3>工具负责验证</h3><p>所有可复算数值来自解析器、几何、FK、碰撞、VLM 校准或固定仿真器展开试验。</p></article>
+      <article class="card accent-red"><h3>声明的运动 ≠ 可实现的运动</h3><p>URDF 能执行的关节不代表有真实接口；仿真成功不能推翻几何反例。</p></article>
+      <article class="card accent-purple"><h3>覆盖程度也是输出</h3><p>完整覆盖、估计物理、部分覆盖、不支持与 N/A 必须和分数同时报告。</p></article>
+    </div>
+  </section>
+
+  <section id="modules">
+    <div class="kicker">02 · 模块</div>
+    <h2>九个模块如何连接？</h2>
+    <div class="grid three">
+      <article class="card"><h3>1 · 输入规范化器</h3><p>统一 URDF/MJCF/model.py、单位、坐标系、可视/碰撞网格与物理参数来源；禁止静默修复。</p></article>
+      <article class="card"><h3>2 · 需求契约</h3><p>记录显式部件/关节/功能/方向/耦合/安装，每项带来源与置信度。</p></article>
+      <article class="card"><h3>3 · 可执行性门</h3><p>验证解析、图结构、几何、FK、碰撞查询；回答能否评估，而不是资产是否优秀。</p></article>
+      <article class="card"><h3>4 · 共享证据引擎</h3><p>统一计算结构、q₀、32步扫掠、穿透、接口、净空、可达性、渲染与动力学。</p></article>
+      <article class="card"><h3>5 · 人类指标对齐头</h3><p>输出 A1–B14 的分数、预测、阈值、置信度、覆盖程度、证据与建议。</p></article>
+      <article class="card"><h3>6 · 诊断头</h3><p>输出执行门与语义/静态/运动/物理类别，服务基准评测、修复和演化。</p></article>
+      <article class="card"><h3>7 · 按指标路由的仿真器</h3><p>A6 可选辅助；B11–B14 的完整覆盖按冻结协议执行分时步动力学。</p></article>
+      <article class="card"><h3>8 · 聚合器 + 报告</h3><p>N/A 从分子分母同时剔除；分数与人类/仿真覆盖程度、物理参数来源同时返回。</p></article>
+      <article class="card"><h3>9 · 演化控制器</h3><p>开发集上管理测试库与有限阈值；留出集评测前全部冻结。</p></article>
+    </div>
+  </section>
+
+  <section id="gate">
+    <div class="kicker">03 · 执行门与原语</div>
+    <h2>执行门与共享计算原语</h2>
+    <div class="formula">G = G_parse × G_graph × G_geom × G_fk × G_collision</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>子门/原语</th><th>具体产出</th><th>失败处理</th><th>复用位置</th></tr></thead>
+        <tbody>
+          <tr><td class="id">G_parse / 结构</td><td>连杆、关节、父体/子体、轴线、原点、范围</td><td>无法解析 → G=0</td><td>A1/A2、B7–B10</td></tr>
+          <tr><td class="id">G_graph</td><td>连通、无环、父体存在、单根或合法约束</td><td>致命图错误 → G=0</td><td>B7/B8</td></tr>
+          <tr><td class="id">G_geom / 几何</td><td>可视/碰撞网格、包围盒、体积、连通分量、来源</td><td>关键活动件无几何 → 覆盖程度降低或执行门失败</td><td>A4–A6、B10–B13</td></tr>
+          <tr><td class="id">姿态网格</td><td>每关节32个 q 样本，其他关节按契约保持固定</td><td>FK 无法执行 → G=0</td><td>B9–B13</td></tr>
+          <tr><td class="id">穿透场</td><td>D_ab(q_t)、新增穿透、首次阻塞步</td><td>查询失败 → G_collision=0</td><td>A6/B13</td></tr>
+          <tr><td class="id">接口场</td><td>g₀、g_drift、锚点距离、局部净空</td><td>证据缺失 → B12 部分覆盖</td><td>B10/B12</td></tr>
+          <tr><td class="id">可达性</td><td>运动走廊、开口比例、IK/路径有效性</td><td>无适用功能 → N/A</td><td>B11 与功能测试</td></tr>
+          <tr><td class="id">动力学</td><td>q(t)、作用力、接触、约束、姿态、求解器状态</td><td>工具故障与资产失败分离</td><td>B11–B14</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="normalization">
+    <div class="kicker">04 · 共享归一化</div>
+    <h2>尺度、阈值、置信度和覆盖程度</h2>
+    <div class="grid four">
+      <article class="card"><h3>D</h3><p>完整物体包围盒对角线。全局间隙、漂移与穿透除以 D。</p></article>
+      <article class="card"><h3>L_j</h3><p>关节 j 的活动连杆对角线。局部接口间隙与间隙漂移除以 L_j。</p></article>
+      <article class="card"><h3>Δq_j</h3><p>|q_max−q_min|。轨迹 RMSE、超调量与速度阈值除以 Δq_j。</p></article>
+      <article class="card"><h3>τ_i</h3><p>默认0.70；只在校准集调整，留出集冻结。</p></article>
+    </div>
+    <div class="formula">prediction_i = 通过（当 score_i ≥ τ_i），否则失败
+confidence_i = q_tool × q_contract × q_physics × min(1, |score_i−τ_i| / 0.20)
+confidence_i &lt; 0.50 → 弃权</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>覆盖程度</th><th>条件</th><th>物理置信系数</th><th>使用方式</th></tr></thead>
+        <tbody>
+          <tr><td class="id">完整覆盖</td><td>全部必要输入与工具有效</td><td>资产物理参数：q_physics=1.0</td><td>返回分数与通过/失败</td></tr>
+          <tr><td class="id">估计物理</td><td>使用推断/默认物理参数</td><td>推断=0.8；默认=0.6</td><td>返回分数，降低置信度，单独分档</td></tr>
+          <tr><td class="id">部分覆盖</td><td>只有部分原子证据</td><td>按实际工具质量</td><td>返回部分分数，可弃权</td></tr>
+          <tr><td class="id">不支持</td><td>工具无法回答定义</td><td>—</td><td>不补0</td></tr>
+          <tr><td class="id">N/A</td><td>契约中没有适用要求</td><td>—</td><td>不进入聚合分母</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="calculations">
+    <div class="kicker">05 · A1–B14 精确计算</div>
+    <h2>每个人类指标具体计算哪些数值？</h2>
+    <p class="lead">每张卡给出完整可执行接口。公式中的阈值是初始协议值；最终值只能在校准集逐项校准并冻结。</p>
+    <aside class="note"><strong>阅读方法：</strong>先检查“输入”是否满足适用条件，再从原始测量得到无量纲数值，最后应用公式和冻结阈值。分数低表示资产证据未满足该项要求；工具崩溃、网格缺失或仿真不收敛应单独标记为工具故障，不能伪装成资产失败。对于 B11–B14，如果只完成静态几何检查，系统可以返回诊断结果，但必须把覆盖程度标成部分覆盖或估计物理；只有执行规定的动态试验并保存轨迹、接触和失败时刻，才可声称完整覆盖。每个最终判定都必须能回溯到具体部件、关节、姿态或时间步，确保人类可以复核，也让设计器获得可执行的修复方向。</aside>
+    <div class="metric-list">
+
+      <article class="metric-card" id="calc-A1" data-computation-metric="A1">
+        <div class="metric-head"><div class="metric-id">A1</div><div class="metric-title"><h3>零件拆分与活动属性</h3><p>预期活动件是否被正确拆成连杆，且没有多余活动件。</p></div><div class="metric-route"><span class="status full">仿真器：不需要</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>输入</h4><p>显式活动件契约、连杆/关节图、语义匹配。</p></div><div class="metric-field"><h4>原始数值</h4><p>M 为已匹配数、E 为预期数、A 为检出的活动件数、N_spurious。</p></div>
+          <div class="metric-field"><h4>归一化</h4><p>R_move=M/E；P_move=M/A；分母为0时 N/A。</p></div><div class="metric-field"><h4>公式</h4><p class="mono">F=2PR/(P+R)；S_A1=F·exp(−N_spurious/max(1,E))</p></div>
+          <div class="metric-field"><h4>阈值</h4><p>τ_A1=0.70。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag llm">LLM 匹配</span> <span class="tag geometry">图结构</span></p></div>
+          <div class="metric-field"><h4>覆盖程度</h4><p>显式活动件契约有效时完整覆盖。</p></div><div class="metric-field"><h4>失败证据</h4><p>缺失/多余活动件清单。</p></div>
+        </div><div class="metric-footer"><strong>修复建议</strong>：拆分/合并连杆或修正活动/固定属性。</div>
+      </article>
+
+      <article class="metric-card" id="calc-A2" data-computation-metric="A2">
+        <div class="metric-head"><div class="metric-id">A2</div><div class="metric-title"><h3>零件数量与类型</h3><p>显式部件类别、数量和实际清单的一致性。</p></div><div class="metric-route"><span class="status full">仿真器：不需要</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>输入</h4><p>必需部件多重集、实际清单、匹配矩阵。</p></div><div class="metric-field"><h4>原始数值</h4><p>n_required,c、n_actual,c、匹配类型权重。</p></div>
+          <div class="metric-field"><h4>归一化</h4><p>数量误差除以 Σmax(n_a,c,n_r,c)；类型分数除以必需权重。</p></div><div class="metric-field"><h4>公式</h4><p class="mono">S_count=1−Σ|n_a−n_r|/Σmax(n_a,n_r)；S_A2=.5S_count+.5S_type</p></div>
+          <div class="metric-field"><h4>阈值</h4><p>τ_A2=0.70。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag llm">语义匹配</span> <span class="tag geometry">数量统计</span></p></div>
+          <div class="metric-field"><h4>覆盖程度</h4><p>只给显式要求计分。</p></div><div class="metric-field"><h4>失败证据</h4><p>逐类别数量差与未匹配名称。</p></div>
+        </div><div class="metric-footer"><strong>修复建议</strong>：新增、删除或重新命名/匹配指定部件。</div>
+      </article>
+
+      <article class="metric-card" id="calc-A3" data-computation-metric="A3">
+        <div class="metric-head"><div class="metric-id">A3</div><div class="metric-title"><h3>必要结构完整性</h3><p>显式部件与功能前置接口的覆盖程度。</p></div><div class="metric-route"><span class="status full">仿真器：不需要</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>输入</h4><p>必需部件、计分功能前置条件。</p></div><div class="metric-field"><h4>原始数值</h4><p>C_parts=matched/required；C_interfaces=found/required。</p></div>
+          <div class="metric-field"><h4>归一化</h4><p>两项覆盖程度均在[0,1]；无显式要求时 N/A。</p></div><div class="metric-field"><h4>公式</h4><p class="mono">S_A3=0.7C_parts+0.3C_interfaces</p></div>
+          <div class="metric-field"><h4>阈值</h4><p>τ_A3=0.70。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag llm">契约</span> <span class="tag geometry">存在性</span></p></div>
+          <div class="metric-field"><h4>覆盖程度</h4><p>类别先验只诊断，不直接扣分。</p></div><div class="metric-field"><h4>失败证据</h4><p>缺失部件/接口及来源。</p></div>
+        </div><div class="metric-footer"><strong>修复建议</strong>：合成缺失部件或补齐已声明功能接口。</div>
+      </article>
+
+      <article class="metric-card" id="calc-A4" data-computation-metric="A4">
+        <div class="metric-head"><div class="metric-id">A4</div><div class="metric-title"><h3>形状、尺寸与比例真实感</h3><p>多视角 VLM、尺度先验和跨视角一致性。</p></div><div class="metric-route"><span class="status partial">仿真器：不需要</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>输入</h4><p>八个视角、类别、可选类别尺度统计。</p></div><div class="metric-field"><h4>原始数值</h4><p>p_real、C_view、尺度/类别尺度中位数。</p></div>
+          <div class="metric-field"><h4>归一化</h4><p>S_scale=exp(−|log(scale/median)|/log2)。</p></div><div class="metric-field"><h4>公式</h4><p class="mono">S_A4=Normalize(.7p_real+.2C_view+.1S_scale)</p></div>
+          <div class="metric-field"><h4>阈值</h4><p>τ_A4 由人类 A4 校准冻结。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag llm">校准后的 VLM</span> <span class="tag geometry">尺度</span></p></div>
+          <div class="metric-field"><h4>覆盖程度</h4><p>VLM 未校准时部分覆盖。</p></div><div class="metric-field"><h4>失败证据</h4><p>逐视角概率、尺度偏差、不一致视角。</p></div>
+        </div><div class="metric-footer"><strong>修复建议</strong>：调整异常尺度/比例；A4 低置信时送人工复核。</div>
+      </article>
+
+      <article class="metric-card" id="calc-A5" data-computation-metric="A5">
+        <div class="metric-head"><div class="metric-id">A5</div><div class="metric-title"><h3>位置、朝向与装配关系</h3><p>成对关系与功能侧面的一致性。</p></div><div class="metric-route"><span class="status full">仿真器：不需要</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>输入</h4><p>预期成对关系、相对变换。</p></div><div class="metric-field"><h4>原始数值</h4><p>S_position、S_orientation、S_side、S_neighborhood。</p></div>
+          <div class="metric-field"><h4>归一化</h4><p>距离除以 D；角度用冻结容差映射到[0,1]。</p></div><div class="metric-field"><h4>公式</h4><p class="mono">S_A5=.35S_pos+.25S_ori+.20S_side+.20S_neighborhood</p></div>
+          <div class="metric-field"><h4>阈值</h4><p>τ_A5=0.70。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag llm">关系契约</span> <span class="tag geometry">变换</span></p></div>
+          <div class="metric-field"><h4>覆盖程度</h4><p>关系模板可用时完整覆盖。</p></div><div class="metric-field"><h4>失败证据</h4><p>违规部件对、相对姿态与预期区间。</p></div>
+        </div><div class="metric-footer"><strong>修复建议</strong>：移动/旋转指定部件或改到正确功能侧。</div>
+      </article>
+
+      <article class="metric-card" id="calc-A6" data-computation-metric="A6">
+        <div class="metric-head"><div class="metric-id">A6</div><div class="metric-title"><h3>初始状态完整性</h3><p>q₀ 穿透、脱离与悬空间隙。</p></div><div class="metric-route"><span class="status partial">仿真器：可选辅助</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>输入</h4><p>q₀ 碰撞几何、连通分量、支撑面。</p></div><div class="metric-field"><h4>原始数值</h4><p>p₀/D、脱离体积比例、g_float/D。</p></div>
+          <div class="metric-field"><h4>归一化</h4><p>全局长度除以 D；体积使用占比。</p></div><div class="metric-field"><h4>公式</h4><p class="mono">S_A6=e^(−p₀/.002)·e^(−r_det/.05)·e^(−(g_float/D)/.01)</p></div>
+          <div class="metric-field"><h4>阈值</h4><p>τ_A6=0.70。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag geometry">碰撞/连通分量</span> <span class="tag simulator">可选重力测试</span></p></div>
+          <div class="metric-field"><h4>覆盖程度</h4><p>静态证据完整覆盖；支撑歧义可加重力辅助测试。</p></div><div class="metric-field"><h4>失败证据</h4><p>穿透部件对、脱离部件、悬空距离。</p></div>
+        </div><div class="metric-footer"><strong>修复建议</strong>：沿穿透法向最小平移、重新连接或落到支撑面。</div>
+      </article>
+
+      <article class="metric-card" id="calc-B7" data-computation-metric="B7">
+        <div class="metric-head"><div class="metric-id">B7</div><div class="metric-title"><h3>父子关系与连接对象</h3><p>语义父体/子体与受影响子树。</p></div><div class="metric-route"><span class="status full">仿真器：不需要</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>输入</h4><p>预期受影响部件、实际子树、语义匹配。</p></div><div class="metric-field"><h4>原始数值</h4><p>S_child、S_parent、S_subtree（子树纯度）。</p></div>
+          <div class="metric-field"><h4>归一化</h4><p>匹配概率与纯度均映射到[0,1]。</p></div><div class="metric-field"><h4>公式</h4><p class="mono">S_B7=.4S_child+.3S_parent+.3S_subtree</p></div>
+          <div class="metric-field"><h4>阈值</h4><p>τ_B7=0.70。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag llm">语义</span> <span class="tag geometry">图结构</span></p></div>
+          <div class="metric-field"><h4>覆盖程度</h4><p>契约明确时完整覆盖。</p></div><div class="metric-field"><h4>失败证据</h4><p>预期/实际父子关系与非预期子树连杆。</p></div>
+        </div><div class="metric-footer"><strong>修复建议</strong>：重新连接关节父体/子体，保持其他子树不变。</div>
+      </article>
+
+      <article class="metric-card" id="calc-B8" data-computation-metric="B8">
+        <div class="metric-head"><div class="metric-id">B8</div><div class="metric-title"><h3>关节存在性</h3><p>预期活动件的非固定关节覆盖程度。</p></div><div class="metric-route"><span class="status full">仿真器：不需要</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>输入</h4><p>预期活动件集合、部件↔关节关联。</p></div><div class="metric-field"><h4>原始数值</h4><p>N_expected、N_matched 非固定、缺失/误固定清单。</p></div>
+          <div class="metric-field"><h4>归一化</h4><p>覆盖程度直接除以预期活动件数量。</p></div><div class="metric-field"><h4>公式</h4><p class="mono">S_B8=N_matched/N_expected</p></div>
+          <div class="metric-field"><h4>阈值</h4><p>τ_B8=0.70。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag geometry">解析器</span> <span class="tag llm">匹配</span></p></div>
+          <div class="metric-field"><h4>覆盖程度</h4><p>预期集合有效时确定性覆盖。</p></div><div class="metric-field"><h4>失败证据</h4><p>缺失关节或误设固定的部件名。</p></div>
+        </div><div class="metric-footer"><strong>修复建议</strong>：为缺失活动件创建正确关联的非固定关节。</div>
+      </article>
+
+      <article class="metric-card" id="calc-B9" data-computation-metric="B9">
+        <div class="metric-head"><div class="metric-id">B9</div><div class="metric-title"><h3>关节类型</h3><p>声明类型与轨迹类型的双重一致性。</p></div><div class="metric-route"><span class="status full">仿真器：不需要</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>输入</h4><p>预期类型、声明类型、FK 轨迹样本。</p></div><div class="metric-field"><h4>原始数值</h4><p>S_declared_type、S_trajectory_type。</p></div>
+          <div class="metric-field"><h4>归一化</h4><p>类型匹配为0/1或校准概率。</p></div><div class="metric-field"><h4>公式</h4><p class="mono">S_B9=.6S_declared_type+.4S_trajectory_type</p></div>
+          <div class="metric-field"><h4>阈值</h4><p>τ_B9=0.70。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag geometry">解析器/FK</span> <span class="tag llm">契约</span></p></div>
+          <div class="metric-field"><h4>覆盖程度</h4><p>预期类型明确时完整覆盖。</p></div><div class="metric-field"><h4>失败证据</h4><p>预期/声明/分类类型。</p></div>
+        </div><div class="metric-footer"><strong>修复建议</strong>：重设关节类型并重新验证轴线、原点与范围。</div>
+      </article>
+
+      <article class="metric-card" id="calc-B10" data-computation-metric="B10">
+        <div class="metric-head"><div class="metric-id">B10</div><div class="metric-title"><h3>关节原点与轴线</h3><p>锚点、轴角度与运动方向。</p></div><div class="metric-route"><span class="status full">仿真器：不需要</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>输入</h4><p>关节原点/轴线、父子体几何、FK 轨迹。</p></div><div class="metric-field"><h4>原始数值</h4><p>d_anchor、θ_axis、e_direction。</p></div>
+          <div class="metric-field"><h4>归一化</h4><p>d_anchor/D；角度用度；方向误差归一到[0,1]。</p></div><div class="metric-field"><h4>公式</h4><p class="mono">S_B10=e^(−(d/D)/.05)·√(e^(−θ/15°)e^(−e_dir/.10))</p></div>
+          <div class="metric-field"><h4>阈值</h4><p>τ_B10=0.70。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag geometry">几何/FK</span></p></div>
+          <div class="metric-field"><h4>覆盖程度</h4><p>几何与 FK 可执行时完整覆盖。</p></div><div class="metric-field"><h4>失败证据</h4><p>锚点距离、轴角、观测轨迹向量。</p></div>
+        </div><div class="metric-footer"><strong>修复建议</strong>：把原点移到接口邻域，轴线对齐几何主方向。</div>
+      </article>
+
+      <article class="metric-card sim-required" id="calc-B11" data-computation-metric="B11">
+        <div class="metric-head"><div class="metric-id">B11</div><div class="metric-title"><h3>可用关节运动范围</h3><p>几何范围、动态完成度、跟踪与超调量。</p></div><div class="metric-route"><span class="status required">仿真器：完整覆盖必需</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>输入</h4><p>声明/预期范围、32步扫掠、q_ref(t)、执行器。</p></div><div class="metric-field"><h4>原始数值</h4><p>R_geom、q_start/q_target/q_end、RMSE、超调量。</p></div>
+          <div class="metric-field"><h4>归一化</h4><p>完成度除以目标行程；RMSE/Δq_j；超调量/Δq_j。</p></div><div class="metric-field"><h4>公式</h4><p class="mono">C=clip(|q_end−q_start|/|q_target−q_start|)；T=e^(−RMSE/.05Δq)；L=e^(−overshoot/.02Δq)；S_B11=R_geomCTL</p></div>
+          <div class="metric-field"><h4>阈值</h4><p>τ_B11=0.70。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag geometry">扫掠</span> <span class="tag simulator">驱动仿真</span></p></div>
+          <div class="metric-field"><h4>覆盖程度</h4><p>仅几何时为部分覆盖；默认执行器属于估计物理。</p></div><div class="metric-field"><h4>失败证据</h4><p>首次阻塞步、完成度、跟踪曲线、超调量。</p></div>
+        </div><div class="metric-footer"><strong>修复建议</strong>：清理运动走廊、调整合理范围或补充足够执行器。</div>
+      </article>
+
+      <article class="metric-card sim-required" id="calc-B12" data-computation-metric="B12">
+        <div class="metric-head"><div class="metric-id">B12</div><div class="metric-title"><h3>实体接口与物理支撑</h3><p>接口几何与重力/载荷的乘性门。</p></div><div class="metric-route"><span class="status required">仿真器：完整覆盖必需</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>输入</h4><p>关节邻域、安装、重力、质量/惯量、载荷契约。</p></div><div class="metric-field"><h4>原始数值</h4><p>g₀、g_drift、d_anchor、净空、d_gravity、约束误差、θ 漂移。</p></div>
+          <div class="metric-field"><h4>归一化</h4><p>g/L_j、d/D、约束误差/D；朝向用度。</p></div><div class="metric-field"><h4>公式</h4><p class="mono">S_interface=e^(−g₀/.02L)e^(−g_d/.05L)e^(−d_a/.05D)S_clear；S_gravity=e^(−d_g/.01D)e^(−e_c/.005D)e^(−max(0,θ−3)/5)；S_B12=S_interfaceS_gravityS_payload</p></div>
+          <div class="metric-field"><h4>阈值</h4><p>τ_B12=0.70。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag geometry">接口</span> <span class="tag simulator">重力/载荷</span></p></div>
+          <div class="metric-field"><h4>覆盖程度</h4><p>仿真成功不能补偿 S_interface 失败。</p></div><div class="metric-field"><h4>失败证据</h4><p>间隙曲线、锚点、漂移、约束、载荷滑移。</p></div>
+        </div><div class="metric-footer"><strong>修复建议</strong>：增加合页支架/滑轨/支撑，并修正安装或质量分布。</div>
+      </article>
+
+      <article class="metric-card sim-required" id="calc-B13" data-computation-metric="B13">
+        <div class="metric-head"><div class="metric-id">B13</div><div class="metric-title"><h3>运动干涉与动态阻塞</h3><p>扫掠碰撞、接触冲量、停滞与动态穿透。</p></div><div class="metric-route"><span class="status required">仿真器：完整覆盖必需</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>输入</h4><p>32步碰撞检查、驱动试验、预期接触白名单。</p></div><div class="metric-field"><h4>原始数值</h4><p>P_j、R_j、I_unexpected、停滞时长、p_dyn。</p></div>
+          <div class="metric-field"><h4>归一化</h4><p>P_j/D、冲量/(mgT)、停滞时长/t_act、p_dyn/D。</p></div><div class="metric-field"><h4>公式</h4><p class="mono">S_sweep=.5e^(−P/.002D)+.5R；S_contact=e^(−I/.10mgT)；S_stall=1−t_s/t_a；S_dyn=e^(−p_dyn/.002D)；S_B13=四者乘积</p></div>
+          <div class="metric-field"><h4>阈值</h4><p>τ_B13=0.70。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag geometry">碰撞扫掠</span> <span class="tag simulator">接触仿真</span></p></div>
+          <div class="metric-field"><h4>覆盖程度</h4><p>仅扫掠时为部分覆盖；完整接触/停滞检查需仿真器。</p></div><div class="metric-field"><h4>失败证据</h4><p>连杆对、首次阻塞步、冲量、停滞区间。</p></div>
+        </div><div class="metric-footer"><strong>修复建议</strong>：挖腔/增加净空、移动轴线、缩短到仍满足功能的有效范围。</div>
+      </article>
+
+      <article class="metric-card sim-required" id="calc-B14" data-computation-metric="B14">
+        <div class="metric-head"><div class="metric-id">B14</div><div class="metric-title"><h3>多部件机构耦合</h3><p>同步、比例、闭环约束、违规时长与任务完成。</p></div><div class="metric-route"><span class="status required">仿真器：完整覆盖必需</span></div></div>
+        <div class="metric-body">
+          <div class="metric-field"><h4>输入</h4><p>耦合图、相位/比例契约、关节轨迹、闭环目标。</p></div><div class="metric-field"><h4>原始数值</h4><p>同步 RMSE、r_obs/r_exp、e_loop、违规时长、任务完成度。</p></div>
+          <div class="metric-field"><h4>归一化</h4><p>同步误差按各 Δq_j；闭环残差/D；时长按测试时长。</p></div><div class="metric-field"><h4>公式</h4><p class="mono">S_sync=e^(−RMSE/.05)；S_ratio=e^(−|r_obs−r_exp|/.10)；S_loop=e^(−(e_loop/D)/.005)；S_time=1−t_v/t；S_B14=Π(valid applicable terms,S_task)</p></div>
+          <div class="metric-field"><h4>阈值</h4><p>τ_B14=0.70。</p></div><div class="metric-field"><h4>工具</h4><p><span class="tag llm">耦合契约</span> <span class="tag simulator">多关节仿真</span></p></div>
+          <div class="metric-field"><h4>覆盖程度</h4><p>无预期耦合/闭环 → N/A；适用时需完整仿真。</p></div><div class="metric-field"><h4>失败证据</h4><p>相位漂移、比例曲线、闭环残差、违规帧。</p></div>
+        </div><div class="metric-footer"><strong>修复建议</strong>：增加耦合/约束、校准比例/相位或修正闭环几何。</div>
+      </article>
+    </div>
+  </section>
+
+  <section id="simulator">
+    <div class="kicker">06 · 冻结的仿真器协议</div>
+    <h2>仿真器具体怎么运行和记录？</h2>
+    <div class="grid four">
+      <article class="card accent-purple"><h3>1/240 s</h3><p>固定物理时间步、求解器迭代次数与容差。</p></article>
+      <article class="card accent-purple"><h3>2 s · 稳定</h3><p>无主动驱动；记录重力漂移、朝向、约束误差。</p></article>
+      <article class="card accent-purple"><h3>3 s · 驱动</h3><p>跟踪 q_ref(t)；记录 q、qdot、qddot、作用力、接触、停滞。</p></article>
+      <article class="card accent-purple"><h3>1 s · 保持</h3><p>检查回弹、塌陷、振荡、载荷滑移与最终约束。</p></article>
+    </div>
+    <div class="table-wrap" style="margin-top:16px">
+      <table>
+        <thead><tr><th>信号组</th><th>必须记录的原始量</th><th>用于指标</th></tr></thead>
+        <tbody>
+          <tr><td class="id">关节状态</td><td>q(t)、qdot(t)、qddot(t)、q_ref(t)、范围超调</td><td>B11/B14</td></tr>
+          <tr><td class="id">驱动</td><td>指令/实际作用力、扭矩、饱和</td><td>B11 与动态功能</td></tr>
+          <tr><td class="id">接触</td><td>力、冲量、部件对、预期/非预期标志</td><td>B13</td></tr>
+          <tr><td class="id">约束</td><td>约束误差、关节分离、闭环残差</td><td>B12/B14</td></tr>
+          <tr><td class="id">世界姿态</td><td>基座、活动件、载荷位置/朝向</td><td>A6/B12</td></tr>
+          <tr><td class="id">求解器健康状态</td><td>NaN、发散、接触爆炸、超时、步数</td><td>tool_failure</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="thesis notice"><span class="big">三次物理鲁棒性试验</span>标称=1.0×；低值=0.8×；高值=1.2×。只扰动推断/默认的质量、摩擦、阻尼；每项使用最低试验分数，防止只在一组猜测参数下偶然通过。</div>
+    <p>若仿真器加载失败、产生 NaN/发散或超时，系统返回独立 <code>tool_failure</code>，保留几何/FK 的部分分数。基础设施错误不能被伪装成资产0分。</p>
+  </section>
+
+  <section id="aggregation">
+    <div class="kicker">07 · 输出与聚合</div>
+    <h2>逐项输出与诊断类别同时保留</h2>
+    <div class="grid three">
+      <article class="card"><h3>人类对齐向量</h3><div class="formula">H=[A1,…,A6,B7,…,B14]</div><p>用于逐项人类–自动一致性；每项保留置信度和覆盖程度。</p></article>
+      <article class="card"><h3>诊断类别</h3><div class="formula">D={Gate,semantic,static,motion,physics}</div><p>用于失败定位、修复和测试程序演化，不能替代 H。</p></article>
+      <article class="card"><h3>Score_full</h3><div class="formula">Score_full=100·Σ_f w_fS_f1[f valid]/Σ_f w_f1[f valid]
+w={.20,.25,.30,.25}</div><p>N/A 类别从分子分母同时剔除，并报告覆盖率。</p></article>
+    </div>
+  </section>
+
+  <section id="example">
+    <div class="kicker">08 · 柜子计算案例</div>
+    <h2>柜子案例：把关键数值真正代入</h2>
+    <p class="lead">资产缺把手；抽屉在55%行程处被侧板挡住；门有旋转关节声明但没有可信合页接口，并在重力下漂移。统一 τ=0.70。</p>
+    <div class="grid two">
+      <article class="card"><h3>A3 · 结构完整</h3><p>C_parts=3/4=.75；C_interfaces=1/2=.50。</p><div class="formula">S_A3=.7×.75+.3×.50=.675 → 失败</div><p>证据：缺失显式要求的把手。</p></article>
+      <article class="card"><h3>B11 · 范围</h3><p>R_geom=.55；C=.54；RMSE=.03Δq，因此 T=e^(−.03/.05)=.549；L=1。</p><div class="formula sim">S_B11=.55×.54×.549×1=.163 → 失败</div><p>证据：抽屉接触侧板后停滞。</p></article>
+      <article class="card"><h3>B12 · 支撑</h3><p>g₀/L=.06、g_drift/L=.12、d_anchor/D=.02、clearance=.30，得到 S_interface=.00091；重力证据得到 S_gravity=.0247。</p><div class="formula sim">S_B12=.00091×.0247×1=.000022 → 失败</div><p>证据：虚拟合页 + 重力漂移。</p></article>
+      <article class="card"><h3>B13 · 干涉</h3><p>S_sweep=.387、S_contact=.247、S_stall=.55、S_dyn_pen=.223。</p><div class="formula sim">S_B13=.387×.247×.55×.223=.0117 → 失败</div><p>证据：穿透 + 冲量 + 停滞。</p></article>
+    </div>
+  </section>
+
+  <section id="json">
+    <div class="kicker">09 · 输出契约</div>
+    <h2>结构化输出示例</h2>
+    <pre>{
+  "verifier_version": "pro-12-v1",
+  "human_metrics": {
+    "A3": {
+      "score": 0.675, "prediction": "fail", "threshold": 0.70,
+      "confidence": 0.88, "coverage": "full",
+      "tools": ["contract", "geometry"],
+      "raw_measurements": {"part_coverage": 0.75, "interface_coverage": 0.50},
+      "failure_reason": "缺少显式把手",
+      "repair_hint": "新增独立把手，并将其连接到柜门"
+    },
+    "B11": {"score": 0.163, "coverage": "estimated-physics"},
+    "B12": {"score": 0.000022, "coverage": "estimated-physics"},
+    "B13": {"score": 0.0117, "coverage": "estimated-physics"},
+    "B14": {"score": null, "coverage": "not-applicable"}
+  },
+  "simulator": {
+    "dt_s": 0.0041667, "settle_s": 2, "actuate_s": 3, "hold_s": 1,
+    "trials": ["nominal", "0.8x", "1.2x"],
+    "aggregation": "minimum_trial_score",
+    "physics_provenance": "default", "tool_failures": []
+  },
+  "families": {"semantic": 0.85, "static": 0.70, "motion": 0.087, "physics": 0.012},
+  "scores": {"Score_full": 37.4, "human_coverage": 0.93, "simulation_coverage": 1.0},
+  "repair_queue": ["补充合页几何", "清理抽屉运动走廊", "补充把手"]
+}</pre>
+  </section>
+
+  <section id="sources">
+    <div class="kicker">10 · 来源</div>
+    <h2>本页依据</h2>
+    <div class="source-grid">
+      <div class="source-card"><a href="../pro-10/auto-verifier-solution-v2.html">PRO-10 自动验证器 V2</a><p>逐项原始数值、公式、阈值、仿真器和数值案例。</p></div>
+      <div class="source-card"><a href="../pro-9/verifier.html">PRO-9 自动验证器</a><p>执行门、计算原语、可实现性与诊断类别。</p></div>
+      <div class="source-card"><a href="metrics.html">PRO-12 指标</a><p>公式对应的人类问题、映射基数、覆盖程度与案例。</p></div>
+    </div>
+  </section>
+
+  <footer>PRO-12 · 精确自动验证器 · 14项计算 · 按指标路由的仿真器</footer>
+</main>
+</body>
+</html>

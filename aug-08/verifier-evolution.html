@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Evo-Articraft 可执行测试程序的自演化、严格准入、冻结协议与设计器交接。">
+  <title>Evo-Articraft · 自演化验证器协议</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="long-report">
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
+
+  <nav class="site-nav" aria-label="主导航">
+    <div class="nav-inner">
+      <a class="brand" href="task-36-4_08-09.html">Evo-Articraft</a>
+      <div class="nav-links">
+        <a href="index.html">总体方案</a>
+        <a href="metrics.html">14项对齐</a>
+        <a href="auto-verifier.html">精确计算</a>
+        <a href="self-evolution.html">自演化闭环</a>
+        <a href="task-36-4_08-09.html">完整提案</a>
+        <a href="verifier-evolution.html" aria-current="page">演化协议</a>
+        <a href="#objects">演化对象</a>
+        <a href="#memory">记忆</a>
+        <a href="#routing">路由</a>
+        <a href="#round-loop">准入循环</a>
+        <a href="#freeze">冻结</a>
+        <a href="#stages">两阶段</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="page-shell">
+      <span class="eyebrow">自演化验证器 · 冻结评估</span>
+      <h1>让测试程序进化，而不是让分数偷偷漂移</h1>
+      <p class="lede">先演化测试，再冻结裁判：演化单元是带有边界触发器与证据的版本化可执行测试记录，而不是自由生成的分数；准入由开发集上的逐项人类分歧驱动，并接受完整回归。</p>
+      <div class="hero-actions">
+        <a class="button primary" href="#round-loop">查看准入循环</a>
+        <a class="button" href="metrics.html">复核14项指标契约</a>
+        <a class="button teal" href="task-36-4_08-09.html">返回提案</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="page-shell">
+      <section class="section" id="objects">
+        <div class="section-header">
+          <div class="section-number">01 · 演化对象</div>
+          <div>
+            <h2>哪些内容会演化，哪些内容绝不能拟合</h2>
+            <p>测试库演化可执行测试程序、几何/拓扑触发器、证据字段、修复建议、来源记录和有限阈值。它不演化人类指标权重，也不学习模仿总分。</p>
+          </div>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <div class="pill-row"><span class="pill teal">持续演化</span><span class="pill blue">接受审计</span></div>
+            <h3>可执行验证记忆</h3>
+            <ul>
+              <li>测试模板与确定性的工具调用。</li>
+              <li>几何/拓扑触发器与有边界的成功条件。</li>
+              <li>必需的证据字段与结构化修复建议。</li>
+              <li>版本/来源记录，以及校准预算约束下的有限阈值。</li>
+            </ul>
+          </article>
+          <article class="card">
+            <div class="pill-row"><span class="pill red">保持冻结</span><span class="pill amber">绝不优化</span></div>
+            <h3>评估含义</h3>
+            <ul>
+              <li>人类指标定义与留出标签。</li>
+              <li>族权重、软门、数据划分和测试协议。</li>
+              <li>几何门控下游可实现性/功能证据这一规则。</li>
+              <li>留出提示、模板、种子、资产和结果。</li>
+            </ul>
+          </article>
+        </div>
+        <div class="callout critical" style="margin-top:1rem">
+          <p><strong>演化边界：</strong>可执行测试程序与有限阈值，而不是自由形式的 LLM 分数，也不是留出标签。LLM 可以提出代码形态的检查；工具负责执行，回归门决定准入，人类审查员检查触发器。</p>
+        </div>
+      </section>
+
+      <section class="section" id="memory">
+        <div class="section-header">
+          <div class="section-number">02 · 记忆结构</div>
+          <div>
+            <h2>每项可复用检查都是有版本的可执行记录</h2>
+            <p>一条记录包含足以重新运行检查、审计触发原因、复现证据并路由有边界修复的信息。记录不包含主观的 LLM 质量分数。</p>
+          </div>
+        </div>
+        <div class="code-wrap" aria-label="有版本的验证器记忆条目">
+<pre><code>{
+  "test_id": "swept_volume_corridor",
+  "version": "2.1.0",
+  "target_human_items": ["B13"],
+  "trigger": {
+    "joint_types": ["prismatic"],
+    "geometry_predicate": "moving_link_has_enclosed_motion_corridor"
+  },
+  "tool": {
+    "name": "collision_swept_volume",
+    "version": "1.4.2",
+    "parameters": {"samples": 32, "normalization": "asset_diagonal"}
+  },
+  "success_condition": "每个采样点均满足 unexpected_penetration_norm &lt;= tau_pen",
+  "evidence_fields": ["joint", "first_blocked_sample", "link_pair", "penetration_norm"],
+  "repair_hint": "清理扫掠走廊；仅缩短超出需求的多余行程",
+  "provenance": {
+    "source_round": 4,
+    "explained_fn_ids": ["dev-041", "dev-183", "dev-277"],
+    "review": "human_geometry_trigger_approved"
+  }
+}</code></pre>
+        </div>
+        <div class="grid-3" style="margin-top:1rem">
+          <article class="card"><h3>可执行</h3><p>触发器选择带证据的几何/拓扑条件；工具与成功条件可以重新运行。</p></article>
+          <article class="card"><h3>可追溯</h3><p>目标人类指标、引入轮次、已解释案例、审查决定和工具版本共同保留来源。</p></article>
+          <article class="card"><h3>可修复</h3><p>证据字段标明失败关节、测量和边界，让修复算子获得标量奖励之外的信息。</p></article>
+        </div>
+      </section>
+
+      <section class="section" id="routing">
+        <div class="section-header">
+          <div class="section-number">03 · 精确路由</div>
+          <div>
+            <h2>人类指标决定工具路由，而不是统一调用仿真器</h2>
+            <p>路由器先读取适用性和工具健康状态，再运行最少且可复算的证据链。动态工具只补充其真正能观察到的时域证据。</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <caption>冻结的人类指标 → 工具族路由</caption>
+            <thead><tr><th scope="col">人类指标</th><th scope="col">精确路由</th><th scope="col">演化边界</th></tr></thead>
+            <tbody>
+              <tr><td>A1–A5</td><td><strong>A1–A5：语义/外观/装配</strong></td><td>可演化契约/测试模板；不能用动态成功覆盖语义或视觉失败。</td></tr>
+              <tr><td>A6</td><td><strong>A6：q0 完整性；可选重力测试</strong></td><td>q0 几何是主判；重力只处理支撑歧义。</td></tr>
+              <tr><td>B7–B10</td><td><strong>B7–B10：图结构/声明/FK</strong></td><td>结构事实与轨迹类型不需要时间步进物理。</td></tr>
+              <tr><td>B11</td><td><strong>B11：可用范围</strong></td><td>32步扫掠，加上驱动完成度/跟踪。</td></tr>
+              <tr><td>B12</td><td><strong>B12：接口 + 重力/载荷</strong></td><td>接口几何是乘性门；仿真成功不能补偿缺失的实体支撑。</td></tr>
+              <tr><td>B13</td><td><strong>B13：扫掠/动态干涉</strong></td><td>碰撞扫掠，加上接触、停转和动态穿透。</td></tr>
+              <tr><td>B14</td><td><strong>B14：明确的耦合/闭环</strong></td><td>仅当契约明确要求耦合/闭环时适用。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="round-loop">
+        <div class="section-header">
+          <div class="section-number">04 · 逐轮循环</div>
+          <div>
+            <h2>发现 FN、受控准入与修复 FP</h2>
+            <p>每一轮都在 500 案例开发集上，把逐项预测与人类标签比较。禁止优化总分，因为总分可能掩盖相互抵消的逐项错误。</p>
+          </div>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <span class="section-number">步骤1</span>
+            <h3>枚举原子错误</h3>
+            <p>运行当前验证器，按人类指标、资产、谓词、工具结果和证据状态列出每一个假阴性（FN）与假阳性（FP）。</p>
+          </article>
+          <article class="card">
+            <span class="section-number">步骤2</span>
+            <h3>诊断每个 FN</h3>
+            <p>区分现有测试错误与尚未覆盖的失败模式。改变任何内容之前，检查契约、触发器、工具健康状态、测量、置信度和覆盖程度。</p>
+          </article>
+          <article class="card">
+            <span class="section-number">步骤3</span>
+            <h3>校准或提出候选</h3>
+            <p>对于现有测试，只能按逐项 F1 调整允许的阈值/形状参数。对于缺失测试，LLM 提出一条可执行记录，而不是通过/失败标签。</p>
+          </article>
+          <article class="card">
+            <span class="section-number">步骤4</span>
+            <h3>应用准入门</h3>
+            <p>候选必须解释<strong>至少 k &gt;= 3 个</strong>不同的 FN，通过<strong>完整回归</strong>，并且<strong>不得降低任何现有指标的 F1</strong>：准入要求<strong>逐项 F1 零下降</strong>。</p>
+          </article>
+          <article class="card">
+            <span class="section-number">步骤5</span>
+            <h3>审查触发器语义</h3>
+            <p>必须开展<strong>基于几何/拓扑的触发器人类审查</strong>，并记录<strong>人类对几何/拓扑触发器的批准</strong>。触发器可以检查接口、图结构或轨迹，但不能以类别名或案例标识符为条件。</p>
+          </article>
+          <article class="card">
+            <span class="section-number">步骤6</span>
+            <h3>优先修复 FP</h3>
+            <p>诊断新引入和原有的 FP。优先缩窄或修正触发器，不要移动全局阈值，以免在无关案例之间交换错误。</p>
+          </article>
+        </div>
+        <div class="formula-panel" style="margin-top:1rem">
+          <h3>准入谓词</h3>
+          <code class="formula">admit(candidate) = [explained_distinct_FN ≥ 3] × [full_regression_pass] × [每个现有指标 i 均满足 ΔF1_i ≥ 0] × [几何/拓扑触发器已批准]</code>
+          <p class="muted">无退化防护采用严格的源规则：任何指标的 F1 都不得下降，而不是“下降小于 0.01”。任何更宽松的示例措辞均由此规则取代。</p>
+        </div>
+      </section>
+
+      <section class="section" id="worked-case">
+        <div class="section-header">
+          <div class="section-number">05 · 完整案例</div>
+          <div>
+            <h2>B13 抽屉中途碰撞：从漏检到可复用走廊测试</h2>
+            <p>旧测试库只检查 q0，所以一个抽屉在初始姿态干净、却在 55% 行程撞上实心侧板时形成假阴性。这个失败属于运动干涉 B13。</p>
+          </div>
+        </div>
+        <div class="grid-3">
+          <article class="card"><span class="pill red">FN</span><h3>定位遗漏</h3><p>人类指出中途穿模；证据显示旧测试从未沿声明范围采样扫掠体，而不是阈值仅有轻微偏差。</p></article>
+          <article class="card"><span class="pill amber">候选</span><h3>提出可执行测试</h3><p>仅对具有封闭运动走廊的移动关节触发，沿行程取32个样本，记录首个受阻样本、部件对与穿透量。</p></article>
+          <article class="card"><span class="pill teal">准入</span><h3>回归后入库</h3><p>候选解释至少3个不同 FN，经过人类触发器审查，并在全部已有项目上保持逐项 F1 零下降后，才获得新版本。</p></article>
+        </div>
+        <div class="callout evidence"><p class="no-margin"><strong>修复受证据约束。</strong>清理碰撞走廊；只有超出功能需求的多余行程才可缩短，不能通过删除活动能力来骗过 B13。</p></div>
+      </section>
+
+      <section class="section" id="freeze">
+        <div class="section-header">
+          <div class="section-number">06 · 停止与冻结</div>
+          <div>
+            <h2>收敛后生成可计算哈希的验证器产物</h2>
+            <p>连续两轮没有条目获准进入，并且逐项 F1 增益可忽略时停止。然后必须在设计器把验证器用作反馈之前冻结验证器。</p>
+          </div>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <h3>停止规则</h3>
+            <p>记录每轮候选、拒绝情况、阈值变化、FN/FP 数量、逐项增益和审查决定。“没有条目”表示没有候选通过全部准入门。</p>
+          </article>
+          <article class="card">
+            <h3>留出集行为</h3>
+            <p>在 1,500 个留出资产上，不添加测试，不编辑触发器或成功条件，也不移动阈值。新发现的失败只进入下一版本的待办队列。</p>
+          </article>
+        </div>
+        <h3>冻结产物清单</h3>
+        <div class="table-wrap">
+          <table>
+            <caption>阶段2之前封存的可复现性记录</caption>
+            <thead><tr><th scope="col">清单项目</th><th scope="col">冻结内容</th><th scope="col">重要原因</th></tr></thead>
+            <tbody>
+              <tr><td><strong>测试库版本</strong></td><td>语义版本与发布时间戳。</td><td>标明验证器的确切发布版本。</td></tr>
+              <tr><td><strong>测试程序</strong></td><td>可执行模板、参数与负责人。</td><td>防止事后合成测试。</td></tr>
+              <tr><td><strong>触发器</strong></td><td>几何/拓扑条件与适用性。</td><td>防止类别泄漏。</td></tr>
+              <tr><td><strong>成功条件</strong></td><td>谓词、单位、归一化与截断。</td><td>防止移动通过定义。</td></tr>
+              <tr><td><strong>阈值</strong></td><td>逐指标与子测试数值。</td><td>防止在留出集上校准。</td></tr>
+              <tr><td><strong>工具版本</strong></td><td>解析器、几何、FK、碰撞、仿真器与求解器。</td><td>保持数值可复现性。</td></tr>
+              <tr><td><strong>哈希</strong></td><td>程序、配置、契约与引擎设置。</td><td>检测任何产物漂移。</td></tr>
+              <tr><td><strong>划分清单</strong></td><td>资产、提示/模板、生成种子与类别归属。</td><td>审计泄漏与泛化。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="stages">
+        <div class="section-header">
+          <div class="section-number">07 · 两阶段顺序</div>
+          <div>
+            <h2>验证器在先，设计器在后，评估最后</h2>
+            <p>划分单元是<strong>资产、提示/模板与生成种子</strong>。即使渲染出的资产不同，同一模板实例也不能跨越阶段。</p>
+          </div>
+        </div>
+        <div class="timeline">
+          <article class="phase">
+            <h3>阶段1 · 验证器演化</h3>
+            <p>只在 <strong>500</strong> 个开发资产上使用人类 A1–B14 标签。校准有边界的阈值，扩充可执行记忆，执行回归，然后停止并冻结。</p>
+          </article>
+          <article class="phase">
+            <h3>阶段2 · 设计器演化</h3>
+            <p>保持<strong>验证器冻结</strong>。只在开发提示上演化设计记忆、生成策略、修复算子选择与停止策略。</p>
+          </article>
+          <article class="phase">
+            <h3>最终评估</h3>
+            <p>让<strong>两个系统均保持冻结</strong>，在全部 <strong>1,500</strong> 个留出案例上运行。分别报告已见与未见类别。</p>
+          </article>
+          <article class="phase">
+            <h3>下一版本</h3>
+            <p>隔离留出集审查中的对抗性发现。它们可以为下一版本提供信息，但绝不能影响当前基准结果。</p>
+          </article>
+        </div>
+        <div class="callout evidence" style="margin-top:1rem">
+          <p><strong>验证器冻结后的设计器反馈顺序：</strong>先处理修复可执行性和图结构失败，再处理几何/可实现性，然后是语义需求、功能，最后是物理压力。每次只做一项有边界的失败修复，随后重新验证。</p>
+        </div>
+      </section>
+
+      <section class="section" id="guardrails">
+        <div class="section-header">
+          <div class="section-number">08 · 防护规则</div>
+          <div>
+            <h2>防过拟合、防泄漏与防奖励投机</h2>
+            <p>控制措施作用于数据、触发器、验证器、设计器、报告和发布边界。任何单一控制措施都不能单独受到信任。</p>
+          </div>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <h3>防过拟合</h3>
+            <p>准入需要多个案例的支持、严格的逐项无退化、有边界的校准、不依赖类别的几何/拓扑触发器，以及完整审计轨迹。</p>
+          </article>
+          <article class="card">
+            <h3>防泄漏</h3>
+            <p>联合划分资产/模板/种子；隐藏留出标签；冻结记忆与工具；禁止在留出案例上创建测试、编辑触发器和移动阈值。</p>
+          </article>
+          <article class="card">
+            <h3>防奖励投机</h3>
+            <p>要求<strong>人类结果与验证器结果双重报告</strong>，保持阶段2验证器冻结，并执行<strong>对抗性人类审计</strong>。新发现的模式等待<strong>下一版本</strong>处理。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="evolution-metrics">
+        <div class="section-header">
+          <div class="section-number">09 · 评估指标</div>
+          <div>
+            <h2>测量一致性、覆盖程度、选择性与修复价值</h2>
+            <p>只有逐项人类对齐得到改善，同时诚实的覆盖程度不缩减、现有指标不退化，验证器演化才算成功。</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <caption>演化和最终评估必须报告的内容</caption>
+            <thead><tr><th scope="col">层级</th><th scope="col">指标</th><th scope="col">解读</th></tr></thead>
+            <tbody>
+              <tr><td>标注质量</td><td>人类–人类 Cohen’s κ；标签占比；裁决率。</td><td>确定每个人类指标的稳定程度。</td></tr>
+              <tr><td>受支持指标的一致性</td><td>精确率/召回率/F1/平衡准确率；人类–验证器 κ。</td><td>防止占多数的通过类别掩盖失败。</td></tr>
+              <tr><td>覆盖程度/选择性</td><td>完整、估计物理、部分、不支持、N/A；选择性风险与保留覆盖程度的关系。</td><td>奖励诚实弃权，同时不奖励一概拒绝。</td></tr>
+              <tr><td>排序</td><td>Spearman 分数相关性，以及适用时的 AUC。</td><td>把排序与原子一致性分开评估。</td></tr>
+              <tr><td>修复效用</td><td>一次修复后的成功率、解决所需迭代次数、复发率、成本与人类确认的改善。</td><td>测试证据和建议是否能帮助设计器。</td></tr>
+              <tr><td>泛化</td><td>每项指标和各覆盖区间上的已见–未见差距。</td><td>检测模板/类别记忆。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="ablations">
+        <div class="section-header">
+          <div class="section-number">10 · 消融</div>
+          <div>
+            <h2>每次移除一个声称有效的机制</h2>
+            <p>所有消融都使用同一个冻结的 1,500 案例评估，并报告逐项一致性、覆盖程度、分数相关性、修复效用和泛化。</p>
+          </div>
+        </div>
+        <div class="grid-3">
+          <article class="card"><h3>不使用验证器记忆</h3><p>只使用初始测试库，以分离获准可执行检查的价值。</p></article>
+          <article class="card"><h3>不使用仿真器测试</h3><p>保留几何/FK，并测量 B11–B14 时域覆盖程度的损失。</p></article>
+          <article class="card"><h3>不使用几何检查</h3><p>暴露仅靠仿真器路由无法防止的虚拟关节假阳性。</p></article>
+          <article class="card"><h3>不使用 LLM 契约提取</h3><p>在固定的非 LLM 契约基线下测量适用性与语义路由失败。</p></article>
+          <article class="card"><h3>不使用可实现性门控</h3><p>允许功能证据独立成立，并量化通过假几何进行的奖励投机。</p></article>
+          <article class="card"><h3>不使用设计器自演化</h3><p>固定生成/修复策略，以分离结构化反馈适应的作用。</p></article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="page-footer">
+    <div class="page-shell">
+      <strong>Evo-Articraft · 验证器演化协议 · 2026-08-09</strong><br>
+      版本化可执行记忆、严格准入、冻结的设计器交接与留出集完整性。
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Evo-Articraft · 人类对齐、工具驱动、自演化验证系统</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="page">
+  <header class="hero" data-mark="P12">
+    <div class="eyebrow">Evo-Articraft · PRO-12 综合方案</div>
+    <h1>面向关节式3D资产的<br>人类对齐、工具驱动、自演化验证系统</h1>
+    <p class="subtitle">从开放式自然语言意图出发，不依赖单一参考答案，把14项人类判断、确定性几何/运动学证据、按指标调用的仿真器，以及测试程序级自演化统一到一条可审计链路中。</p>
+    <div class="hero-links">
+      <a href="metrics.html">查看14项人机对齐</a>
+      <a href="auto-verifier.html">查看精确计算与仿真器</a>
+      <a href="self-evolution.html">查看验证器自演化</a>
+      <a href="../pro-9/task-36_08-06.html">原始总体方案</a>
+    </div>
+  </header>
+
+  <nav class="site-nav" aria-label="Pro-12 主导航">
+    <a href="index.html" aria-current="page">总体方案</a>
+    <a href="metrics.html">14项对齐</a>
+    <a href="auto-verifier.html">精确计算</a>
+    <a href="self-evolution.html">自演化闭环</a>
+    <a href="task-36-4_08-09.html">完整提案</a>
+    <a href="verifier-evolution.html">演化协议</a>
+    <span class="nav-spacer"></span>
+    <a href="#sources">原始材料</a>
+  </nav>
+
+  <section id="problem">
+    <div class="kicker">01 · 问题</div>
+    <h2>我们真正要验证的是什么？</h2>
+    <div class="formula">提示词 + 生成的关节式资产 → 可执行验证报告</div>
+    <p class="lead">生成系统可以从一句话产生 URDF、MJCF、model.py 或网格与关节。但“能解析、能加载、能在查看器里动”并不等于资产是正确机构。一把折叠椅、一个柜子或一件关节式工具可以有许多正确设计，若强迫与单一参考答案对齐，会把开放式生成问题错误地退化成重建。</p>
+    <div class="grid two">
+      <article class="card accent-red">
+        <h3>现有评价为什么不够</h3>
+        <ul>
+          <li>星级或 LLM 总评把多个独立失败压成一个主观数值，无法定位哪个关节、哪一帧、哪对连杆出错。</li>
+          <li>解析器只能证明语法与图结构合法，不能证明抽屉有腔体、门有合页、轴周围存在真实间隙。</li>
+          <li>仿真器会忠实执行已声明关节；它可以让没有合页几何的门绕一条虚拟轴转动。</li>
+          <li>只比较一个参考答案会惩罚其他合理结构，无法处理一对多的设计空间。</li>
+        </ul>
+      </article>
+      <article class="card accent-green">
+        <h3>本方案输出什么</h3>
+        <ul>
+          <li><strong>人类对齐向量：</strong>A1–A6、B7–B14 的分数、0/1/N/A、置信度与覆盖程度。</li>
+          <li><strong>工具原生诊断：</strong>语义、静态、运动、物理四类诊断与执行门。</li>
+          <li><strong>结构化失败报告：</strong>关节、帧、连杆对、原始数值、阈值和修复建议。</li>
+          <li><strong>可演化测试库：</strong>从人机分歧中积累可复现测试程序，而不是学习更讨巧的总分。</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="insight">
+    <div class="kicker">02 · 核心洞察</div>
+    <h2>核心洞察：声明运动不等于可实现运动</h2>
+    <div class="thesis">
+      <span class="big">声明的运动 ≠ 可实现的运动</span>
+      URDF 中存在旋转/移动关节，只表示求解器被要求执行该自由度；它不能证明几何里真的存在合页、滑轨、接口、旋转间隙或承重支撑。
+    </div>
+    <p>因此仿真器的正确角色不是替代几何验证，而是补齐时间、力、接触和多体耦合证据。B11–B14 的完整判断需要实际轨迹、接触冲量、动态穿透、重力漂移与同步误差；但 B12 的仿真成功仍必须乘上接口几何证据。形式上：</p>
+    <div class="formula sim">物理有效性 = 几何支撑 × 动态证据
+仿真成功不能推翻几何反例</div>
+    <div class="grid three">
+      <article class="card accent-blue"><h3>LLM / VLM</h3><p>抽取显式契约、做部件语义匹配、评估多视角外观、提出新测试程序。不得读取工具摘要后再凭感觉给物理分。</p></article>
+      <article class="card accent-green"><h3>几何 / FK / 碰撞</h3><p>计算图结构、相对变换、轴线/原点、q₀ 完整性、接口间隙、局部净空、运动走廊与扫掠碰撞。</p></article>
+      <article class="card accent-purple"><h3>按指标路由的仿真器</h3><p>只进入需要实际运动、接触力、重力、载荷或耦合轨迹的指标；记录参数来源与工具故障。</p></article>
+    </div>
+  </section>
+
+  <section id="contributions">
+    <div class="kicker">03 · 贡献</div>
+    <h2>五项核心贡献</h2>
+    <div class="grid three">
+      <article class="card"><span class="tag human">C1 · 基准</span><h3>14项原子人类指标</h3><p>不让标注员打模糊五星，而是对每个案例给 A1–B14 的 1/0/N/A。几何部件、声明运动学、实体可实现性与复杂物理彼此分工。</p></article>
+      <article class="card"><span class="tag geometry">C2 · 可实现性</span><h3>假关节的几何证伪</h3><p>接口支撑、局部净空与扫掠碰撞联合识别“URDF 有关节、几何却没有机构”的核心失败。</p></article>
+      <article class="card"><span class="tag simulator">C3 · 指标路由</span><h3>按指标组合工具</h3><p>语义问题交给契约/VLM，结构问题交给几何/FK，B11–B14 的完整覆盖引入固定协议仿真器。</p></article>
+      <article class="card"><span class="tag human">C4 · 对齐</span><h3>人类指标 ↔ 原子判据</h3><p>逐项对齐而不是把14项硬塞进四类诊断；输出预测、覆盖程度、置信度、证据与修复建议。</p></article>
+      <article class="card"><span class="tag evolution">C5 · 自演化</span><h3>测试程序级演化</h3><p>人类分歧触发新测试模板、触发条件和成功条件；评分公式、类别权重与留出集协议不演化。</p></article>
+    </div>
+  </section>
+
+  <section id="architecture">
+    <div class="kicker">04 · 统一架构</div>
+    <h2>一条共享证据链，两类输出，一个冻结边界</h2>
+    <div class="flow" aria-label="Evo-Articraft 系统流程">
+      <div class="flow-row"><div class="flow-node input"><h4>输入</h4><p>提示词（可选参考图）+ 生成的关节式资产 + 可选物理参数</p></div></div>
+      <div class="arrow">▼</div>
+      <div class="flow-row">
+        <div class="flow-node"><h4>需求契约</h4><p>显式部件 / 关节 / 功能 / 方向 / 耦合 / 安装；每条记录显式来源、先验与置信度。</p></div>
+        <div class="flow-node tool"><h4>可执行性门</h4><p>解析、图结构、几何、FK 与碰撞查询；回答“能否评估”，不是第15项人类指标。</p></div>
+      </div>
+      <div class="arrow">▼</div>
+      <div class="flow-row"><div class="flow-node tool"><h4>共享证据引擎</h4><p>结构与网格、32步 FK/扫掠、穿透、接口、净空、可达性、渲染、分时步动力学。</p></div></div>
+      <div class="arrow">▼</div>
+      <div class="flow-row">
+        <div class="flow-node human"><h4>人类指标对齐头</h4><p>A1–B14：分数 / 预测 / 置信度 / 覆盖程度 / 证据。用于逐项人机一致性评估。</p></div>
+        <div class="flow-node sim"><h4>诊断头</h4><p>执行门 + 语义/静态/运动/物理。用于基准评测、修复与测试程序记忆。</p></div>
+      </div>
+      <div class="arrow">▼</div>
+      <div class="flow-row"><div class="flow-node input"><h4>分数 + 失败报告</h4><p>不是一个黑箱标量：返回失败类型、关节、帧、连杆对、原始测量、阈值与修复建议。</p></div></div>
+      <div class="arrow">▼</div>
+      <div class="flow-row">
+        <div class="flow-node evolve"><h4>验证器自演化</h4><p>只在开发集生长测试库；评测前记忆、触发条件、阈值与公式冻结。</p></div>
+        <div class="flow-node"><h4>可选设计器修复</h4><p>在冻结验证器上选择确定性修复算子；人类与自动双轨评测防止奖励投机。</p></div>
+      </div>
+    </div>
+    <div class="grid three">
+      <article class="card"><h3>输入规范化器</h3><p>统一单位、坐标系、可视/碰撞网格与物理参数来源；不静默修复资产。</p></article>
+      <article class="card"><h3>聚合器 + 报告</h3><p>N/A 不补0、不补满分；分数必须与人类指标覆盖程度、仿真覆盖程度同时报告。</p></article>
+      <article class="card"><h3>演化控制器</h3><p>只让经过 k≥3、全14项回归和人工审核的可执行检查进入下一版测试库。</p></article>
+    </div>
+  </section>
+
+  <section id="benchmark">
+    <div class="kicker">05 · 基准与冻结</div>
+    <h2>2,000个资产：500例演化，1,500例冻结评测</h2>
+    <div class="stat-grid">
+      <div class="stat"><span class="value">2,000</span><span class="label">生成的关节式资产</span></div>
+      <div class="stat"><span class="value">14</span><span class="label">人类原子标签</span></div>
+      <div class="stat"><span class="value">500</span><span class="label">开发 / 演化</span></div>
+      <div class="stat"><span class="value">1,500</span><span class="label">留出集评测</span></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>阶段</th><th>可以变化</th><th>必须冻结</th><th>主要报告</th></tr></thead>
+        <tbody>
+          <tr><td class="id">验证器演化</td><td>测试程序、触发条件、有限逐项阈值</td><td>人类指标、评分公式、类别权重</td><td>每轮新增/拒绝、开发集逐项 F1</td></tr>
+          <tr><td class="id">设计器演化</td><td>设计记忆、修复选择、生成策略</td><td>验证器全部模块</td><td>人类分数、自动分数、关键失败、修复轮数</td></tr>
+          <tr><td class="id">留出集评测</td><td>无</td><td>解析器、记忆、测试、触发条件、阈值、权重、设计器</td><td>逐项 F1/κ、覆盖程度、Spearman、已见/未见差距</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="thesis notice"><span class="big">留出集上发现的新失败不能在当前实验里回填。</span>它只能进入下一版本待办。否则系统等于用测试集改评分器，任何“自演化提升”都失去可信度。</div>
+  </section>
+
+  <section id="two-stage">
+    <div class="kicker">06 · 两阶段演化</div>
+    <h2>先演化验证器，再冻结它改进设计器</h2>
+    <div class="grid three">
+      <article class="card accent-amber"><h3>阶段1 · 验证器</h3><p>在500例上逐项比较人类标签 y_i 与自动预测 ŷ_i。覆盖漏洞通过修正触发条件/阈值处理；缺失测试由 LLM 提议可执行程序。准入后形成带来源记录的测试程序记忆。</p></article>
+      <article class="card accent-purple"><h3>阶段2 · 设计器</h3><p>冻结验证器。设计器读取结构化失败报告，按执行门 → 可实现性 → 语义 → 功能 → 物理的顺序派发挖腔、加滑轨、移轴线等算子。</p></article>
+      <article class="card accent-blue"><h3>评测</h3><p>两者均冻结，在1,500例留出集上运行。人类与自动结果必须同时报告；若自动分数上升而人类分数不升，就是奖励投机信号。</p></article>
+    </div>
+  </section>
+
+  <section id="evaluation">
+    <div class="kicker">07 · 评测</div>
+    <h2>主要结果、消融与诚实边界</h2>
+    <div class="grid two">
+      <article class="card">
+        <h3>主结果</h3>
+        <ol>
+          <li>人类–人类 κ，作为每项可达到一致性的参照。</li>
+          <li>人类–自动逐项精确率、召回率、F1、平衡准确率与 κ。</li>
+          <li>置信度阈值–覆盖程度的选择性风险曲线。</li>
+          <li>人类总分与自动 Score_full 的 Spearman，而不是要求数值相等。</li>
+          <li>已见与未见类别的泛化差距。</li>
+          <li>修复后目标判据与人类标签是否同时失败→通过。</li>
+        </ol>
+      </article>
+      <article class="card">
+        <h3>关键消融</h3>
+        <ul>
+          <li>去掉几何可实现性：B12/B13 明显崩塌。</li>
+          <li>去掉仿真器：B11–B14 只能得到部分覆盖。</li>
+          <li>去掉契约：语义与功能目标无法定义，大量 N/A。</li>
+          <li>去掉测试程序记忆：长尾/未见类别 F1 下降。</li>
+          <li>只调阈值、不新增测试：新失败模式无法解决。</li>
+          <li>不冻结验证器：自动分数虚高，人类分数可能不升。</li>
+        </ul>
+      </article>
+    </div>
+    <div class="table-wrap" style="margin-top:16px">
+      <table>
+        <thead><tr><th>局限</th><th>影响</th><th>报告方式</th></tr></thead>
+        <tbody>
+          <tr><td class="id">契约抽取</td><td>抽错会同时影响多个语义/功能项</td><td>抽样人工核对，记录来源/置信度，先验不直接扣分</td></tr>
+          <tr><td class="id">碰撞网格质量</td><td>会影响穿透、扫掠与净空</td><td>输出几何来源与网格覆盖程度</td></tr>
+          <tr><td class="id">物理参数来源</td><td>默认质量/摩擦的结论不等于真实物理</td><td>资产自带/推断/默认分档，降低置信度</td></tr>
+          <tr><td class="id">人类判断歧义</td><td>A4/B12 的 κ 可能较低</td><td>把人类–人类一致性作为自动验证上界参照</td></tr>
+          <tr><td class="id">奖励投机</td><td>设计器可能贴着阈值优化</td><td>人类/自动双轨、阈值聚集审计、高分人工对抗抽检</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="deep-dives">
+    <div class="kicker">08 · 深入页面</div>
+    <h2>三个深度页面分别回答什么？</h2>
+    <div class="grid three">
+      <article class="card accent-blue"><h3>14项人机对齐</h3><p>回答“一项人类判断对应哪些原子判据，为什么是一对多/多对一，覆盖边界在哪里”。</p><p><a href="metrics.html">进入 metrics.html →</a></p></article>
+      <article class="card accent-green"><h3>精确自动验证器</h3><p>回答“每项输入哪些数值，如何归一化，公式和阈值是什么，仿真器怎么运行”。</p><p><a href="auto-verifier.html">进入 auto-verifier.html →</a></p></article>
+      <article class="card accent-amber"><h3>测试程序自演化</h3><p>回答“人类分歧如何变成新测试，什么能入库，如何冻结，怎样防止过拟合”。</p><p><a href="self-evolution.html">进入 self-evolution.html →</a></p></article>
+    </div>
+  </section>
+
+  <section id="sources">
+    <div class="kicker">09 · 来源可追溯性</div>
+    <h2>原始材料索引</h2>
+    <p class="lead">PRO-12 是一致化重写，不会修改下列原始页面；它采用 PRO-10 V2 的逐项计算作为技术定义，并用 PRO-9 的方案与演化叙事组织论文级结构。</p>
+    <div class="source-grid">
+      <div class="source-card"><a href="../pro-9/task-36_08-06.html">总体方案</a><p>问题、基准、系统、两阶段演化、风险与摘要。</p></div>
+      <div class="source-card"><a href="../pro-9/human-annotation.html">人类标注</a><p>14项 0/1/N/A 的原始标注定义。</p></div>
+      <div class="source-card"><a href="../pro-9/verifier.html">自动验证器</a><p>执行门、四类诊断、几何可实现性与原语。</p></div>
+      <div class="source-card"><a href="../pro-9/verifier-evolution.html">验证器演化</a><p>测试程序记忆、FN/FP、准入与冻结。</p></div>
+      <div class="source-card"><a href="../pro-9/designer-evolution.html">设计器演化</a><p>修复算子、设计记忆与奖励投机。</p></div>
+      <div class="source-card"><a href="../pro-10/human-verifier-alignment.html">人类–验证器对齐</a><p>14项与原子判据的精确映射。</p></div>
+      <div class="source-card"><a href="../pro-10/auto-verifier-solution-v2.html">自动验证器 V2</a><p>逐项数值、公式、仿真器路由与输出 JSON。</p></div>
+    </div>
+  </section>
+
+  <footer>PRO-12 · Evo-Articraft 中文综合方案 · 人类对齐 · 工具驱动 · 测试程序自演化</footer>
+</main>
+</body>
+</html>
