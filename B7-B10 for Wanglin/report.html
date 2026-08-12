@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>B7–B10 实现报告 · Wanglin</title>
+  <link rel="stylesheet" href="../aug-08/styles.css">
+</head>
+<body>
+<main class="page">
+  <header class="hero" data-mark="4">
+    <div class="eyebrow">实现报告 · Wanglin · 2026-08-11</div>
+    <h1>B7–B10：运动学四项<br>从方案到可运行验证器</h1>
+    <p class="subtitle">四项检测器全部实现并在 300 个真实资产上测量完毕。本文记录做了什么、量到了什么、对协议做了哪三处偏离，以及为什么其中两项在拿到几何之前无法与人类标签对齐。</p>
+    <div class="hero-links">
+      <a href="https://github.com/Wanglin-He/evo-verifier">代码仓库 evo-verifier</a>
+      <a href="auto-verifier.html">协议：14项精确计算</a>
+      <a href="metrics.html">协议：人机对齐</a>
+    </div>
+  </header>
+
+  <nav class="site-nav" aria-label="Pro-12 主导航">
+    <a href="index.html">总体方案</a>
+    <a href="metrics.html">14项对齐</a>
+    <a href="auto-verifier.html">精确计算</a>
+    <a href="self-evolution.html">自演化闭环</a>
+    <a href="task-36-4_08-09.html">完整提案</a>
+    <a href="verifier-evolution.html">演化协议</a>
+    <a href="b7-b10-wanglin.html" aria-current="page">B7–B10 实现</a>
+  </nav>
+
+  <section id="scope">
+    <div class="kicker">01 · 范围</div>
+    <h2>负责的四项，和它们各自要回答的问题</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>项</th><th>标注平台上的问题</th><th>需要什么证据</th></tr></thead>
+        <tbody>
+          <tr><td class="id">B7</td><td>父子关系与连接对象是否正确</td><td>预期的连接对象 + 图结构</td></tr>
+          <tr><td class="id">B8</td><td>活动零件是否具有对应的运动学关节</td><td>预期活动件集合 + 关节覆盖</td></tr>
+          <tr><td class="id">B9</td><td>运动学关节类型是否正确</td><td>预期类型 + 声明类型</td></tr>
+          <tr><td class="id">B10</td><td>运动学关节的位置与轴向是否正确</td><td>预期轴向/位置 + 几何</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="thesis">
+      <span class="big">四项都不需要仿真器。</span>
+      父子、类型、原点、轴向都是结构事实，资产自己声明了全部四样；唯一的问题是它们是不是提示词要的那一个。所以这一组是三组里依赖最少、能最早端到端跑通的。
+    </div>
+  </section>
+
+  <section id="assets">
+    <div class="kicker">02 · 资产</div>
+    <h2>数据集没有 URDF，但关节图就写在源码里</h2>
+    <p>原计划读 URDF。清点数据仓后发现 <code>cache/record_materialization/</code> 从未提交，<strong>10,788 条记录全部只有 <code>model.py</code> 源码</strong>。要拿 URDF 必须先编译，也就是执行数据集里生成出来的 Python，需要 cadquery 并且应当在隔离环境中进行。</p>
+    <p>但 B7–B10 不需要 URDF——关节图是直接声明的：</p>
+    <pre><code>model.articulation(
+    "front_flap_hinge",
+    ArticulationType.REVOLUTE,        # ← B9 要的关节类型
+    parent=cassette,                   # ← B7 要的父连杆
+    child=front_flap,                  # ← B7 要的子连杆
+    origin=Origin(xyz=(0.0, -0.366, 0.0)),   # ← B10 要的原点
+    axis=(-1.0, 0.0, 0.0),             # ← B10 要的轴向
+    motion_limits=MotionLimits(lower=0.0, upper=1.1),
+)</code></pre>
+    <p>于是实现了<strong>静态 AST 解析器：读它，不跑它</strong>。折叠模块级与函数内常量、展开可折叠的循环（<code>for index, x in enumerate(BUTTON_XS)</code> 会正确生成 <code>button_0</code>/<code>button_1</code> 两个零件和两个关节）、算出 f-string 拼的关节名、选对能判断的分支。理由是三条：不在工作机上执行生成代码；607 条解析耗时 0.9 秒而编译要数小时；没有环境依赖因此可复现。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>字段</th><th>静态可解（607 条 / 2,091 个关节）</th></tr></thead>
+        <tbody>
+          <tr><td class="id">关节类型 kind</td><td><strong>100.0%</strong></td></tr>
+          <tr><td class="id">轴向 axis</td><td>99.9%</td></tr>
+          <tr><td class="id">父连杆 parent</td><td>99.2%</td></tr>
+          <tr><td class="id">原点 origin</td><td>97.4%</td></tr>
+          <tr><td class="id">子连杆 child</td><td>96.3%</td></tr>
+          <tr><td class="id">B7–B10 所需字段全齐</td><td><strong>94.5%</strong>（1,975 / 2,091）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="thesis">
+      <span class="big">解不出来的，记下来、留空、绝不猜。</span>
+      一个读不出的原点必须成为「部分覆盖」，<strong>不能成为 B10 失败</strong>。把「我没测到」报成「资产有缺陷」，正是这套方案要防的头号错误。旋转过的形状返回「未知」而不是一个错的轴对齐包围盒，因为 B10 要拿它当分母。
+    </div>
+    <p class="note">几何是短板：只有 <strong>19/607</strong> 条能算出整体包围盒对角线 <code>D</code>，因为一个零件只要有一个 <code>mesh_from_cadquery</code> 元素就没有解析几何。</p>
+  </section>
+
+  <section id="contract">
+    <div class="kicker">03 · 契约</div>
+    <h2>「应该是什么」只能来自提示词</h2>
+    <p>方案否定了拿单一参考资产比对的做法，所以判据只能从提示词里来：把自然语言翻译成机器能对照的结构化要求。这一步用 LLM，但它<strong>只做翻译，不做判断</strong>——符合「LLM 负责转换，工具负责验证」。</p>
+    <p>两个关键设计：</p>
+    <div class="grid three">
+      <article class="card"><span class="relation">连接对象</span><h3>parent 字段</h3><p>B7 的真实失败全是连接对象错误。只记「这个零件会动」一个都查不出来。</p></article>
+      <article class="card"><span class="relation">引文守卫</span><h3>quote 字段</h3><p>每条 explicit 要求必须附提示词原文逐字片段，加载时机械校验，<strong>引文不在原文里直接拒绝</strong>。抽取器没法既编造要求、又编造它的依据。</p></article>
+      <article class="card"><span class="relation">离线冻结</span><h3>跑一次存盘</h3><p>验证器主路径不调 API。可复现、可审计、便宜。</p></article>
+    </div>
+    <p>抽取选 Gemini 而非 OpenAI：607 条资产里 <strong>587 条由 OpenAI 模型生成</strong>，同源抽取会产生误差相关，掩盖「模型误读了提示词」这类真实失败。</p>
+    <p class="note">结果：<strong>300 条契约，696 个预期关节，682 条 explicit，451 条带连接对象，690 条带类型，引文守卫违规 0 条。</strong> 花费约 0.35 美元。</p>
+  </section>
+
+  <section id="detectors">
+    <div class="kicker">04 · 四项检测器</div>
+    <h2>每项的判据、公式与偏离</h2>
+
+    <article class="metric-card">
+      <div class="metric-head"><span class="metric-id">B7</span><span class="metric-title">父子关系与连接对象</span><span class="metric-route">图结构 + 契约</span></div>
+      <div class="metric-body">
+        <div class="metric-field"><strong>公式</strong>：<code>S = 0.3·子 + 0.4·父 + 0.3·子树纯度</code>，按可用项重新归一。</div>
+        <div class="metric-field"><strong>为什么加子树纯度</strong>：榨汁机的推料杆自己的关节完全正确，问题是它挂在盖子的子树里，盖子一开就跟着跑——只看 parent 查不出来。破壁机的 <code>release_button</code> 骑在 <code>jar</code> 子树上，同样靠这一项抓到。</div>
+        <div class="metric-field"><strong>四个诊断案例全中</strong>：榨汁机（推料杆挂盖子而非料槽）、旋转门（门扇绕店面转，中央钢柱根本没建）、喷瓶（泵杆和扳机之间没连接）、台钳（凭空造零件承载旋转）。</div>
+      </div>
+    </article>
+
+    <article class="metric-card">
+      <div class="metric-head"><span class="metric-id">B8</span><span class="metric-title">活动零件是否有关节</span><span class="metric-route">契约 + 覆盖率</span></div>
+      <div class="metric-body">
+        <div class="metric-field"><strong>公式</strong>：<code>S = 满足数 / 预期数</code>，加权——引文要求权重 1.0，类别常识要求按自身置信度（≤0.7）。</div>
+        <div class="metric-field"><strong>宽/窄两种定义可切</strong>：缺件算不算 B8 失败。见下文「关于标签的发现」。</div>
+        <div class="metric-field"><strong>四项里唯一真正对齐的一项。</strong></div>
+      </div>
+    </article>
+
+    <article class="metric-card">
+      <div class="metric-head"><span class="metric-id">B9</span><span class="metric-title">关节类型</span><span class="metric-route">解析器 + 契约</span></div>
+      <div class="metric-body">
+        <div class="metric-field"><strong>公式</strong>：<code>S = 0.6·类型一致 + 0.4·声明自洽</code>。</div>
+        <div class="metric-field"><strong>偏离协议</strong>：协议的第二项是「轨迹类型分类器」——跑 FK 看子零件怎么动。<strong>在没有网格的声明图上这一项是循环论证</strong>：FK 回放的就是关节类型本身，只能永远同意自己。换成真正独立的证据：声明自洽性（continuous 却带有限限位、revolute 却没有限位、fixed 却带轴向、行程超过一整圈）。</div>
+        <div class="metric-field"><strong>近似失配</strong>：revolute↔continuous 记 0.4 分。该值必须满足 <code>0.6·x + 0.4 &lt; τ</code>，否则「该自由旋转的轮子撞到限位」会被判通过——取 0.5 时恰好落在 0.70 上，被单元测试抓到。</div>
+      </div>
+    </article>
+
+    <article class="metric-card">
+      <div class="metric-head"><span class="metric-id">B10</span><span class="metric-title">关节原点与轴向</span><span class="metric-route">几何 + 契约</span></div>
+      <div class="metric-body">
+        <div class="metric-field"><strong>轴向项</strong>：对着契约的 <code>axis_hint</code> 比。只用能在世界系解析的方向词——「vertical side hinge」算，「about its axle」不算（那是相对几何的方向）。</div>
+        <div class="metric-field"><strong>锚点项（偏离协议）</strong>：协议用 <code>d_anchor / D</code>，需要所有零件都有解析几何，607 条里只有 19 条满足。但<strong>关节原点就是子零件坐标系的原点</strong>，所以真正该测的是「关节离它要转动的那个零件有多远」，除以那个零件自己的对角线。只需要一个零件的几何，而且它测的正是这一项的本意——<strong>铰链长在门外面，就没有装在门上</strong>，这是虚拟铰链的直接信号。</div>
+        <div class="metric-field"><strong>组合</strong>：可算项的几何平均。协议是连乘；缺一项时连乘会悄悄退化成另一项单独的值、读起来像完整证据，几何平均保留了连乘的性质又对「靠几项支撑」诚实。</div>
+      </div>
+    </article>
+  </section>
+
+  <section id="results">
+    <div class="kicker">05 · 结果</div>
+    <h2>300 个真实资产上的逐项对齐</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>项</th><th>正例</th><th>TP</th><th>FP</th><th>FN</th><th>TN</th><th>精确率</th><th>召回率</th><th>平衡准确率</th><th>κ</th><th>弃权</th></tr></thead>
+        <tbody>
+          <tr><td class="id">B7</td><td>6</td><td>1</td><td>44</td><td>5</td><td>168</td><td>0.022</td><td>0.167</td><td>0.480</td><td>−0.010</td><td>81</td></tr>
+          <tr><td class="id">B8</td><td>13</td><td>7</td><td>63</td><td>6</td><td>187</td><td>0.100</td><td>0.538</td><td><strong>0.643</strong></td><td><strong>0.093</strong></td><td>37</td></tr>
+          <tr><td class="id">B9</td><td>9</td><td>1</td><td>20</td><td>8</td><td>96</td><td>0.048</td><td>0.111</td><td>0.469</td><td>−0.038</td><td>18</td></tr>
+          <tr><td class="id">B10</td><td>2</td><td>1</td><td>7</td><td>1</td><td>66</td><td>0.125</td><td>0.500</td><td><strong>0.702</strong></td><td><strong>0.164</strong></td><td>218</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="thesis">
+      <span class="big">B10 与 B8 高于随机；B7 与 B9 与随机没有区别。</span>
+      这不是检测器写得不好，是证据层面的天花板——见下节。B10 的弃权数高（218/300）是设计使然：只在有几何或轴向证据时开口。
+    </div>
+    <p><strong>抽样说明</strong>：300 条 = 全部 31 条「任一项被判失败」的记录 + 从其余 576 条等距抽取的 269 条。召回率建立在全部真实正例上；误报率无偏；<strong>精确率被富集，需按抽样率 40.3% 修正</strong>，修正后为 B7 0.010 / B8 0.053 / B9 0.030 / B10 0.091。</p>
+    <p><strong>误报率</strong>是当前最大问题：B7 21.9%、B8 24.5%、B9 15.7%、B10 6.2%。</p>
+  </section>
+
+  <section id="labels">
+    <div class="kicker">06 · 关于标签的发现</div>
+    <h2>三项与协议假设不符的实证结果</h2>
+    <div class="grid three">
+      <article class="card"><span class="relation">B9</span><h3>标注判的是网格运动，不是声明类型</h3><p><strong>6 条记录声明的类型与契约期望逐字相同，人类照样判失败</strong>（主板、办公椅、螺旋瓶盖、厨师机等）。合理解释是标注员在查看器里看网格怎么动：轴放错位置的 revolute 动起来不像铰链；螺旋瓶盖声明 continuous 字面没错，但真实的拧开是螺旋运动。</p></article>
+      <article class="card"><span class="relation">B8</span><h3>人类的 B8 主要是「缺零件」判断</h3><p>16 条 B8 失败里 <strong>13 条同时判 A3 失败（81%）</strong>。标注者确认判定依据是「现实中该有的零件没画出来」，属生成侧问题。仅基于提示词的契约无法覆盖——提示词没写的零件，契约无从知晓。</p></article>
+      <article class="card"><span class="relation">全局</span><h3>十四项在实践中不独立</h3><p><strong>13 条 B9 失败与 10 条 B10 失败，100% 同时失败至少一项几何或物理指标，无一例外。</strong> B7 失败中 75% 同时失败 A1 与 A2。这对「必须逐项报告」的论证既是支持也是挑战，需在论文中如实报告。</p></article>
+    </div>
+    <p class="note"><strong>缺少双标注</strong>：三位标注者的标注无重叠，人类–人类 κ 无法计算。因此现在无从判断 B8 的 κ=0.093 是「差」还是已经接近标注噪声设定的上限。建议尽快补 10% 双标注。</p>
+  </section>
+
+  <section id="deviations">
+    <div class="kicker">07 · 偏离协议</div>
+    <h2>三处改动，全部记录在代码里</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>协议原文</th><th>改成</th><th>理由</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>置信度 <code>× min(1, |score−τ|/0.20)</code></td>
+            <td>置信度只反映证据可读性，margin 单独记录</td>
+            <td>该项为连续分数设计。这里每个资产只有几条要求、分数离散，而最常见的失败模式恰好落在 0.700 = τ 上，导致 31 条里 23 条弃权。<strong>边界上的分数是一个判断，不是没有判断。</strong></td>
+          </tr>
+          <tr>
+            <td>B7 权重 <code>0.4 子 / 0.3 父 / 0.3 子树</code></td>
+            <td><code>0.3 / 0.4 / 0.3</code></td>
+            <td>按原权重，一个「零件挂到完全错误对象上」的资产得分恰好 0.700，在 0.70 阈值下<strong>判通过</strong>。这一项的名字就叫「连接对象是否正确」，父项权重必须大于 1−τ。</td>
+          </tr>
+          <tr>
+            <td>B9 第二项为轨迹类型分类器</td>
+            <td>声明自洽性检查</td>
+            <td>在无网格的声明图上轨迹分类是循环论证。等有几何后应改回协议原文。</td>
+          </tr>
+          <tr>
+            <td>（协议未规定）多关节如何聚合成资产分数</td>
+            <td>四项均取<strong>最差关节</strong></td>
+            <td>取平均时，τ=0.70 意味着资产要坏掉 30% 以上的关节才失败——4 个关节坏 1 个判通过。注入故障检出率：B7 31%→47%、B8 32%→63%、B9 7%→97%、B10 12%→34%。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="dead-ends">
+    <div class="kicker">08 · 已排除</div>
+    <h2>三条被数据证伪的路，不必再试</h2>
+    <div class="grid three">
+      <article class="card"><span class="relation">阈值校准</span><h3>买不到东西</h3><p>扫描 τ ∈ [0,1]，最优 κ 仅 0.022 / 0.098 / 0.036 / 0.326，与 τ=0.70 时基本持平。<strong>分数根本没把两类分开，问题不在决策阈值而在证据本身。</strong></p></article>
+      <article class="card"><span class="relation">类别常识</span><h3>天花板很低</h3><p>放开抽取器补常识要求的权限后，模型在 31 条上只补了 2 条（四轮摩托的轮子与悬挂），其余 30 条一条未补。</p></article>
+      <article class="card"><span class="relation">无几何做 B9</span><h3>方向错误</h3><p>标签测的是网格运动。把检测器调到迎合一个测量别的东西的标签，只会把这个发现藏起来。</p></article>
+    </div>
+  </section>
+
+  <section id="blocked">
+    <div class="kicker">09 · 阻塞</div>
+    <h2>几何是三组共同的前置条件</h2>
+    <p>B9 与 B10 的对齐需要网格；B7 的连接对象名称消歧需要网格（「面板」是不是那个叫 <code>cassette</code> 的零件，看一眼网格就知道）；归一化常量 <code>D</code> 目前仅 19/607 可算。</p>
+    <p>这个阻塞对另外两组同样成立——<strong>A4/A5/A6 全为几何视觉指标，B11–B14 全需仿真器输入</strong>。建议在隔离环境中批量编译资产产出 URDF 与网格，这是三组共同的下一步。</p>
+    <p class="note">编译命令（需 cadquery + articraft SDK，执行的是数据集内生成的 Python，建议在容器/VM 中进行）：<br><code>uv run articraft compile --repo-root . --data-dir ../articraft-data --target visual &lt;record_id&gt;</code></p>
+  </section>
+
+  <section id="todo">
+    <div class="kicker">10 · 待决</div>
+    <h2>需要团队决定的三件事</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>问题</th><th>现状</th><th>需要谁</th></tr></thead>
+        <tbody>
+          <tr><td>B8 定义：缺件算不算 B8 失败</td><td>宽/窄在 300 条上无法区分（F1 0.192 vs 0.205，13 个正例）。误报明细显示<strong>不同标注员执行不一致</strong>：空调「缺 slider levers」判通过，另外 5 条「缺零件」判失败。</td><td>三位标注者对口径</td></tr>
+          <tr><td>双标注</td><td>无重叠，人类–人类 κ 不可计算</td><td>标注排期</td></tr>
+          <tr><td>500/1500 冻结划分</td><td>现有 607 条，与协议的 2,000 条不符</td><td>方案负责人</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="code">
+    <div class="kicker">11 · 代码</div>
+    <h2>复现方式</h2>
+    <p>仓库：<a href="https://github.com/Wanglin-He/evo-verifier">github.com/Wanglin-He/evo-verifier</a>。<strong>零第三方依赖</strong>（仅标准库），Python 3.11+，<strong>138 个测试全过</strong>。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>模块</th><th>作用</th></tr></thead>
+        <tbody>
+          <tr><td class="id">items.py</td><td>14 项冻结定义：CSV 中文列名 ↔ 项号 ↔ 英文 key ↔ 族 ↔ 负责人分组</td></tr>
+          <tr><td class="id">labels.py</td><td>标注 CSV → 类型化标签。<strong>空 ≠ 满足</strong>：334 条旧版记录的六列为空，读成「满足」会让 B9 的分母从 272 膨胀到 606</td></tr>
+          <tr><td class="id">asset.py</td><td>静态解析 model.py，不执行代码；记录哪些字段「声明了但读不出来」</td></tr>
+          <tr><td class="id">contract.py / extract.py</td><td>契约 schema + 引文守卫 + 离线抽取</td></tr>
+          <tr><td class="id">matching.py</td><td>散文名 ↔ 代码标识符，确定性排他分配</td></tr>
+          <tr><td class="id">detectors.py</td><td>B7 / B8 / B9 / B10</td></tr>
+          <tr><td class="id">inject.py</td><td>合成故障注入：正例只有 47 个，阈值无法在真实数据上校准，故制造已知答案的正例</td></tr>
+          <tr><td class="id">report.py / evaluate.py</td><td>输出契约（强制校验）+ 逐项对齐评测</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <pre><code>uv run --no-project --with pytest python -m pytest -q
+uv run --no-project python -m evo_verifier --group B7-B10 stats
+uv run --no-project python -m evo_verifier parse &lt;articraft-data 路径&gt;
+uv run --no-project python -m evo_verifier --group B7-B10 evaluate &lt;reports 目录&gt;</code></pre>
+    <p class="note">代码经过一次 42 个 agent 的对抗审查：提出 38 条发现，经推翻验证后幸存 15 条（12 条 high），全部已修复并写成回归测试。其中最严重的一条：由于要求之间没有排他性，「尾旋翼」可被「主旋翼」的关节顶替，导致删掉真实直升机尾旋翼关节后 B8 仍返回 <code>1.0 / 通过 / 置信度 1.0 / 失败原因为空</code>。</p>
+  </section>
+
+  <footer class="page-footer">
+    B7–B10 实现报告 · Wanglin · 2026-08-11 · 四项检测器完成，B8 与 B10 高于随机，B7 与 B9 待几何
+  </footer>
+</main>
+</body>
+</html>
