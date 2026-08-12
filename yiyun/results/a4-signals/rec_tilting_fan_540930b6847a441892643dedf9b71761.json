@@ -1,0 +1,29 @@
+{
+  "vlm_realism_probability": 0.73,
+  "cross_view_consistency": 0.91,
+  "low_scoring_views": [
+    2,
+    3,
+    5,
+    6
+  ],
+  "a4_vlm_evidence": [
+    "All views consistently show a tall narrow pedestal on a weighted rectangular base, giving the requested long vertical proportion.",
+    "The top fan head is small relative to the full pedestal height and contains visible blades within a circular guard.",
+    "Side views 2 and 6 reveal an unusually bulky, elongated rear motor housing and a sparse guard profile, reducing manufactured plausibility.",
+    "Oblique rear views 3 and 5 expose blocky side-bracket and tilt-joint geometry that appears crowded and partly intersecting around the motor housing.",
+    "Despite those awkward junctions, the base, column, guarded rotor, rear housing, and tilt assembly retain consistent positions and proportions across all eight views."
+  ],
+  "vlm_calibrated": false,
+  "record_id": "rec_tilting_fan_540930b6847a441892643dedf9b71761",
+  "render_paths": [
+    "results/a4-renders/rec_tilting_fan_540930b6847a441892643dedf9b71761/view_00.png",
+    "results/a4-renders/rec_tilting_fan_540930b6847a441892643dedf9b71761/view_01.png",
+    "results/a4-renders/rec_tilting_fan_540930b6847a441892643dedf9b71761/view_02.png",
+    "results/a4-renders/rec_tilting_fan_540930b6847a441892643dedf9b71761/view_03.png",
+    "results/a4-renders/rec_tilting_fan_540930b6847a441892643dedf9b71761/view_04.png",
+    "results/a4-renders/rec_tilting_fan_540930b6847a441892643dedf9b71761/view_05.png",
+    "results/a4-renders/rec_tilting_fan_540930b6847a441892643dedf9b71761/view_06.png",
+    "results/a4-renders/rec_tilting_fan_540930b6847a441892643dedf9b71761/view_07.png"
+  ]
+}

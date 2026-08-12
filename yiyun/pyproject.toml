@@ -1,0 +1,13 @@
+[project]
+name = "articraft-verifier-a1-a6"
+version = "0.1.0"
+description = "ArtiCraft verifier — A1-A6 pure metric heads"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+a4 = ["matplotlib>=3.8", "trimesh>=4.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

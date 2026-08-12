@@ -1,0 +1,112 @@
+{
+  "category": "air fryer",
+  "required_interfaces": [
+    {
+      "id": "basket_hollow",
+      "target": "basket",
+      "relation": "hollow",
+      "source": "prompt",
+      "evidence_text": "The basket, drawer, and heating cavity should remain clearly hollow instead of reading as one solid cylinder."
+    },
+    {
+      "id": "drawer_hollow",
+      "target": "drawer",
+      "relation": "hollow",
+      "source": "prompt",
+      "evidence_text": "The basket, drawer, and heating cavity should remain clearly hollow instead of reading as one solid cylinder."
+    },
+    {
+      "id": "heating_cavity_hollow",
+      "target": "heating cavity",
+      "relation": "hollow",
+      "source": "prompt",
+      "evidence_text": "The basket, drawer, and heating cavity should remain clearly hollow instead of reading as one solid cylinder."
+    }
+  ],
+  "appearance_claims": [
+    {
+      "id": "body_cylindrical",
+      "target": "body",
+      "attribute": "shape",
+      "value": "cylindrical",
+      "source": "prompt",
+      "evidence_text": "A cylindrical matte-finish air fryer"
+    },
+    {
+      "id": "body_rounded",
+      "target": "body",
+      "attribute": "shape",
+      "value": "rounded",
+      "source": "prompt",
+      "evidence_text": "a rounded body"
+    },
+    {
+      "id": "surface_matte",
+      "target": "air fryer",
+      "attribute": "finish",
+      "value": "matte",
+      "source": "prompt",
+      "evidence_text": "matte-finish"
+    },
+    {
+      "id": "drawer_short",
+      "target": "basket drawer",
+      "attribute": "relative_proportion",
+      "value": "short",
+      "source": "prompt",
+      "evidence_text": "a short basket drawer"
+    },
+    {
+      "id": "small_appliance_scale",
+      "target": "whole object",
+      "attribute": "scale_class",
+      "value": "small appliance",
+      "source": "prompt",
+      "evidence_text": "Small appliance scale."
+    }
+  ],
+  "category_scale": null,
+  "spatial_relations": [
+    {
+      "id": "control_tower_on_top",
+      "subject": "control tower",
+      "relation": "on_top_of",
+      "object": "body",
+      "source": "prompt",
+      "evidence_text": "a top control tower"
+    },
+    {
+      "id": "drawer_at_lower_front",
+      "subject": "drawer",
+      "relation": "at_lower_front_of",
+      "object": "body",
+      "source": "prompt",
+      "evidence_text": "The drawer slides prismatically from the lower front of the body"
+    },
+    {
+      "id": "dials_on_control_tower",
+      "subject": "temperature dial and time dial",
+      "relation": "on",
+      "object": "top control tower",
+      "source": "prompt",
+      "evidence_text": "a top control tower carrying a temperature dial, a time dial, and a keep-warm button"
+    },
+    {
+      "id": "keep_warm_button_on_control_tower",
+      "subject": "keep-warm button",
+      "relation": "on",
+      "object": "top control tower",
+      "source": "prompt",
+      "evidence_text": "a top control tower carrying a temperature dial, a time dial, and a keep-warm button"
+    },
+    {
+      "id": "release_button_in_handle_top",
+      "subject": "basket handle release button",
+      "relation": "into",
+      "object": "handle top",
+      "source": "prompt",
+      "evidence_text": "The basket handle release button slides prismatically into the handle top."
+    }
+  ],
+  "advisory_inferences": []
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["required_interfaces", "appearance_claims", "spatial_relations", "advisory_inferences"],
+  "properties": {
+    "required_interfaces": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "interface_type", "moving_part", "support_parts", "description", "source", "confidence", "evidence_text"],
+        "properties": {
+          "id": {"type": "string"},
+          "interface_type": {"type": "string", "enum": ["hinge", "pivot", "axle", "bearing", "bushing", "rail", "guide", "slot", "collar", "bracket", "mount", "contact"]},
+          "moving_part": {"type": "string"},
+          "support_parts": {"type": "array", "items": {"type": "string"}},
+          "description": {"type": "string"},
+          "source": {"type": "string", "const": "prompt"},
+          "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+          "evidence_text": {"type": "string"}
+        }
+      }
+    },
+    "appearance_claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "subject", "claim_type", "description", "comparison_target", "check_mode", "source", "confidence", "evidence_text"],
+        "properties": {
+          "id": {"type": "string"},
+          "subject": {"type": "string"},
+          "claim_type": {"type": "string", "enum": ["shape", "proportion", "relative_size", "visibility", "style", "detail", "scale"]},
+          "description": {"type": "string"},
+          "comparison_target": {"type": "string"},
+          "check_mode": {"type": "string", "enum": ["geometry", "vlm", "hybrid"]},
+          "source": {"type": "string", "const": "prompt"},
+          "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+          "evidence_text": {"type": "string"}
+        }
+      }
+    },
+    "spatial_relations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "subject", "relation", "objects", "frame", "check_mode", "source", "confidence", "evidence_text"],
+        "properties": {
+          "id": {"type": "string"},
+          "subject": {"type": "string"},
+          "relation": {"type": "string", "enum": ["above", "below", "left_of", "right_of", "in_front_of", "behind", "inside", "contains", "between", "at_end_of", "centered_on", "aligned_with", "parallel_to", "perpendicular_to", "adjacent_to", "attached_to", "surrounds", "overlaps", "spaced_around"]},
+          "objects": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "frame": {"type": "string", "enum": ["world", "object"]},
+          "check_mode": {"type": "string", "enum": ["geometry", "vlm", "hybrid"]},
+          "source": {"type": "string", "const": "prompt"},
+          "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+          "evidence_text": {"type": "string"}
+        }
+      }
+    },
+    "advisory_inferences": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "description", "confidence"],
+        "properties": {
+          "kind": {"type": "string", "enum": ["interface", "appearance", "spatial"]},
+          "description": {"type": "string"},
+          "confidence": {"type": "number", "minimum": 0, "maximum": 0.7}
+        }
+      }
+    }
+  }
+}

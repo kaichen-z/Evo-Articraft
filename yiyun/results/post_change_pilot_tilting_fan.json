@@ -1,0 +1,239 @@
+{
+  "record_id": "rec_tilting_fan_540930b6847a441892643dedf9b71761",
+  "status": "ok",
+  "note": "post-change pilot; A4 raw VLM is uncalibrated and therefore partial",
+  "report": {
+    "verifier_version": "articraft-a1-a6-v0.1",
+    "human_metrics": {
+      "A1": {
+        "score": null,
+        "prediction": "none",
+        "threshold": 0.7,
+        "confidence": null,
+        "coverage": "not-applicable",
+        "tools": [],
+        "raw_measurements": {},
+        "sub_scores": {},
+        "evidence": {
+          "na_reason": "Prompt 未明确要求活动件"
+        },
+        "failure_reason": null,
+        "repair_hint": null,
+        "provisional_params": [],
+        "diagnostics": {}
+      },
+      "A2": {
+        "score": null,
+        "prediction": "none",
+        "threshold": 0.7,
+        "confidence": null,
+        "coverage": "not-applicable",
+        "tools": [],
+        "raw_measurements": {},
+        "sub_scores": {},
+        "evidence": {
+          "na_reason": "Prompt 未明确要求部件类别或数量"
+        },
+        "failure_reason": null,
+        "repair_hint": null,
+        "provisional_params": [],
+        "diagnostics": {}
+      },
+      "A3": {
+        "score": 0.0,
+        "prediction": "fail",
+        "threshold": 0.7,
+        "confidence": 1.0,
+        "coverage": "partial",
+        "tools": [
+          "contract",
+          "semantic-match",
+          "geometry-existence"
+        ],
+        "raw_measurements": {},
+        "sub_scores": {
+          "C_interfaces": 0.0
+        },
+        "evidence": {
+          "missing_parts": [],
+          "missing_interfaces": [
+            "fan_rotor_axle",
+            "head_side_brackets"
+          ],
+          "interface_results": [
+            {
+              "id": "fan_rotor_axle",
+              "matched": false,
+              "named_interface_geometry": [],
+              "moving_part_matches": [
+                "rotor"
+              ],
+              "support_part_matches": [],
+              "joint_connects_parties": true,
+              "measurement": "named-solid-plus-joint"
+            },
+            {
+              "id": "head_side_brackets",
+              "matched": false,
+              "named_interface_geometry": [],
+              "moving_part_matches": [
+                "head"
+              ],
+              "support_part_matches": [],
+              "joint_connects_parties": true,
+              "measurement": "named-solid-plus-joint"
+            }
+          ]
+        },
+        "failure_reason": "Prompt 明确要求的部件或功能接口缺失",
+        "repair_hint": "补齐缺失的必要部件或功能前置接口",
+        "provisional_params": [
+          "A3_PART_INTERFACE_WEIGHTS",
+          "Q_CONTRACT",
+          "Q_TOOL"
+        ],
+        "diagnostics": {
+          "score_is_upper_bound": true
+        }
+      },
+      "A4": {
+        "score": 0.7700000000000001,
+        "prediction": "abstain",
+        "threshold": 0.7,
+        "confidence": 0.35000000000000087,
+        "coverage": "partial",
+        "tools": [
+          "renderer",
+          "calibrated-vlm",
+          "scale-prior"
+        ],
+        "raw_measurements": {
+          "actual_scale_m": null,
+          "median_scale_m": null
+        },
+        "sub_scores": {
+          "p_real": 0.73,
+          "C_view": 0.91
+        },
+        "evidence": {
+          "missing_evidence": [],
+          "vlm_calibrated": false,
+          "vlm_evidence": [
+            "All views consistently show a tall narrow pedestal on a weighted rectangular base, giving the requested long vertical proportion.",
+            "The top fan head is small relative to the full pedestal height and contains visible blades within a circular guard.",
+            "Side views 2 and 6 reveal an unusually bulky, elongated rear motor housing and a sparse guard profile, reducing manufactured plausibility.",
+            "Oblique rear views 3 and 5 expose blocky side-bracket and tilt-joint geometry that appears crowded and partly intersecting around the motor housing.",
+            "Despite those awkward junctions, the base, column, guarded rotor, rear housing, and tilt assembly retain consistent positions and proportions across all eight views."
+          ],
+          "low_scoring_views": [
+            2,
+            3,
+            5,
+            6
+          ]
+        },
+        "failure_reason": null,
+        "repair_hint": "调整异常形状、尺度或比例；低置信结果交由人工复核",
+        "provisional_params": [
+          "A4_SCALE_PRIOR",
+          "A4_VLM_WEIGHTS",
+          "Q_CONTRACT",
+          "Q_TOOL"
+        ],
+        "diagnostics": {
+          "score_is_upper_bound": true
+        }
+      },
+      "A5": {
+        "score": null,
+        "prediction": "none",
+        "threshold": 0.7,
+        "confidence": null,
+        "coverage": "unsupported",
+        "tools": [],
+        "raw_measurements": {},
+        "sub_scores": {},
+        "evidence": {
+          "unsupported_reason": "关系模板存在，但没有可计算的关系分量"
+        },
+        "failure_reason": null,
+        "repair_hint": null,
+        "provisional_params": [],
+        "diagnostics": {}
+      },
+      "A6": {
+        "score": 1.0,
+        "prediction": "abstain",
+        "threshold": 0.7,
+        "confidence": 1.0,
+        "coverage": "partial",
+        "tools": [
+          "exact-mesh-collision",
+          "connected-components",
+          "support-query"
+        ],
+        "raw_measurements": {
+          "object_diagonal_m": 0.7134644770414291,
+          "unexpected_penetration_m": 0.0,
+          "penetration_over_D": 0.0,
+          "detached_volume_ratio": 0.0,
+          "unsupported_gap_m": 0.0,
+          "unsupported_gap_over_D": 0.0
+        },
+        "sub_scores": {
+          "S_penetration": 1.0,
+          "S_detached": 1.0,
+          "S_floating": 1.0
+        },
+        "evidence": {
+          "penetrating_pairs": [],
+          "detached_parts": [],
+          "floating_parts": [],
+          "allowed_overlap_ids": [],
+          "measurement_notes": {
+            "overlap_ok": true,
+            "isolated_ok": true,
+            "overlap_tol_m": 0.001,
+            "unsupported_gap_available": true,
+            "detached_ratio_is_part_count_proxy": true,
+            "volume_measurement": "part-count-fallback",
+            "volume_errors": [
+              "head/guard: ValueError: mesh is not a watertight solid: /private/var/folders/d_/_kj2fg7n7sv0lbvy7g6x4f5h0000gn/T/articraft-assets-06fd5z1a/assets/meshes/guard.obj"
+            ],
+            "part_volumes_m3": {
+              "base": 0.002139144662268009,
+              "rotor": 0.0001508024013175395
+            },
+            "detached_volume_m3": null
+          }
+        },
+        "failure_reason": null,
+        "repair_hint": "消除非预期穿透、重新连接脱离部件，或让悬空部件落到预期支撑面",
+        "provisional_params": [
+          "A6_DECAY_SCALES",
+          "Q_TOOL"
+        ],
+        "diagnostics": {
+          "score_is_upper_bound": true
+        }
+      }
+    },
+    "coverage": {
+      "scored_metrics": 3,
+      "total_metrics": 6,
+      "rate": 0.5
+    },
+    "tool_failures": [],
+    "provisional_params": [
+      "A3_PART_INTERFACE_WEIGHTS",
+      "A4_SCALE_PRIOR",
+      "A4_VLM_WEIGHTS",
+      "A6_DECAY_SCALES",
+      "Q_CONTRACT",
+      "Q_TOOL"
+    ],
+    "repair_queue": [
+      "补齐缺失的必要部件或功能前置接口"
+    ]
+  }
+}

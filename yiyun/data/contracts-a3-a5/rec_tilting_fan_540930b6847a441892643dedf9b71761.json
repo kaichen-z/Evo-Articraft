@@ -1,0 +1,97 @@
+{
+  "version": "1",
+  "record_id": "rec_tilting_fan_540930b6847a441892643dedf9b71761",
+  "extractor": "codex:configured-default",
+  "required_interfaces": [
+    {
+      "id": "fan_rotor_axle",
+      "interface_type": "axle",
+      "moving_part": "fan rotor",
+      "support_parts": [
+        "axle"
+      ],
+      "description": "fan rotor spins continuously about its axle",
+      "source": "prompt",
+      "confidence": 1.0,
+      "evidence_text": "the fan rotor spins continuously about its axle"
+    },
+    {
+      "id": "head_side_brackets",
+      "interface_type": "bracket",
+      "moving_part": "fan head",
+      "support_parts": [
+        "left side bracket",
+        "right side bracket"
+      ],
+      "description": "fan head tilts on a horizontal revolute axis through the side brackets",
+      "source": "prompt",
+      "confidence": 1.0,
+      "evidence_text": "the head tilts on a horizontal revolute axis through the side brackets"
+    }
+  ],
+  "appearance_claims": [
+    {
+      "id": "guarded_fan_head",
+      "subject": "fan head",
+      "source": "prompt",
+      "confidence": 1.0,
+      "evidence_text": "guarded fan head",
+      "claim_type": "detail",
+      "description": "fan head is guarded",
+      "comparison_target": "",
+      "check_mode": "vlm"
+    },
+    {
+      "id": "long_vertical_proportion",
+      "subject": "desk fan",
+      "source": "prompt",
+      "confidence": 1.0,
+      "evidence_text": "a long vertical proportion",
+      "claim_type": "proportion",
+      "description": "desk fan has a long vertical proportion",
+      "comparison_target": "",
+      "check_mode": "geometry"
+    },
+    {
+      "id": "small_top_head_or_hub",
+      "subject": "head or hub",
+      "source": "prompt",
+      "confidence": 1.0,
+      "evidence_text": "a small head or hub at the top",
+      "claim_type": "scale",
+      "description": "head or hub is small",
+      "comparison_target": "desk fan",
+      "check_mode": "hybrid"
+    }
+  ],
+  "spatial_relations": [
+    {
+      "id": "fan_head_between_side_brackets",
+      "subject": "fan head",
+      "source": "prompt",
+      "confidence": 1.0,
+      "evidence_text": "A base supports a guarded fan head between two side brackets.",
+      "relation": "between",
+      "objects": [
+        "left side bracket",
+        "right side bracket"
+      ],
+      "frame": "object",
+      "check_mode": "geometry"
+    },
+    {
+      "id": "head_or_hub_at_top",
+      "subject": "head or hub",
+      "source": "prompt",
+      "confidence": 1.0,
+      "evidence_text": "a small head or hub at the top",
+      "relation": "at_end_of",
+      "objects": [
+        "desk fan"
+      ],
+      "frame": "world",
+      "check_mode": "hybrid"
+    }
+  ],
+  "advisory_inferences": []
+}

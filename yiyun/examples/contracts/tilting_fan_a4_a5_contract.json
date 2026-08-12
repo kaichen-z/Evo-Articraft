@@ -1,0 +1,86 @@
+{
+  "version": "1",
+  "record_id": "rec_tilting_fan_540930b6847a441892643dedf9b71761",
+  "extractor": "codex:configured-default",
+  "appearance_claims": [
+    {
+      "id": "fan_long_vertical_proportion",
+      "subject": "desk fan",
+      "source": "prompt",
+      "confidence": 1.0,
+      "evidence_text": "Emphasize a long vertical proportion with a small head or hub at the top.",
+      "claim_type": "proportion",
+      "description": "The fan has a long vertical proportion.",
+      "comparison_target": "overall fan proportions",
+      "check_mode": "geometry"
+    },
+    {
+      "id": "small_top_head_or_hub",
+      "subject": "head or hub",
+      "source": "prompt",
+      "confidence": 1.0,
+      "evidence_text": "Emphasize a long vertical proportion with a small head or hub at the top.",
+      "claim_type": "relative_size",
+      "description": "The head or hub is small relative to the overall fan.",
+      "comparison_target": "overall fan",
+      "check_mode": "geometry"
+    },
+    {
+      "id": "guarded_fan_head",
+      "subject": "fan head",
+      "source": "prompt",
+      "confidence": 1.0,
+      "evidence_text": "guarded fan head",
+      "claim_type": "detail",
+      "description": "The fan head is guarded.",
+      "comparison_target": "unguarded fan head",
+      "check_mode": "vlm"
+    }
+  ],
+  "spatial_relations": [
+    {
+      "id": "fan_head_between_side_brackets",
+      "subject": "guarded fan head",
+      "source": "prompt",
+      "confidence": 1.0,
+      "evidence_text": "A base supports a guarded fan head between two side brackets.",
+      "relation": "between",
+      "objects": [
+        "left side bracket",
+        "right side bracket"
+      ],
+      "frame": "object",
+      "check_mode": "geometry"
+    },
+    {
+      "id": "head_or_hub_at_top",
+      "subject": "head or hub",
+      "source": "prompt",
+      "confidence": 1.0,
+      "evidence_text": "head or hub at the top",
+      "relation": "above",
+      "objects": [
+        "base"
+      ],
+      "frame": "world",
+      "check_mode": "hybrid"
+    }
+  ],
+  "advisory_inferences": [
+    {
+      "kind": "spatial",
+      "description": "The base supports the guarded fan head, but “supports” has no faithful relation in the allowed vocabulary.",
+      "confidence": 0.5
+    },
+    {
+      "kind": "spatial",
+      "description": "The rotor rotates about its axle; this motion constraint is not representable by the allowed static spatial relations.",
+      "confidence": 0.5
+    },
+    {
+      "kind": "spatial",
+      "description": "The head tilts on a horizontal revolute axis passing through the side brackets; the axis-through relation is not faithfully representable by the allowed relations.",
+      "confidence": 0.5
+    }
+  ]
+}
