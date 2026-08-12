@@ -1,0 +1,15 @@
+[project]
+name = "articraft-verifier"
+version = "0.1.0"
+description = "ArtiCraft verifier — B11-B14 精确计算"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+# 仿真后端。metrics/ 不依赖它 —— 打分函数纯几何/纯算术, 没有 mujoco 也能跑全部单测。
+# mujoco>=3.2: mj_geomDistance 在 3.1.5 里还没有。
+sim = ["mujoco>=3.2", "numpy>=1.24"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
