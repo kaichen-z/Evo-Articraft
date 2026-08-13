@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B12 验证器报告 - 实体接口与物理支撑</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        section h2 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        section h3 {
+            color: #764ba2;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .info-box {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            color: #856404;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            color: #155724;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .metric-card h4 {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .metric-card .value {
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        .confusion-matrix {
+            width: 100%;
+            max-width: 500px;
+            margin: 20px auto;
+        }
+
+        .confusion-matrix table {
+            margin: 0;
+        }
+
+        .confusion-matrix th, .confusion-matrix td {
+            text-align: center;
+            width: 25%;
+        }
+
+        .tp { background-color: #d4edda; color: #155724; font-weight: bold; }
+        .tn { background-color: #d4edda; color: #155724; font-weight: bold; }
+        .fp { background-color: #f8d7da; color: #721c24; font-weight: bold; }
+        .fn { background-color: #f8d7da; color: #721c24; font-weight: bold; }
+
+        .rules {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .rule-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            background: #fafafa;
+            border-left: 4px solid #667eea;
+        }
+
+        .rule-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 10px 0;
+            font-size: 0.9em;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            padding-left: 40px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background: #667eea;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px #667eea;
+        }
+
+        .timeline-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 9px;
+            top: 20px;
+            width: 2px;
+            height: 50px;
+            background: #ddd;
+        }
+
+        .data-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .data-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 3px solid #667eea;
+        }
+
+        .data-item strong {
+            color: #667eea;
+        }
+
+        footer {
+            background: #f8f9fa;
+            padding: 20px 40px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #ddd;
+        }
+
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 20px;
+            height: 250px;
+            margin: 30px 0;
+            justify-content: space-around;
+        }
+
+        .bar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+
+        .bar-fill {
+            width: 40px;
+            background: linear-gradient(to top, #667eea, #764ba2);
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .bar-fill:hover {
+            opacity: 0.8;
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: bold;
+            color: #333;
+        }
+
+        .bar-label {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔧 B12 验证器报告</h1>
+            <p>实体接口与物理支撑 (Interface & Physical Support)</p>
+        </header>
+
+        <div class="content">
+            <!-- 概览 -->
+            <section>
+                <h2>📊 测试概览</h2>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <h4>总案例数</h4>
+                        <div class="value">119</div>
+                        <p style="font-size: 0.9em; margin-top: 5px;">Subset(10) + 完整(109)</p>
+                    </div>
+                    <div class="metric-card">
+                        <h4>数据覆盖率</h4>
+                        <div class="value">100%</div>
+                        <p style="font-size: 0.9em; margin-top: 5px;">仿真成功</p>
+                    </div>
+                    <div class="metric-card">
+                        <h4>完整集准确率</h4>
+                        <div class="value">53.2%</div>
+                        <p style="font-size: 0.9em; margin-top: 5px;">58/109 正确</p>
+                    </div>
+                    <div class="metric-card">
+                        <h4>Subset准确率</h4>
+                        <div class="value">90%</div>
+                        <p style="font-size: 0.9em; margin-top: 5px;">9/10 正确</p>
+                    </div>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>测试阶段</th>
+                            <th>案例数</th>
+                            <th>脚本</th>
+                            <th>准确率</th>
+                            <th>状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Subset 验证</strong></td>
+                            <td>10</td>
+                            <td><code>18_detailed_observation.py</code></td>
+                            <td><strong>90%</strong></td>
+                            <td>✅ 高准确</td>
+                        </tr>
+                        <tr>
+                            <td><strong>完整训练集</strong></td>
+                            <td>109*</td>
+                            <td><code>18b_detailed_observation_fullset.py</code></td>
+                            <td><strong>53.2%</strong></td>
+                            <td>⚠️ 需优化</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="font-size: 0.9em; color: #666; margin-top: 10px;">* 110个中1个跳过（标注为"不涉及"）</p>
+            </section>
+
+            <!-- B12 验证方法 -->
+            <section>
+                <h2>🔍 验证方法：时间序列分析</h2>
+
+                <div class="info-box">
+                    <strong>核心思想：</strong> 不修改URDF，直接分析MuJoCo仿真中产生的时间序列数据来判断轴承好坏。轴承的质量直接表现在运动过程中产生的异常信号上。
+                </div>
+
+                <h3>数据来源</h3>
+                <p>MuJoCo 仿真框架每 1/240 秒记录一次，共 6 秒仿真数据：</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>字段</th>
+                            <th>单位</th>
+                            <th>含义</th>
+                            <th>例值</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>t</code></td>
+                            <td>秒</td>
+                            <td>时间戳</td>
+                            <td>0.0 ~ 6.0</td>
+                        </tr>
+                        <tr>
+                            <td><code>pen_max</code></td>
+                            <td>mm</td>
+                            <td>该帧最大穿透深度</td>
+                            <td>0.0095 (办公椅失败)</td>
+                        </tr>
+                        <tr>
+                            <td><code>n_contact</code></td>
+                            <td>个</td>
+                            <td>该帧接触数量</td>
+                            <td>54.8 (高接触频率)</td>
+                        </tr>
+                        <tr>
+                            <td><code>stalled</code></td>
+                            <td>0/1</td>
+                            <td>是否停滞 (0=运动, 1=停止)</td>
+                            <td>100% (完全锁定)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>四个检测规则</h3>
+                <div class="rules">
+                    <div class="rule-card">
+                        <h4>📌 规则 1: 穿透深度检测</h4>
+                        <p><strong>阈值：</strong> <code>max_penetration > 0.005 mm</code></p>
+                        <p><strong>原理：</strong> 轴承设计好的情况下，零件应该被精确约束，不应该互相穿透。穿透 = 轴承刚度不足。</p>
+                        <p><strong>例子：</strong> 办公椅穿透 0.0095 mm → 超过阈值 → FAIL</p>
+                    </div>
+
+                    <div class="rule-card">
+                        <h4>📌 规则 2: 接触频率检测</h4>
+                        <p><strong>阈值：</strong> <code>mean_contact > 20 次/帧</code> 或 <code>max_contact > 40 次</code></p>
+                        <p><strong>原理：</strong> 轴承好的情况下应该平稳约束，而不是频繁碰撞。接触多 = 轴承无法保持稳定约束。</p>
+                        <p><strong>例子：</strong> 办公椅平均 54.8 次接触/帧 → 远超阈值 20 → FAIL</p>
+                    </div>
+
+                    <div class="rule-card">
+                        <h4>📌 规则 3: 停滞率检测</h4>
+                        <p><strong>阈值：</strong> <code>mean_stall_ratio > 0.05</code> (5%)</p>
+                        <p><strong>原理：</strong> 轴承好的情况下关节应该平稳运动，不应频繁卡住。停滞多 = 轴承摩擦过大或设计有问题。</p>
+                        <p><strong>例子：</strong> 风机 100% 停滞 → 关节被完全锁定 → FAIL</p>
+                    </div>
+
+                    <div class="rule-card">
+                        <h4>📌 规则 4: 综合判断</h4>
+                        <p><strong>逻辑：</strong> <code>if any_issue_found: score = 0.0 (fail)</code></p>
+                        <p><strong>原理：</strong> 轴承质量是"及格制"，只要有任何一个异常信号，就说明轴承有问题。</p>
+                        <p><strong>评分：</strong> 无问题 → score = 1.0 (pass) | 有问题 → score = 0.0 (fail)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 完整训练集结果 -->
+            <section>
+                <h2>📈 完整训练集验证结果 (109 案例)</h2>
+
+                <h3>混淆矩阵</h3>
+                <div class="confusion-matrix">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="background: #f8f9fa;"></th>
+                                <th style="background: #667eea; color: white;">预测: FAIL</th>
+                                <th style="background: #667eea; color: white;">预测: PASS</th>
+                                <th style="background: #f8f9fa;">合计</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th style="background: #f8f9fa; text-align: right;">标注: 不满足</th>
+                                <td class="tp">45 (TP)</td>
+                                <td class="fn">9 (FN)</td>
+                                <td style="background: #f8f9fa; font-weight: bold;">54</td>
+                            </tr>
+                            <tr>
+                                <th style="background: #f8f9fa; text-align: right;">标注: 满足</th>
+                                <td class="fp">42 (FP)</td>
+                                <td class="tn">13 (TN)</td>
+                                <td style="background: #f8f9fa; font-weight: bold;">55</td>
+                            </tr>
+                            <tr style="background: #f8f9fa; font-weight: bold;">
+                                <th style="text-align: right;">合计</th>
+                                <td>87</td>
+                                <td>22</td>
+                                <td>109</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>性能指标</h3>
+                <div class="bar-chart">
+                    <div class="bar">
+                        <div class="bar-fill" style="height: 53.2%;">
+                            <span class="bar-value">53.2%</span>
+                        </div>
+                        <div class="bar-label">准确率<br/>(TP+TN)/Total</div>
+                    </div>
+                    <div class="bar">
+                        <div class="bar-fill" style="height: 51.7%;">
+                            <span class="bar-value">51.7%</span>
+                        </div>
+                        <div class="bar-label">精度<br/>TP/(TP+FP)</div>
+                    </div>
+                    <div class="bar">
+                        <div class="bar-fill" style="height: 83.3%;">
+                            <span class="bar-value">83.3%</span>
+                        </div>
+                        <div class="bar-label">召回率<br/>TP/(TP+FN)</div>
+                    </div>
+                    <div class="bar">
+                        <div class="bar-fill" style="height: 63.8%;">
+                            <span class="bar-value">63.8%</span>
+                        </div>
+                        <div class="bar-label">F1-Score<br/>调和平均</div>
+                    </div>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>指标</th>
+                            <th>数值</th>
+                            <th>公式</th>
+                            <th>解释</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>准确率</strong></td>
+                            <td>53.2%</td>
+                            <td>(45+13)/109</td>
+                            <td>整体预测正确的比例 - <span style="color: #d9534f;">偏低</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>精度</strong></td>
+                            <td>51.7%</td>
+                            <td>45/(45+42)</td>
+                            <td>检测为"失败"中实际失败的比例</td>
+                        </tr>
+                        <tr>
+                            <td><strong>召回率</strong></td>
+                            <td>83.3%</td>
+                            <td>45/(45+9)</td>
+                            <td>真实失败中被成功捕获的比例 - <span style="color: #5cb85c;">较好</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>F1-Score</strong></td>
+                            <td>63.8%</td>
+                            <td>2×精度×召回/(精度+召回)</td>
+                            <td>精度和召回的调和平均</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- 问题分析 -->
+            <section>
+                <h2>⚠️ 问题分析</h2>
+
+                <div class="warning-box">
+                    <strong>主要问题：假正例过多 (FP = 42)</strong><br/>
+                    42个案例被误判为失败，但人工标注为"满足"。这导致精度只有51.7%。
+                </div>
+
+                <h3>根本原因</h3>
+                <p>时间序列方法采用<strong>严格的及格制</strong>阈值，对资产多样性不适应：</p>
+
+                <pre>
+if max_penetration > 0.005 mm:      # ← 很严格（半微米）
+    fail = True
+if mean_contact > 20 per frame:     # ← 可能对不同资产类型不适用
+    fail = True
+if mean_stall_ratio > 0.05:         # ← 5% 停滞阈值
+    fail = True</pre>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>因素</th>
+                            <th>Subset (10个)</th>
+                            <th>完整训练集 (109个)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>数据覆盖</td>
+                            <td>10/10 (100%)</td>
+                            <td>109/109 (100%)</td>
+                        </tr>
+                        <tr>
+                            <td>案例多样性</td>
+                            <td>低（可能有偏）</td>
+                            <td><strong style="color: #d9534f;">高（各种资产类型）</strong></td>
+                        </tr>
+                        <tr>
+                            <td>轴承基准</td>
+                            <td>可能较一致</td>
+                            <td><strong style="color: #d9534f;">从微型到大型，基准差异大</strong></td>
+                        </tr>
+                        <tr>
+                            <td>准确率</td>
+                            <td>90%</td>
+                            <td><strong style="color: #d9534f;">53.2%</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>结论</h3>
+                <div class="warning-box">
+                    <strong>Subset的90%准确率是"幸存者偏差"：</strong><br/>
+                    这10个案例恰好符合时间序列阈值，但完整训练集的多样性超出了单一阈值的适用范围。
+                </div>
+            </section>
+
+            <!-- 实现细节 -->
+            <section>
+                <h2>💻 实现细节</h2>
+
+                <h3>验证器签名</h3>
+                <pre>def score(
+    signals: dict,           # 时间序列仿真数据
+    contract: dict,          # 资产协议（未使用）
+    consts: Consts          # 常量集合
+) -> MetricResult</pre>
+
+                <h3>返回值结构</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>字段</th>
+                            <th>类型</th>
+                            <th>含义</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>score</code></td>
+                            <td>0.0 / 1.0</td>
+                            <td>0.0 = fail (有轴承问题), 1.0 = pass (轴承良好)</td>
+                        </tr>
+                        <tr>
+                            <td><code>prediction</code></td>
+                            <td>"fail" / "pass"</td>
+                            <td>判定结果</td>
+                        </tr>
+                        <tr>
+                            <td><code>coverage</code></td>
+                            <td>"estimated-physics"</td>
+                            <td>数据覆盖程度</td>
+                        </tr>
+                        <tr>
+                            <td><code>evidence</code></td>
+                            <td>dict</td>
+                            <td>穿透/接触/停滞数值 + 问题清单</td>
+                        </tr>
+                        <tr>
+                            <td><code>failure_reason</code></td>
+                            <td>string</td>
+                            <td>"轴承质量不足" 或 None</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>文件结构</h3>
+                <pre>
+verifier/
+  metrics/
+    b12.py                    # B12 验证器实现 (~177 行)
+
+calibration/
+  scripts/
+    18_detailed_observation.py           # Subset 仿真
+    18b_detailed_observation_fullset.py  # 完整训练集仿真
+    41_final_b12_validation.py           # 最终验证脚本
+
+  detailed_observation/
+    {rid}.csv × 109           # MuJoCo 仿真时间序列数据
+
+  b12_final_validation_fullset.json      # 验证结果</pre>
+            </section>
+
+            <!-- 数据统计 -->
+            <section>
+                <h2>📊 数据统计</h2>
+
+                <div class="data-summary">
+                    <div class="data-item">
+                        <strong>总仿真时长</strong><br/>
+                        714 秒 (119 × 6s)
+                    </div>
+                    <div class="data-item">
+                        <strong>总仿真帧数</strong><br/>
+                        ~172,000 帧 (119 × 1440)
+                    </div>
+                    <div class="data-item">
+                        <strong>数据采样点</strong><br/>
+                        ~65,000 个 (119 × 600 @ 100Hz)
+                    </div>
+                    <div class="data-item">
+                        <strong>CSV 文件数</strong><br/>
+                        109 个
+                    </div>
+                    <div class="data-item">
+                        <strong>平均文件大小</strong><br/>
+                        ~8 KB/file
+                    </div>
+                    <div class="data-item">
+                        <strong>总数据大小</strong><br/>
+                        ~900 KB
+                    </div>
+                </div>
+
+                <h3>时间线</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <strong>第1阶段：Subset 验证（完成）</strong>
+                        <p>测试 10 个 subset 案例，验证时间序列方法可行性。结果：90% 准确率。</p>
+                    </div>
+                    <div class="timeline-item">
+                        <strong>第2阶段：完整训练集仿真（完成）</strong>
+                        <p>生成 110 个完整训练集案例的 MuJoCo 仿真数据。涉及各种资产类型、机械复杂度和轴承质量。</p>
+                    </div>
+                    <div class="timeline-item">
+                        <strong>第3阶段：最终验证（完成）</strong>
+                        <p>在 109 个有效案例上运行验证。检测率高（83.3%），但假正例多（42 个）。</p>
+                    </div>
+                    <div class="timeline-item">
+                        <strong>第4阶段：后续改进（待进行）</strong>
+                        <p>分析假正例分布，按资产类型调整阈值，或集成规范的指数乘积公式。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 后续改进 -->
+            <section>
+                <h2>🚀 后续改进方向</h2>
+
+                <h3>1. 阈值校准（推荐优先级：高）</h3>
+                <div class="info-box">
+                    <p><strong>步骤：</strong></p>
+                    <ul style="margin-left: 20px;">
+                        <li>分析 42 个 FP 案例（被误判的"满足"）的穿透/接触/停滞分布</li>
+                        <li>分析 9 个 FN 案例（被漏检的"不满足"）没有触发哪个规则</li>
+                        <li>按资产类型（小型精密件、大型结构件等）分组调整阈值</li>
+                    </ul>
+                </div>
+
+                <h3>2. 集成指数乘积公式（推荐优先级：中）</h3>
+                <div class="info-box">
+                    <p><strong>规范要求的公式：</strong></p>
+                    <pre>
+S_interface = exp(−g₀/(0.02L)) · exp(−g_drift/(0.05L)) · ...
+S_gravity = exp(−d_g/(0.01D)) · exp(−e_c/(0.005D)) · ...
+S_B12 = S_interface · S_gravity · S_payload</pre>
+                    <p><strong>需要：</strong> 几何接口参数（L, D, g₀ 等）的计算或提取</p>
+                </div>
+
+                <h3>3. 多指标加权融合（推荐优先级：低）</h3>
+                <div class="info-box">
+                    <pre>
+当前: if any_issue → fail (0.0)
+改进: score = w1·penet_factor + w2·contact_factor + w3·stall_factor
+     → 允许轻微异常通过</pre>
+                </div>
+            </section>
+
+            <!-- 总结 -->
+            <section>
+                <h2>✅ 总结</h2>
+
+                <div class="success-box">
+                    <strong>✓ 技术成果</strong>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>B12 验证器已完全实现，符合规范签名</li>
+                        <li>完整的 110 案例仿真数据集已生成（100% 覆盖）</li>
+                        <li>性能指标明确可量化，每个预测都有可追踪的证据</li>
+                        <li>召回率高达 83.3%，能捕获大多数真实的轴承问题</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <strong>⚠ 需要改进</strong>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>假正例过多（42 个），导致准确率只有 53.2%</li>
+                        <li>根本原因：单一阈值对资产多样性不适应</li>
+                        <li>需要按资产类型分层或采用更复杂的评分公式</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <strong>📊 数据质量</strong>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>100% 仿真覆盖（109/109 案例有数据）</li>
+                        <li>所有失败预测都有可追踪的穿透/接触/停滞数值</li>
+                        <li>具体的测量值可用于后续的阈值校准</li>
+                        <li>总数据量 ~65,000 个采样点</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p>生成时间：2026-08-12</p>
+            <p>项目：ArtiCraft Verifier - B12 实体接口与物理支撑</p>
+            <p>数据文件：<code>calibration/b12_final_validation_fullset.json</code> | 报告：<code>calibration/B12_VALIDATION_REPORT.md</code></p>
+        </footer>
+    </div>
+</body>
+</html>
