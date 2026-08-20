@@ -308,7 +308,7 @@ def main() -> None:
 
     with (OUT / "summary.csv").open("w", encoding="utf-8-sig", newline="") as f:
         w = csv.writer(f)
-        w.writerow(["record_id", "label", "shape_best_guess", "shape_best_prob",
+        w.writerow(["record_id", "label", "shape_best_guess", "shape_best_prob", "GF1_shape",
                     "GF1_mean_cos", "GF1_prob", "GF1_rank",
                     "GF2_macro_cos", "GF2_macro_prob", "GF2_macro_prob_vs_chance", "GF2_n_parts",
                     "GF3", "GF4", "gf3_claims", "gf3_unmeas", "gf4_pairs", "coverage"])
@@ -320,6 +320,7 @@ def main() -> None:
             w.writerow([
                 r["record_id"], r.get("label", ""),
                 shape.get("shape_best_guess", ""), fmt(shape.get("shape_best_prob")),
+                fmt(shape.get("shape_best_prob_vs_chance")),
                 fmt(gf1.get("mean_cos")), fmt(gf1.get("softmax_prob_vs_19_distractors")),
                 gf1.get("rank_among_20", ""),
                 fmt(gf2.get("macro_mean_cos")), fmt(gf2.get("macro_prob")),

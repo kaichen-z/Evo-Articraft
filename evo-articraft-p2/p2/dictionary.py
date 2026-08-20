@@ -136,12 +136,16 @@ def classify_shape_from_views(view_feats: np.ndarray, enc) -> dict:
     text_feats = enc.encode_texts([SHAPE_CATEGORY_TEXTS[n] for n in names])
     probs, sims = _softmax_self_match(m[None, :], text_feats, enc.logit_scale)
     order = np.argsort(-sims[0])
+    chance = 1.0 / len(names)
+    best_prob = float(probs[0, int(order[0])])
     return {
         "shape_top3": [
             (names[i], float(sims[0, i]), float(probs[0, i])) for i in order[:3]
         ],
         "shape_best_guess": names[int(order[0])],
-        "shape_best_prob": float(probs[0, int(order[0])]),
+        "shape_best_prob": best_prob,
+        "shape_best_prob_vs_chance": best_prob / chance,
+        "score": best_prob / chance,   # GF1_shape：与 GF2 的 prob_vs_chance 同一口径，可与 GF1 并列展示
     }
 
 

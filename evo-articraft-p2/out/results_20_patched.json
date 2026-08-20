@@ -510,7 +510,9 @@
           ]
         ],
         "shape_best_guess": "door/hatch",
-        "shape_best_prob": 0.7781767845153809
+        "shape_best_prob": 0.7781767845153809,
+        "shape_best_prob_vs_chance": 9.33812141418457,
+        "score": 9.33812141418457
       },
       "gf1": {
         "text": "a 3D rendering of a drawer cabinet with sliding drawers",
@@ -964,7 +966,9 @@
           ]
         ],
         "shape_best_guess": "machine housing",
-        "shape_best_prob": 0.40977394580841064
+        "shape_best_prob": 0.40977394580841064,
+        "shape_best_prob_vs_chance": 4.917287349700928,
+        "score": 4.917287349700928
       },
       "gf1": {
         "text": "a 3D rendering of a telescoping boom",
@@ -1240,7 +1244,9 @@
           ]
         ],
         "shape_best_guess": "lamp/light",
-        "shape_best_prob": 0.462203711271286
+        "shape_best_prob": 0.462203711271286,
+        "shape_best_prob_vs_chance": 5.546444535255432,
+        "score": 5.546444535255432
       },
       "gf1": {
         "text": "a 3D rendering of a bench vise with prismatic jaw",
@@ -2390,7 +2396,9 @@
           ]
         ],
         "shape_best_guess": "cutting tool",
-        "shape_best_prob": 0.6674041152000427
+        "shape_best_prob": 0.6674041152000427,
+        "shape_best_prob_vs_chance": 8.008849382400513,
+        "score": 8.008849382400513
       },
       "gf1": {
         "text": "a 3D rendering of a cash register",
@@ -3534,7 +3542,9 @@
           ]
         ],
         "shape_best_guess": "door/hatch",
-        "shape_best_prob": 0.9997784495353699
+        "shape_best_prob": 0.9997784495353699,
+        "shape_best_prob_vs_chance": 11.997341394424438,
+        "score": 11.997341394424438
       },
       "gf1": {
         "text": "a 3D rendering of a garden gate",
@@ -3882,7 +3892,9 @@
           ]
         ],
         "shape_best_guess": "door/hatch",
-        "shape_best_prob": 0.8584977984428406
+        "shape_best_prob": 0.8584977984428406,
+        "shape_best_prob_vs_chance": 10.301973581314087,
+        "score": 10.301973581314087
       },
       "gf1": {
         "text": "a 3D rendering of a electrical cabinet door",
@@ -4249,7 +4261,9 @@
           ]
         ],
         "shape_best_guess": "wheeled vehicle",
-        "shape_best_prob": 0.9853925108909607
+        "shape_best_prob": 0.9853925108909607,
+        "shape_best_prob_vs_chance": 11.824710130691528,
+        "score": 11.824710130691528
       },
       "gf1": {
         "text": "a 3D rendering of a wheelie bin with hinged lid",
@@ -4642,7 +4656,9 @@
           ]
         ],
         "shape_best_guess": "handheld device",
-        "shape_best_prob": 0.6268967986106873
+        "shape_best_prob": 0.6268967986106873,
+        "shape_best_prob_vs_chance": 7.522761583328247,
+        "score": 7.522761583328247
       },
       "gf1": {
         "text": "a 3D rendering of a flip phone",
@@ -5011,7 +5027,9 @@
           ]
         ],
         "shape_best_guess": "handheld device",
-        "shape_best_prob": 0.8356325626373291
+        "shape_best_prob": 0.8356325626373291,
+        "shape_best_prob_vs_chance": 10.02759075164795,
+        "score": 10.02759075164795
       },
       "gf1": {
         "text": "a 3D rendering of a glasses",
@@ -5347,7 +5365,9 @@
           ]
         ],
         "shape_best_guess": "door/hatch",
-        "shape_best_prob": 0.7331256866455078
+        "shape_best_prob": 0.7331256866455078,
+        "shape_best_prob_vs_chance": 8.797508239746094,
+        "score": 8.797508239746094
       },
       "gf1": {
         "text": "a 3D rendering of a panini press with clamshell lid",
@@ -5658,7 +5678,9 @@
           ]
         ],
         "shape_best_guess": "wind/water turbine",
-        "shape_best_prob": 0.8669010400772095
+        "shape_best_prob": 0.8669010400772095,
+        "shape_best_prob_vs_chance": 10.402812480926514,
+        "score": 10.402812480926514
       },
       "gf1": {
         "text": "a 3D rendering of a wind turbine",
@@ -5942,7 +5964,9 @@
           ]
         ],
         "shape_best_guess": "lamp/light",
-        "shape_best_prob": 0.8995468616485596
+        "shape_best_prob": 0.8995468616485596,
+        "shape_best_prob_vs_chance": 10.794562339782715,
+        "score": 10.794562339782715
       },
       "gf1": {
         "text": "a 3D rendering of a lazy susan",
@@ -6447,7 +6471,9 @@
           ]
         ],
         "shape_best_guess": "chair",
-        "shape_best_prob": 0.9998941421508789
+        "shape_best_prob": 0.9998941421508789,
+        "shape_best_prob_vs_chance": 11.998729705810547,
+        "score": 11.998729705810547
       },
       "gf1": {
         "text": "a 3D rendering of a office chair",
@@ -6937,7 +6963,9 @@
           ]
         ],
         "shape_best_guess": "linkage/chain",
-        "shape_best_prob": 0.5023123025894165
+        "shape_best_prob": 0.5023123025894165,
+        "shape_best_prob_vs_chance": 6.027747631072998,
+        "score": 6.027747631072998
       },
       "gf1": {
         "text": "a 3D rendering of a monitor mount",
@@ -7325,7 +7353,9 @@
           ]
         ],
         "shape_best_guess": "linkage/chain",
-        "shape_best_prob": 0.8579462170600891
+        "shape_best_prob": 0.8579462170600891,
+        "shape_best_prob_vs_chance": 10.29535460472107,
+        "score": 10.29535460472107
       },
       "gf1": {
         "text": "a 3D rendering of a finger-like phalanx chain",
@@ -7971,7 +8001,9 @@
           ]
         ],
         "shape_best_guess": "door/hatch",
-        "shape_best_prob": 0.7485238313674927
+        "shape_best_prob": 0.7485238313674927,
+        "shape_best_prob_vs_chance": 8.982285976409912,
+        "score": 8.982285976409912
       },
       "gf1": {
         "text": "a 3D rendering of a dishwasher with dropdown door and sliding racks",
@@ -8915,7 +8947,9 @@
           ]
         ],
         "shape_best_guess": "machine housing",
-        "shape_best_prob": 0.4837971329689026
+        "shape_best_prob": 0.4837971329689026,
+        "shape_best_prob_vs_chance": 5.805565595626831,
+        "score": 5.805565595626831
       },
       "gf1": {
         "text": "a 3D rendering of a all-in-one printer with scanner lid and paper tray",

@@ -210,8 +210,8 @@ footer{padding:24px;color:var(--muted);text-align:center;font-size:.8rem;font-fa
   </div>
 
   <div class="gf-block">
-    <span class="gf-tag">形状</span><h3>整体形状判断</h3><span class="badge-changed">新增</span>
-    <p>不属于 GF1-GF4，是独立并列的新检查——把整体图拿去跟一份粗粒度品类词表（柜子/风扇/椅子/门/机械外壳……12 类）做 zero-shot 分类，看整体像不像它该属于的大类。也测过三视图 vs 4 方位角：用真实 20 条候选文字测，3 视图只有 75.5% 把握认对自己，4 方位角有 99.78%，所以打分改用 4 方位角，三视图只保留给页面里的缩略图展示用。</p>
+    <span class="gf-tag">GF1_shape</span><h3>整体形状判断</h3><span class="badge-changed">新增</span>
+    <p>不是 GF1 的一部分，是独立并列的新指标——把整体图拿去跟一份粗粒度品类词表（柜子/风扇/椅子/门/机械外壳……12 类）做 zero-shot 分类，看整体像不像它该属于的大类。GF1 比的是"像不像作者写的具体描述"，GF1_shape 比的是"抛开措辞，常识上算哪一类"，两者候选池不同、答的问题不同，所以不合并成一个分数——GF1 低分但 GF1_shape 判对的案例（如 air_conditioning_machine、dishwasher，GF1 排名靠后但 GF1_shape 判成 door/hatch 是合理读法），如果合并就会被盖住看不出来。现在和 GF2 的 dictionary 分数同一口径，打成"prob_vs_chance 倍数"（12 类瞎猜基线 = 1/12），可以直接跟 GF1 并排看。也测过三视图 vs 4 方位角：用真实 20 条候选文字测，3 视图只有 75.5% 把握认对自己，4 方位角有 99.78%，所以打分改用 4 方位角，三视图只保留给页面里的缩略图展示用。</p>
   </div>
 
   <div class="found-bug">
@@ -250,10 +250,10 @@ footer{padding:24px;color:var(--muted);text-align:center;font-size:.8rem;font-fa
       <table>
         <tr><th>指标</th><th>结果</th></tr>
         <tr><td>GF1（整体形态 vs 20 候选）</td><td class="mono">0.111，排名 #4</td></tr>
+        <tr><td>GF1_shape（常识粗类 vs 12 候选，独立并列指标，非 GF1 一部分）</td><td class="mono">cutting tool · 5.19 倍瞎猜基线</td></tr>
         <tr><td>GF2（部件辨识 vs 瞎猜）</td><td class="mono">1.88 倍瞎猜基线（4 个零件）</td></tr>
         <tr><td>GF3（部件关系）</td><td><span class="tag mid">0.500</span> 1/2</td></tr>
         <tr><td>GF4（比例）</td><td><span class="tag mid">n/a</span></td></tr>
-        <tr><td>整体形状判断</td><td class="mono">cutting tool</td></tr>
         <tr><td>标注网站原始评分</td><td class="mono">★ (1/5)</td></tr>
       </table>
       <ul class='fail-list'><li>rotor —attached_to→ housing: sd=-0.0492m (-4.1% D, penetration)</li></ul>
@@ -281,10 +281,10 @@ footer{padding:24px;color:var(--muted);text-align:center;font-size:.8rem;font-fa
       <table>
         <tr><th>指标</th><th>结果</th></tr>
         <tr><td>GF1（整体形态 vs 20 候选）</td><td class="mono">0.700，排名 #1</td></tr>
+        <tr><td>GF1_shape（常识粗类 vs 12 候选，独立并列指标，非 GF1 一部分）</td><td class="mono">machine housing · 8.20 倍瞎猜基线</td></tr>
         <tr><td>GF2（部件辨识 vs 瞎猜）</td><td class="mono">2.64 倍瞎猜基线（7 个零件）</td></tr>
         <tr><td>GF3（部件关系）</td><td><span class="tag mid">0.667</span> 4/6</td></tr>
         <tr><td>GF4（比例）</td><td><span class="tag mid">0.636</span></td></tr>
-        <tr><td>整体形状判断</td><td class="mono">machine housing</td></tr>
         <tr><td>标注网站原始评分</td><td class="mono">★ (1/5)</td></tr>
       </table>
       <ul class='fail-list'><li>left_frame —attached_to→ rear_module: sd=-0.0200m (-3.6% D, penetration)</li><li>drum —attached_to→ rear_module: sd=-0.0250m (-4.5% D, penetration)</li></ul>
@@ -312,10 +312,10 @@ footer{padding:24px;color:var(--muted);text-align:center;font-size:.8rem;font-fa
       <table>
         <tr><th>指标</th><th>结果</th></tr>
         <tr><td>GF1（整体形态 vs 20 候选）</td><td class="mono">0.049，排名 #6</td></tr>
+        <tr><td>GF1_shape（常识粗类 vs 12 候选，独立并列指标，非 GF1 一部分）</td><td class="mono">door/hatch · 11.15 倍瞎猜基线</td></tr>
         <tr><td>GF2（部件辨识 vs 瞎猜）</td><td class="mono">0.97 倍瞎猜基线（2 个零件）</td></tr>
         <tr><td>GF3（部件关系）</td><td><span class="tag ok">1.000</span> 1/1</td></tr>
         <tr><td>GF4（比例）</td><td><span class="tag mid">n/a</span></td></tr>
-        <tr><td>整体形状判断</td><td class="mono">door/hatch</td></tr>
         <tr><td>标注网站原始评分</td><td class="mono">★ (1/5)</td></tr>
       </table>
       
@@ -343,10 +343,10 @@ footer{padding:24px;color:var(--muted);text-align:center;font-size:.8rem;font-fa
       <table>
         <tr><th>指标</th><th>结果</th></tr>
         <tr><td>GF1（整体形态 vs 20 候选）</td><td class="mono">0.002，排名 #10</td></tr>
+        <tr><td>GF1_shape（常识粗类 vs 12 候选，独立并列指标，非 GF1 一部分）</td><td class="mono">door/hatch · 9.64 倍瞎猜基线</td></tr>
         <tr><td>GF2（部件辨识 vs 瞎猜）</td><td class="mono">1.13 倍瞎猜基线（4 个零件）</td></tr>
         <tr><td>GF3（部件关系）</td><td><span class="tag mid">0.600</span> 3/5</td></tr>
         <tr><td>GF4（比例）</td><td><span class="tag mid">n/a</span></td></tr>
-        <tr><td>整体形状判断</td><td class="mono">door/hatch</td></tr>
         <tr><td>标注网站原始评分</td><td class="mono">★★ (2/5)</td></tr>
       </table>
       <ul class='fail-list'><li>fan_slider —above→ body: {'z_gap_over_D': -0.15173156804327542, 'footprint_overlap': 0.14705882352941177}</li><li>temperature_slider —above→ body: {'z_gap_over_D': -0.24439206761168789, 'footprint_overlap': 0.14705882352941177}</li></ul>
@@ -374,10 +374,10 @@ footer{padding:24px;color:var(--muted);text-align:center;font-size:.8rem;font-fa
       <table>
         <tr><th>指标</th><th>结果</th></tr>
         <tr><td>GF1（整体形态 vs 20 候选）</td><td class="mono">0.064，排名 #5</td></tr>
+        <tr><td>GF1_shape（常识粗类 vs 12 候选，独立并列指标，非 GF1 一部分）</td><td class="mono">door/hatch · 6.82 倍瞎猜基线</td></tr>
         <tr><td>GF2（部件辨识 vs 瞎猜）</td><td class="mono">1.53 倍瞎猜基线（7 个零件）</td></tr>
         <tr><td>GF3（部件关系）</td><td><span class="tag ok">1.000</span> 2/2</td></tr>
         <tr><td>GF4（比例）</td><td><span class="tag ok">1.000</span></td></tr>
-        <tr><td>整体形状判断</td><td class="mono">door/hatch</td></tr>
         <tr><td>标注网站原始评分</td><td class="mono">★★ (2/5)</td></tr>
       </table>
       
@@ -405,10 +405,10 @@ footer{padding:24px;color:var(--muted);text-align:center;font-size:.8rem;font-fa
       <table>
         <tr><th>指标</th><th>结果</th></tr>
         <tr><td>GF1（整体形态 vs 20 候选）</td><td class="mono">0.047，排名 #4</td></tr>
+        <tr><td>GF1_shape（常识粗类 vs 12 候选，独立并列指标，非 GF1 一部分）</td><td class="mono">door/hatch · 10.11 倍瞎猜基线</td></tr>
         <tr><td>GF2（部件辨识 vs 瞎猜）</td><td class="mono">1.02 倍瞎猜基线（3 个零件）</td></tr>
         <tr><td>GF3（部件关系）</td><td><span class="tag mid">0.667</span> 2/3</td></tr>
         <tr><td>GF4（比例）</td><td><span class="tag mid">n/a</span></td></tr>
-        <tr><td>整体形状判断</td><td class="mono">door/hatch</td></tr>
         <tr><td>标注网站原始评分</td><td class="mono">★★ (2/5)</td></tr>
       </table>
       <ul class='fail-list'><li>tray_flap —inside→ cabinet: {'inside_fraction': 0.0}</li></ul>
@@ -436,10 +436,10 @@ footer{padding:24px;color:var(--muted);text-align:center;font-size:.8rem;font-fa
       <table>
         <tr><th>指标</th><th>结果</th></tr>
         <tr><td>GF1（整体形态 vs 20 候选）</td><td class="mono">0.668，排名 #1</td></tr>
+        <tr><td>GF1_shape（常识粗类 vs 12 候选，独立并列指标，非 GF1 一部分）</td><td class="mono">machine housing · 11.26 倍瞎猜基线</td></tr>
         <tr><td>GF2（部件辨识 vs 瞎猜）</td><td class="mono">1.26 倍瞎猜基线（6 个零件）</td></tr>
         <tr><td>GF3（部件关系）</td><td><span class="tag mid">0.800</span> 4/5</td></tr>
         <tr><td>GF4（比例）</td><td><span class="tag mid">n/a</span></td></tr>
-        <tr><td>整体形状判断</td><td class="mono">machine housing</td></tr>
         <tr><td>标注网站原始评分</td><td class="mono">★★★ (3/5)</td></tr>
       </table>
       <ul class='fail-list'><li>hub_cap —above→ body: {'z_gap_over_D': -0.12192920602709062, 'footprint_overlap': 1.1631679363752312e-05}</li></ul>
@@ -467,10 +467,10 @@ footer{padding:24px;color:var(--muted);text-align:center;font-size:.8rem;font-fa
       <table>
         <tr><th>指标</th><th>结果</th></tr>
         <tr><td>GF1（整体形态 vs 20 候选）</td><td class="mono">0.999，排名 #1</td></tr>
+        <tr><td>GF1_shape（常识粗类 vs 12 候选，独立并列指标，非 GF1 一部分）</td><td class="mono">linkage/chain · 9.01 倍瞎猜基线</td></tr>
         <tr><td>GF2（部件辨识 vs 瞎猜）</td><td class="mono">3.05 倍瞎猜基线（8 个零件）</td></tr>
         <tr><td>GF3（部件关系）</td><td><span class="tag mid">0.286</span> 2/7</td></tr>
         <tr><td>GF4（比例）</td><td><span class="tag ok">1.000</span></td></tr>
-        <tr><td>整体形状判断</td><td class="mono">linkage/chain</td></tr>
         <tr><td>标注网站原始评分</td><td class="mono">★★★ (3/5)</td></tr>
       </table>
       <ul class='fail-list'><li>crank_assembly —attached_to→ frame: sd=-0.0595m (-3.4% D, penetration)</li><li>left_pedal —attached_to→ crank_assembly: sd=-0.0180m (-1.0% D, penetration)</li><li>right_pedal —attached_to→ crank_assembly: sd=-0.0180m (-1.0% D, penetration)</li><li>saddle_assembly —attached_to→ frame: sd=-0.0550m (-3.2% D, penetration)</li><li>handlebar_assembly —attached_to→ frame: sd=-0.0550m (-3.2% D, penetration)</li></ul>
@@ -498,10 +498,10 @@ footer{padding:24px;color:var(--muted);text-align:center;font-size:.8rem;font-fa
       <table>
         <tr><th>指标</th><th>结果</th></tr>
         <tr><td>GF1（整体形态 vs 20 候选）</td><td class="mono">0.981，排名 #1</td></tr>
+        <tr><td>GF1_shape（常识粗类 vs 12 候选，独立并列指标，非 GF1 一部分）</td><td class="mono">lamp/light · 12.00 倍瞎猜基线</td></tr>
         <tr><td>GF2（部件辨识 vs 瞎猜）</td><td class="mono">1.14 倍瞎猜基线（6 个零件）</td></tr>
         <tr><td>GF3（部件关系）</td><td><span class="tag ok">1.000</span> 5/5</td></tr>
         <tr><td>GF4（比例）</td><td><span class="tag mid">0.376</span></td></tr>
-        <tr><td>整体形状判断</td><td class="mono">lamp/light</td></tr>
         <tr><td>标注网站原始评分</td><td class="mono">★★★★ (4/5)</td></tr>
       </table>
       
@@ -529,10 +529,10 @@ footer{padding:24px;color:var(--muted);text-align:center;font-size:.8rem;font-fa
       <table>
         <tr><th>指标</th><th>结果</th></tr>
         <tr><td>GF1（整体形态 vs 20 候选）</td><td class="mono">0.052，排名 #5</td></tr>
+        <tr><td>GF1_shape（常识粗类 vs 12 候选，独立并列指标，非 GF1 一部分）</td><td class="mono">door/hatch · 5.24 倍瞎猜基线</td></tr>
         <tr><td>GF2（部件辨识 vs 瞎猜）</td><td class="mono">1.24 倍瞎猜基线（2 个零件）</td></tr>
         <tr><td>GF3（部件关系）</td><td><span class="tag ok">1.000</span> 2/2</td></tr>
         <tr><td>GF4（比例）</td><td><span class="tag mid">n/a</span></td></tr>
-        <tr><td>整体形状判断</td><td class="mono">door/hatch</td></tr>
         <tr><td>标注网站原始评分</td><td class="mono">★★★★ (4/5)</td></tr>
       </table>
       
@@ -560,10 +560,10 @@ footer{padding:24px;color:var(--muted);text-align:center;font-size:.8rem;font-fa
       <table>
         <tr><th>指标</th><th>结果</th></tr>
         <tr><td>GF1（整体形态 vs 20 候选）</td><td class="mono">0.998，排名 #1</td></tr>
+        <tr><td>GF1_shape（常识粗类 vs 12 候选，独立并列指标，非 GF1 一部分）</td><td class="mono">chair · 12.00 倍瞎猜基线</td></tr>
         <tr><td>GF2（部件辨识 vs 瞎猜）</td><td class="mono">2.21 倍瞎猜基线（7 个零件）</td></tr>
         <tr><td>GF3（部件关系）</td><td><span class="tag ok">1.000</span> 6/6</td></tr>
         <tr><td>GF4（比例）</td><td><span class="tag mid">0.799</span></td></tr>
-        <tr><td>整体形状判断</td><td class="mono">chair</td></tr>
         <tr><td>标注网站原始评分</td><td class="mono">★★★★★ (5/5)</td></tr>
       </table>
       
@@ -591,10 +591,10 @@ footer{padding:24px;color:var(--muted);text-align:center;font-size:.8rem;font-fa
       <table>
         <tr><th>指标</th><th>结果</th></tr>
         <tr><td>GF1（整体形态 vs 20 候选）</td><td class="mono">1.000，排名 #1</td></tr>
+        <tr><td>GF1_shape（常识粗类 vs 12 候选，独立并列指标，非 GF1 一部分）</td><td class="mono">wheeled vehicle · 11.82 倍瞎猜基线</td></tr>
         <tr><td>GF2（部件辨识 vs 瞎猜）</td><td class="mono">2.64 倍瞎猜基线（5 个零件）</td></tr>
         <tr><td>GF3（部件关系）</td><td><span class="tag ok">1.000</span> 4/4</td></tr>
         <tr><td>GF4（比例）</td><td><span class="tag ok">1.000</span></td></tr>
-        <tr><td>整体形状判断</td><td class="mono">wheeled vehicle</td></tr>
         <tr><td>标注网站原始评分</td><td class="mono">★★★★★ (5/5)</td></tr>
       </table>
       
@@ -622,10 +622,10 @@ footer{padding:24px;color:var(--muted);text-align:center;font-size:.8rem;font-fa
       <table>
         <tr><th>指标</th><th>结果</th></tr>
         <tr><td>GF1（整体形态 vs 20 候选）</td><td class="mono">0.113，排名 #3</td></tr>
+        <tr><td>GF1_shape（常识粗类 vs 12 候选，独立并列指标，非 GF1 一部分）</td><td class="mono">machine housing · 4.92 倍瞎猜基线</td></tr>
         <tr><td>GF2（部件辨识 vs 瞎猜）</td><td class="mono">1.30 倍瞎猜基线（4 个零件）</td></tr>
         <tr><td>GF3（部件关系）</td><td><span class="tag bad">0.000</span> 0/3</td></tr>
         <tr><td>GF4（比例）</td><td><span class="tag mid">n/a</span></td></tr>
-        <tr><td>整体形状判断</td><td class="mono">machine housing</td></tr>
         <tr><td>标注网站原始评分</td><td class="mono">★★★★★ (5/5)</td></tr>
       </table>
       <ul class='fail-list'><li>outer_tube —attached_to→ root_housing: sd=-0.1300m (-8.1% D, penetration)</li><li>middle_tube —attached_to→ outer_tube: sd=-0.0725m (-4.5% D, penetration)</li><li>inner_tube —attached_to→ middle_tube: sd=-0.0460m (-2.9% D, penetration)</li></ul>
@@ -653,10 +653,10 @@ footer{padding:24px;color:var(--muted);text-align:center;font-size:.8rem;font-fa
       <table>
         <tr><th>指标</th><th>结果</th></tr>
         <tr><td>GF1（整体形态 vs 20 候选）</td><td class="mono">0.800，排名 #1</td></tr>
+        <tr><td>GF1_shape（常识粗类 vs 12 候选，独立并列指标，非 GF1 一部分）</td><td class="mono">lamp/light · 5.55 倍瞎猜基线</td></tr>
         <tr><td>GF2（部件辨识 vs 瞎猜）</td><td class="mono">1.01 倍瞎猜基线（2 个零件）</td></tr>
         <tr><td>GF3（部件关系）</td><td><span class="tag bad">0.000</span> 0/1</td></tr>
         <tr><td>GF4（比例）</td><td><span class="tag mid">n/a</span></td></tr>
-        <tr><td>整体形状判断</td><td class="mono">lamp/light</td></tr>
         <tr><td>标注网站原始评分</td><td class="mono">★★★★★ (5/5)</td></tr>
       </table>
       <ul class='fail-list'><li>jaw —attached_to→ bench: sd=-0.0830m (-6.9% D, penetration)</li></ul>
@@ -684,10 +684,10 @@ footer{padding:24px;color:var(--muted);text-align:center;font-size:.8rem;font-fa
       <table>
         <tr><th>指标</th><th>结果</th></tr>
         <tr><td>GF1（整体形态 vs 20 候选）</td><td class="mono">0.995，排名 #1</td></tr>
+        <tr><td>GF1_shape（常识粗类 vs 12 候选，独立并列指标，非 GF1 一部分）</td><td class="mono">door/hatch · 12.00 倍瞎猜基线</td></tr>
         <tr><td>GF2（部件辨识 vs 瞎猜）</td><td class="mono">2.21 倍瞎猜基线（5 个零件）</td></tr>
         <tr><td>GF3（部件关系）</td><td><span class="tag mid">0.750</span> 3/4</td></tr>
         <tr><td>GF4（比例）</td><td><span class="tag mid">n/a</span></td></tr>
-        <tr><td>整体形状判断</td><td class="mono">door/hatch</td></tr>
         <tr><td>标注网站原始评分</td><td class="mono">★★★★★ (5/5)</td></tr>
       </table>
       <ul class='fail-list'><li>latch_lever —attached_to→ latch_leaf: sd=-0.0290m (-0.9% D, penetration)</li></ul>
@@ -715,10 +715,10 @@ footer{padding:24px;color:var(--muted);text-align:center;font-size:.8rem;font-fa
       <table>
         <tr><th>指标</th><th>结果</th></tr>
         <tr><td>GF1（整体形态 vs 20 候选）</td><td class="mono">0.358，排名 #2</td></tr>
+        <tr><td>GF1_shape（常识粗类 vs 12 候选，独立并列指标，非 GF1 一部分）</td><td class="mono">linkage/chain · 6.03 倍瞎猜基线</td></tr>
         <tr><td>GF2（部件辨识 vs 瞎猜）</td><td class="mono">1.74 倍瞎猜基线（5 个零件）</td></tr>
         <tr><td>GF3（部件关系）</td><td><span class="tag mid">0.750</span> 3/4</td></tr>
         <tr><td>GF4（比例）</td><td><span class="tag mid">n/a</span></td></tr>
-        <tr><td>整体形状判断</td><td class="mono">linkage/chain</td></tr>
         <tr><td>标注网站原始评分</td><td class="mono">★★★★★ (5/5)</td></tr>
       </table>
       <ul class='fail-list'><li>first_arm —attached_to→ mast_clamp: sd=-0.0500m (-3.1% D, penetration)</li></ul>
@@ -746,10 +746,10 @@ footer{padding:24px;color:var(--muted);text-align:center;font-size:.8rem;font-fa
       <table>
         <tr><th>指标</th><th>结果</th></tr>
         <tr><td>GF1（整体形态 vs 20 候选）</td><td class="mono">0.003，排名 #5</td></tr>
+        <tr><td>GF1_shape（常识粗类 vs 12 候选，独立并列指标，非 GF1 一部分）</td><td class="mono">door/hatch · 8.98 倍瞎猜基线</td></tr>
         <tr><td>GF2（部件辨识 vs 瞎猜）</td><td class="mono">2.40 倍瞎猜基线（11 个零件）</td></tr>
         <tr><td>GF3（部件关系）</td><td><span class="tag mid">0.636</span> 7/11</td></tr>
         <tr><td>GF4（比例）</td><td><span class="tag ok">1.000</span></td></tr>
-        <tr><td>整体形状判断</td><td class="mono">door/hatch</td></tr>
         <tr><td>标注网站原始评分</td><td class="mono">★★★★★ (5/5)</td></tr>
       </table>
       <ul class='fail-list'><li>lower_rack —attached_to→ body: sd=-0.3150m (-24.4% D, penetration)</li><li>upper_rack —attached_to→ body: sd=-0.2686m (-20.8% D, penetration)</li><li>lower_wash_arm —attached_to→ body: sd=-0.1620m (-12.5% D, penetration)</li><li>upper_wash_arm —attached_to→ body: sd=-0.3000m (-23.2% D, penetration)</li></ul>
@@ -777,10 +777,10 @@ footer{padding:24px;color:var(--muted);text-align:center;font-size:.8rem;font-fa
       <table>
         <tr><th>指标</th><th>结果</th></tr>
         <tr><td>GF1（整体形态 vs 20 候选）</td><td class="mono">0.932，排名 #1</td></tr>
+        <tr><td>GF1_shape（常识粗类 vs 12 候选，独立并列指标，非 GF1 一部分）</td><td class="mono">machine housing · 5.81 倍瞎猜基线</td></tr>
         <tr><td>GF2（部件辨识 vs 瞎猜）</td><td class="mono">2.33 倍瞎猜基线（11 个零件）</td></tr>
         <tr><td>GF3（部件关系）</td><td><span class="tag mid">0.833</span> 10/12</td></tr>
         <tr><td>GF4（比例）</td><td><span class="tag ok">1.000</span></td></tr>
-        <tr><td>整体形状判断</td><td class="mono">machine housing</td></tr>
         <tr><td>标注网站原始评分</td><td class="mono">★★★★★ (5/5)</td></tr>
       </table>
       <ul class='fail-list'><li>flatbed_lid —above→ body: {'z_gap_over_D': -0.06886222038182505, 'footprint_overlap': 1.0}</li><li>cassette —attached_to→ body: sd=-0.1080m (-8.5% D, penetration)</li></ul>
@@ -808,10 +808,10 @@ footer{padding:24px;color:var(--muted);text-align:center;font-size:.8rem;font-fa
       <table>
         <tr><th>指标</th><th>结果</th></tr>
         <tr><td>GF1（整体形态 vs 20 候选）</td><td class="mono">0.490，排名 #1</td></tr>
+        <tr><td>GF1_shape（常识粗类 vs 12 候选，独立并列指标，非 GF1 一部分）</td><td class="mono">cutting tool · 8.01 倍瞎猜基线</td></tr>
         <tr><td>GF2（部件辨识 vs 瞎猜）</td><td class="mono">1.05 倍瞎猜基线（25 个零件）</td></tr>
         <tr><td>GF3（部件关系）</td><td><span class="tag mid">0.955</span> 21/22</td></tr>
         <tr><td>GF4（比例）</td><td><span class="tag ok">1.000</span></td></tr>
-        <tr><td>整体形状判断</td><td class="mono">cutting tool</td></tr>
         <tr><td>标注网站原始评分</td><td class="mono">★★★★★ (5/5)</td></tr>
       </table>
       <ul class='fail-list'><li>screen —attached_to→ screen_swivel: sd=-0.0040m (-0.6% D, penetration)</li></ul>
@@ -839,10 +839,10 @@ footer{padding:24px;color:var(--muted);text-align:center;font-size:.8rem;font-fa
       <table>
         <tr><th>指标</th><th>结果</th></tr>
         <tr><td>GF1（整体形态 vs 20 候选）</td><td class="mono">0.475，排名 #2</td></tr>
+        <tr><td>GF1_shape（常识粗类 vs 12 候选，独立并列指标，非 GF1 一部分）</td><td class="mono">handheld device · 7.52 倍瞎猜基线</td></tr>
         <tr><td>GF2（部件辨识 vs 瞎猜）</td><td class="mono">2.26 倍瞎猜基线（5 个零件）</td></tr>
         <tr><td>GF3（部件关系）</td><td><span class="tag bad">0.000</span> 0/3</td></tr>
         <tr><td>GF4（比例）</td><td><span class="tag mid">n/a</span></td></tr>
-        <tr><td>整体形状判断</td><td class="mono">handheld device</td></tr>
         <tr><td>标注网站原始评分</td><td class="mono">★★★★★ (5/5)</td></tr>
       </table>
       <ul class='fail-list'><li>navigation_cluster —attached_to→ lower_body: sd=-0.0016m (-0.8% D, penetration)</li><li>numeric_keypad —attached_to→ lower_body: sd=-0.0016m (-0.8% D, penetration)</li><li>upper_body —attached_to→ lower_body: sd=-0.0017m (-0.8% D, penetration)</li></ul>

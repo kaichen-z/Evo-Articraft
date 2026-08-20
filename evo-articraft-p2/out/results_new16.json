@@ -151,7 +151,9 @@
           ]
         ],
         "shape_best_guess": "cutting tool",
-        "shape_best_prob": 0.43225497007369995
+        "shape_best_prob": 0.43225497007369995,
+        "shape_best_prob_vs_chance": 5.187059640884399,
+        "score": 5.187059640884399
       },
       "gf1": {
         "text": "a 3D rendering of a box fan with control knob",
@@ -628,7 +630,9 @@
           ]
         ],
         "shape_best_guess": "machine housing",
-        "shape_best_prob": 0.6833482980728149
+        "shape_best_prob": 0.6833482980728149,
+        "shape_best_prob_vs_chance": 8.20017957687378,
+        "score": 8.20017957687378
       },
       "gf1": {
         "text": "a 3D rendering of a front-load dryer",
@@ -1016,7 +1020,9 @@
           ]
         ],
         "shape_best_guess": "door/hatch",
-        "shape_best_prob": 0.9291930198669434
+        "shape_best_prob": 0.9291930198669434,
+        "shape_best_prob_vs_chance": 11.15031623840332,
+        "score": 11.15031623840332
       },
       "gf1": {
         "text": "a 3D rendering of a revolving door",
@@ -1336,7 +1342,9 @@
           ]
         ],
         "shape_best_guess": "machine housing",
-        "shape_best_prob": 0.7904638648033142
+        "shape_best_prob": 0.7904638648033142,
+        "shape_best_prob_vs_chance": 9.48556637763977,
+        "score": 9.48556637763977
       },
       "gf1": {
         "text": "a 3D rendering of a trigger spray bottle",
@@ -1808,7 +1816,9 @@
           ]
         ],
         "shape_best_guess": "door/hatch",
-        "shape_best_prob": 0.8029604554176331
+        "shape_best_prob": 0.8029604554176331,
+        "shape_best_prob_vs_chance": 9.635525465011597,
+        "score": 9.635525465011597
       },
       "gf1": {
         "text": "a 3D rendering of a air conditioning machine",
@@ -2195,7 +2205,9 @@
           ]
         ],
         "shape_best_guess": "door/hatch",
-        "shape_best_prob": 0.5681246519088745
+        "shape_best_prob": 0.5681246519088745,
+        "shape_best_prob_vs_chance": 6.817495822906494,
+        "score": 6.817495822906494
       },
       "gf1": {
         "text": "a 3D rendering of a air purifier with filter door",
@@ -2639,7 +2651,9 @@
           ]
         ],
         "shape_best_guess": "door/hatch",
-        "shape_best_prob": 0.8422818183898926
+        "shape_best_prob": 0.8422818183898926,
+        "shape_best_prob_vs_chance": 10.107381820678711,
+        "score": 10.107381820678711
       },
       "gf1": {
         "text": "a 3D rendering of a arcade machine",
@@ -2932,7 +2946,9 @@
           ]
         ],
         "shape_best_guess": "lamp/light",
-        "shape_best_prob": 0.7601935267448425
+        "shape_best_prob": 0.7601935267448425,
+        "shape_best_prob_vs_chance": 9.12232232093811,
+        "score": 9.12232232093811
       },
       "gf1": {
         "text": "a 3D rendering of a blender",
@@ -3389,7 +3405,9 @@
           ]
         ],
         "shape_best_guess": "machine housing",
-        "shape_best_prob": 0.9382277727127075
+        "shape_best_prob": 0.9382277727127075,
+        "shape_best_prob_vs_chance": 11.25873327255249,
+        "score": 11.25873327255249
       },
       "gf1": {
         "text": "a 3D rendering of a stand mixer",
@@ -3976,7 +3994,9 @@
           ]
         ],
         "shape_best_guess": "linkage/chain",
-        "shape_best_prob": 0.7505622506141663
+        "shape_best_prob": 0.7505622506141663,
+        "shape_best_prob_vs_chance": 9.006747007369995,
+        "score": 9.006747007369995
       },
       "gf1": {
         "text": "a 3D rendering of a stationary exercise bike",
@@ -4433,7 +4453,9 @@
           ]
         ],
         "shape_best_guess": "lamp/light",
-        "shape_best_prob": 0.9226915836334229
+        "shape_best_prob": 0.9226915836334229,
+        "shape_best_prob_vs_chance": 11.072299003601074,
+        "score": 11.072299003601074
       },
       "gf1": {
         "text": "a 3D rendering of a stick vacuum with folding joint",
@@ -4831,7 +4853,9 @@
           ]
         ],
         "shape_best_guess": "lamp/light",
-        "shape_best_prob": 0.4697880148887634
+        "shape_best_prob": 0.4697880148887634,
+        "shape_best_prob_vs_chance": 5.637456178665161,
+        "score": 5.637456178665161
       },
       "gf1": {
         "text": "a 3D rendering of a stove top",
@@ -5354,7 +5378,9 @@
           ]
         ],
         "shape_best_guess": "lamp/light",
-        "shape_best_prob": 0.9998539686203003
+        "shape_best_prob": 0.9998539686203003,
+        "shape_best_prob_vs_chance": 11.998247623443604,
+        "score": 11.998247623443604
       },
       "gf1": {
         "text": "a 3D rendering of a studio spotlight on yoke",
@@ -5728,7 +5754,9 @@
           ]
         ],
         "shape_best_guess": "door/hatch",
-        "shape_best_prob": 0.4367218315601349
+        "shape_best_prob": 0.4367218315601349,
+        "shape_best_prob_vs_chance": 5.240661978721619,
+        "score": 5.240661978721619
       },
       "gf1": {
         "text": "a 3D rendering of a treasure chest with hinged lid",
@@ -5967,7 +5995,9 @@
           ]
         ],
         "shape_best_guess": "machine housing",
-        "shape_best_prob": 0.5034474730491638
+        "shape_best_prob": 0.5034474730491638,
+        "shape_best_prob_vs_chance": 6.041369676589966,
+        "score": 6.041369676589966
       },
       "gf1": {
         "text": "a 3D rendering of a syringe",
@@ -6422,7 +6452,9 @@
           ]
         ],
         "shape_best_guess": "door/hatch",
-        "shape_best_prob": 0.8026012778282166
+        "shape_best_prob": 0.8026012778282166,
+        "shape_best_prob_vs_chance": 9.631215333938599,
+        "score": 9.631215333938599
       },
       "gf1": {
         "text": "a 3D rendering of a toaster oven",
