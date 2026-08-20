@@ -532,6 +532,7 @@
         "macro_mean_cos": 0.30701186827250887,
         "macro_prob": 0.17813493950026377,
         "macro_prob_vs_chance": 1.2469445211546761,
+        "dictionary_score": 17.59462058544159,
         "n_parts_scored": 7,
         "parts": {
           "body": {
@@ -988,6 +989,7 @@
         "macro_mean_cos": 0.25374750792980194,
         "macro_prob": 0.3253008811734617,
         "macro_prob_vs_chance": 1.3012035246938467,
+        "dictionary_score": 10.358696050941944,
         "n_parts_scored": 4,
         "parts": {
           "inner_tube": {
@@ -1266,6 +1268,7 @@
         "macro_mean_cos": 0.293352410197258,
         "macro_prob": 0.5072531849145889,
         "macro_prob_vs_chance": 1.0145063698291779,
+        "dictionary_score": 10.03051270544529,
         "n_parts_scored": 2,
         "parts": {
           "bench": {
@@ -2418,6 +2421,7 @@
         "macro_mean_cos": 0.2300670039653778,
         "macro_prob": 0.04207955142483115,
         "macro_prob_vs_chance": 1.0519888044893742,
+        "dictionary_score": 8.563446961641311,
         "n_parts_scored": 25,
         "parts": {
           "console_panel": {
@@ -3564,6 +3568,7 @@
         "macro_mean_cos": 0.31197469830513,
         "macro_prob": 0.44277106374502184,
         "macro_prob_vs_chance": 2.2138553142547606,
+        "dictionary_score": 13.564107698202132,
         "n_parts_scored": 5,
         "parts": {
           "bolt_leaf": {
@@ -3914,6 +3919,7 @@
         "macro_mean_cos": 0.26618536313374835,
         "macro_prob": 0.36779187122980755,
         "macro_prob_vs_chance": 1.1033755938212078,
+        "dictionary_score": 7.859195341666539,
         "n_parts_scored": 3,
         "parts": {
           "cabinet": {
@@ -4283,6 +4289,7 @@
         "macro_mean_cos": 0.2657146841287613,
         "macro_prob": 0.5271148465573787,
         "macro_prob_vs_chance": 2.635574150085449,
+        "dictionary_score": 10.02062885761261,
         "n_parts_scored": 5,
         "parts": {
           "bin_body": {
@@ -4678,6 +4685,7 @@
         "macro_mean_cos": 0.29854305386543273,
         "macro_prob": 0.45290338844060896,
         "macro_prob_vs_chance": 2.264516960084438,
+        "dictionary_score": 9.359598863124848,
         "n_parts_scored": 5,
         "parts": {
           "earpiece_grille": {
@@ -5049,6 +5057,7 @@
         "macro_mean_cos": 0.2004479467868805,
         "macro_prob": 0.333661599647409,
         "macro_prob_vs_chance": 1.0009847790158044,
+        "dictionary_score": 12.369015912214914,
         "n_parts_scored": 3,
         "parts": {
           "front_frame": {
@@ -5387,6 +5396,7 @@
         "macro_mean_cos": 0.32552774250507355,
         "macro_prob": 0.5422689989209175,
         "macro_prob_vs_chance": 2.16907599568367,
+        "dictionary_score": 10.734716266393661,
         "n_parts_scored": 4,
         "parts": {
           "base": {
@@ -5700,6 +5710,7 @@
         "macro_mean_cos": 0.24517981708049774,
         "macro_prob": 0.6053135047356287,
         "macro_prob_vs_chance": 1.8159404198328655,
+        "dictionary_score": 12.99454485376676,
         "n_parts_scored": 3,
         "parts": {
           "nacelle": {
@@ -5986,6 +5997,7 @@
         "macro_mean_cos": 0.33434436470270157,
         "macro_prob": 0.4099640417844057,
         "macro_prob_vs_chance": 1.6398561671376228,
+        "dictionary_score": 11.514538757503033,
         "n_parts_scored": 4,
         "parts": {
           "base": {
@@ -6493,6 +6505,7 @@
         "macro_mean_cos": 0.261788723724229,
         "macro_prob": 0.3153525995356696,
         "macro_prob_vs_chance": 2.2074681520462036,
+        "dictionary_score": 13.022564662354332,
         "n_parts_scored": 7,
         "parts": {
           "base": {
@@ -6985,6 +6998,7 @@
         "macro_mean_cos": 0.2928405165672302,
         "macro_prob": 0.3471734017133713,
         "macro_prob_vs_chance": 1.7358669698238374,
+        "dictionary_score": 14.059635293483733,
         "n_parts_scored": 5,
         "parts": {
           "first_arm": {
@@ -7375,6 +7389,7 @@
         "macro_mean_cos": 0.27503154426813126,
         "macro_prob": 0.4401675320114009,
         "macro_prob_vs_chance": 1.7606701280456036,
+        "dictionary_score": 10.214592158794403,
         "n_parts_scored": 4,
         "parts": {
           "distal_link": {
@@ -8023,6 +8038,7 @@
         "macro_mean_cos": 0.2439940869808197,
         "macro_prob": 0.21847773952917618,
         "macro_prob_vs_chance": 2.403255031867461,
+        "dictionary_score": 9.917655695568431,
         "n_parts_scored": 11,
         "parts": {
           "body": {
@@ -8969,6 +8985,7 @@
         "macro_mean_cos": 0.2626168037002737,
         "macro_prob": 0.21147783811796794,
         "macro_prob_vs_chance": 2.3262561478398065,
+        "dictionary_score": 11.029802552678369,
         "n_parts_scored": 11,
         "parts": {
           "adf_lid": {

@@ -229,6 +229,14 @@ def run_clip(results: list[dict]) -> None:
 
         macro_prob = float(np.mean([p["prob_vs_sibling_parts"] for p in per_part.values()]))
         macro_prob_vs_chance = float(np.mean([p["prob_vs_chance"] for p in per_part.values()]))
+        # GF2_dic: macro-average of each part's own dictionary_best_prob_vs_chance
+        # (part image vs the 19-category archetype dictionary, not vs sibling
+        # parts). Independent signal from GF2's own score above -- GF2 asks "is
+        # this part's image close to THIS object's own part_geometry text",
+        # GF2_dic asks "does this part look like a generic archetype (wheel,
+        # hinge, drawer, ...) at all", so a part can score low on one and high
+        # on the other without either being wrong.
+        macro_dic_vs_chance = float(np.mean([p["dictionary_best_prob_vs_chance"] for p in per_part.values()]))
         r["gf2"] = {
             # Official GF2 score as of this patch: the chance-normalized
             # number, not the raw sibling-softmax probability. Raw macro_prob
@@ -246,6 +254,7 @@ def run_clip(results: list[dict]) -> None:
             "macro_mean_cos": float(np.mean([p["mean_cos"] for p in per_part.values()])),
             "macro_prob": macro_prob,
             "macro_prob_vs_chance": macro_prob_vs_chance,
+            "dictionary_score": macro_dic_vs_chance,   # GF2_dic
             "n_parts_scored": len(links),
             "parts": per_part,
         }
@@ -310,7 +319,7 @@ def main() -> None:
         w = csv.writer(f)
         w.writerow(["record_id", "label", "shape_best_guess", "shape_best_prob", "GF1_shape",
                     "GF1_mean_cos", "GF1_prob", "GF1_rank",
-                    "GF2_macro_cos", "GF2_macro_prob", "GF2_macro_prob_vs_chance", "GF2_n_parts",
+                    "GF2_macro_cos", "GF2_macro_prob", "GF2_macro_prob_vs_chance", "GF2_dic", "GF2_n_parts",
                     "GF3", "GF4", "gf3_claims", "gf3_unmeas", "gf4_pairs", "coverage"])
         for r in results:
             gf1, gf2 = r.get("gf1", {}), r.get("gf2", {})
@@ -324,7 +333,8 @@ def main() -> None:
                 fmt(gf1.get("mean_cos")), fmt(gf1.get("softmax_prob_vs_19_distractors")),
                 gf1.get("rank_among_20", ""),
                 fmt(gf2.get("macro_mean_cos")), fmt(gf2.get("macro_prob")),
-                fmt(gf2.get("macro_prob_vs_chance")), gf2.get("n_parts_scored", ""),
+                fmt(gf2.get("macro_prob_vs_chance")), fmt(gf2.get("dictionary_score")),
+                gf2.get("n_parts_scored", ""),
                 fmt(gf3.get("score")), fmt(gf4.get("score")),
                 gf3.get("n_claims", ""), gf3.get("n_unmeasurable", ""),
                 gf4.get("n_pairs", ""), r.get("coverage", "ok"),

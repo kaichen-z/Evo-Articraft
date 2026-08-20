@@ -173,6 +173,7 @@
         "macro_mean_cos": 0.24059344083070755,
         "macro_prob": 0.46875933557748795,
         "macro_prob_vs_chance": 1.8750373423099518,
+        "dictionary_score": 9.21166905760765,
         "n_parts_scored": 4,
         "parts": {
           "front_grille": {
@@ -652,6 +653,7 @@
         "macro_mean_cos": 0.27374366777283804,
         "macro_prob": 0.37697695940732956,
         "macro_prob_vs_chance": 2.638838606221335,
+        "dictionary_score": 8.980463815586907,
         "n_parts_scored": 7,
         "parts": {
           "bottom_right_corner": {
@@ -1042,6 +1044,7 @@
         "macro_mean_cos": 0.23826228082180023,
         "macro_prob": 0.4836218599230051,
         "macro_prob_vs_chance": 0.9672437198460102,
+        "dictionary_score": 9.1768589168787,
         "n_parts_scored": 2,
         "parts": {
           "rotor": {
@@ -1364,6 +1367,7 @@
         "macro_mean_cos": 0.2661326403419177,
         "macro_prob": 0.3604523204267025,
         "macro_prob_vs_chance": 2.162713865439097,
+        "dictionary_score": 9.9391227910916,
         "n_parts_scored": 6,
         "parts": {
           "bottle": {
@@ -1838,6 +1842,7 @@
         "macro_mean_cos": 0.23121030256152153,
         "macro_prob": 0.2814084473066032,
         "macro_prob_vs_chance": 1.1256337892264128,
+        "dictionary_score": 10.169137336313725,
         "n_parts_scored": 4,
         "parts": {
           "body": {
@@ -2227,6 +2232,7 @@
         "macro_mean_cos": 0.24033623933792114,
         "macro_prob": 0.21801835937159403,
         "macro_prob_vs_chance": 1.526128426194191,
+        "dictionary_score": 8.581902291093554,
         "n_parts_scored": 7,
         "parts": {
           "cabinet": {
@@ -2673,6 +2679,7 @@
         "macro_mean_cos": 0.25314869980017346,
         "macro_prob": 0.3400338913003604,
         "macro_prob_vs_chance": 1.0201016527911027,
+        "dictionary_score": 6.6487560371557874,
         "n_parts_scored": 3,
         "parts": {
           "cabinet": {
@@ -2968,6 +2975,7 @@
         "macro_mean_cos": 0.27824591994285586,
         "macro_prob": 0.24284001123160123,
         "macro_prob_vs_chance": 1.2142000742256642,
+        "dictionary_score": 14.400356614589692,
         "n_parts_scored": 5,
         "parts": {
           "actuator": {
@@ -3427,6 +3435,7 @@
         "macro_mean_cos": 0.23655711114406586,
         "macro_prob": 0.21036410766343275,
         "macro_prob_vs_chance": 1.2621845838924248,
+        "dictionary_score": 12.108512942989668,
         "n_parts_scored": 6,
         "parts": {
           "beater": {
@@ -4016,6 +4025,7 @@
         "macro_mean_cos": 0.2705066092312336,
         "macro_prob": 0.3811740046367049,
         "macro_prob_vs_chance": 3.0493920370936394,
+        "dictionary_score": 13.014399472624063,
         "n_parts_scored": 8,
         "parts": {
           "crank_assembly": {
@@ -4475,6 +4485,7 @@
         "macro_mean_cos": 0.2850967248280843,
         "macro_prob": 0.49265725413958233,
         "macro_prob_vs_chance": 1.4779717127482097,
+        "dictionary_score": 14.298341393470764,
         "n_parts_scored": 3,
         "parts": {
           "body": {
@@ -4875,6 +4886,7 @@
         "macro_mean_cos": 0.31021637717882794,
         "macro_prob": 0.4235474268595378,
         "macro_prob_vs_chance": 2.5412844816843667,
+        "dictionary_score": 10.502218882242838,
         "n_parts_scored": 6,
         "parts": {
           "cooktop": {
@@ -5400,6 +5412,7 @@
         "macro_mean_cos": 0.22940175235271454,
         "macro_prob": 0.19059343938715756,
         "macro_prob_vs_chance": 1.1435606063654025,
+        "dictionary_score": 12.550555949409803,
         "n_parts_scored": 6,
         "parts": {
           "lamp": {
@@ -5776,6 +5789,7 @@
         "macro_mean_cos": 0.240198515355587,
         "macro_prob": 0.6211536228656769,
         "macro_prob_vs_chance": 1.2423072457313538,
+        "dictionary_score": 13.991339683532715,
         "n_parts_scored": 2,
         "parts": {
           "base": {
@@ -6017,6 +6031,7 @@
         "macro_mean_cos": 0.2917717695236206,
         "macro_prob": 0.436977540453275,
         "macro_prob_vs_chance": 1.310932571689288,
+        "dictionary_score": 11.633593708276749,
         "n_parts_scored": 3,
         "parts": {
           "barrel_frame": {
@@ -6474,6 +6489,7 @@
         "macro_mean_cos": 0.27677102635304135,
         "macro_prob": 0.3554990869015455,
         "macro_prob_vs_chance": 2.132994456527134,
+        "dictionary_score": 9.777672812342644,
         "n_parts_scored": 6,
         "parts": {
           "body": {
