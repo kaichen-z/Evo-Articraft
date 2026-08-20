@@ -49,8 +49,14 @@ Python 用 `D:\projects\articraft-verifier\.venv`（mujoco 3.11 + torch + open_c
 - 渲染：448²、方位角 0/90/180/270、仰角 −20°、距离 1.7×AABB 对角线、统一灰材质、
   分割通道抠浅灰背景；渲染 collision 几何。
 - 编码器：open_clip ViT-B-32 / laion2b_s34b_b79k。
-- GF3 容差（·D 归一化）：attached_to 间隙 ≤0.010、穿透 ≤0.005；inside ≥0.70；
-  above z-gap ≥−0.05 且投影重叠 ≥0.30；aligned 偏轴 ≤0.05。
+- GF3 谓词与容差（·D 归一化）：attached_to 间隙 ≤0.010、穿透 ≤0.005（三态）；
+  inside ≥0.70；above/below z-gap ≥−0.05 且投影重叠 ≥0.30；aligned 偏轴 ≤0.05；
+  **supported_by**（悬空检测：−Z 虚拟下移 0.005·D，新增干涉 ≥0.2×步长判有支撑；
+  基线深穿透时探测无效记 unmeasurable）；through（相交且沿某轴两侧各伸出 ≥0.01·D）；
+  between（三元：A 中心到 B-C 连线偏距 ≤0.10·D）；around（B 落入 A ≥0.5 且 A 水平更大且不深穿）；
+  symmetric（关于整体中面镜像误差 ≤0.05·D 且长边 |log 比| ≤0.15）。
+  词表依据 10787 份 prompt 的关系短语频率扫描（supported/held 占 17.6% 居第二，
+  是新增谓词的首要动因）；别名映射见 `gf34.RELATION_ALIASES`。
 - GF4：σ = ln(1+tolerance)（容差边界处得分 = 1/e）；measure 约定（AABB v0）：
   height=Z 边、length=水平长边、width=水平短边、area=水平投影面积、volume=AABB 体积、
   long=三边最大（替身对称 claims 用）。

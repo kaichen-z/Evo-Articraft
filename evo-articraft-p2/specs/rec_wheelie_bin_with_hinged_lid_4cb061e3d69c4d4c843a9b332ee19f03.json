@@ -48,28 +48,22 @@
   ],
   "part_relations": [
     {
+      "subject": "lid",
+      "relation": "supported_by",
+      "object": "bin_body",
+      "source": "prompt: \"Lid swing and wheel rolling should both be clearly supported\"（支撑者按关节父件绑定）"
+    },
+    {
       "subject": "left_wheel",
-      "relation": "attached_to",
+      "relation": "supported_by",
       "object": "rear_axle",
-      "source": "joint:left_wheel_spin"
+      "source": "prompt: \"Lid swing and wheel rolling should both be clearly supported\"（支撑者按关节父件绑定）"
     },
     {
       "subject": "right_wheel",
-      "relation": "attached_to",
+      "relation": "supported_by",
       "object": "rear_axle",
-      "source": "joint:right_wheel_spin"
-    },
-    {
-      "subject": "lid",
-      "relation": "attached_to",
-      "object": "bin_body",
-      "source": "joint:body_to_lid"
-    },
-    {
-      "subject": "lid",
-      "relation": "above",
-      "object": "bin_body",
-      "source": "name-heuristic:lid"
+      "source": "prompt: \"Lid swing and wheel rolling should both be clearly supported\"（支撑者按关节父件绑定）"
     }
   ],
   "proportion_claims": [
@@ -87,5 +81,6 @@
       "source": "symmetry-naming"
     }
   ],
-  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+  "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
 }

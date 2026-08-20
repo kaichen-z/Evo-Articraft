@@ -125,6 +125,24 @@ class Scene:
                     best = d
         return float(best)
 
+    def displaced_min_signed_distance(self, geoms_a: list[int], geoms_b: list[int],
+                                      offset) -> float:
+        """把 geoms_a 整体虚拟平移 offset（世界系，米）后，与 geoms_b 的最小符号距离。
+
+        实现：mj_geomDistance 直接读取 data.geom_xpos/geom_xmat 的当前值，
+        所以临时改写 geoms_a 对应行、查询、再精确还原即可——不动 qpos、
+        不受关节约束限制（这正是"不信关节、只问几何"的支撑探测要的性质）。
+        """
+        if not geoms_a or not geoms_b:
+            return float("nan")
+        off = np.asarray(offset, dtype=float)
+        saved = self.data.geom_xpos[geoms_a].copy()
+        try:
+            self.data.geom_xpos[geoms_a] = saved + off
+            return self.min_signed_distance(geoms_a, geoms_b)
+        finally:
+            self.data.geom_xpos[geoms_a] = saved
+
     # ---------- 渲染辅助 ----------
     def apply_neutral_material(self) -> None:
         self.model.geom_rgba[:, :3] = consts.NEUTRAL_GRAY

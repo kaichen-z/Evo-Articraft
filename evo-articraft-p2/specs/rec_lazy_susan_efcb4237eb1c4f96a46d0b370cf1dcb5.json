@@ -49,17 +49,30 @@
   "part_relations": [
     {
       "subject": "lower_tier",
-      "relation": "attached_to",
+      "relation": "supported_by",
       "object": "central_post",
-      "source": "joint:post_to_lower_tier"
+      "source": "prompt: \"Each circular shelf is carried by its own bearing collar around the post\""
     },
     {
       "subject": "upper_tier",
-      "relation": "attached_to",
+      "relation": "supported_by",
       "object": "central_post",
-      "source": "joint:post_to_upper_tier"
+      "source": "prompt: \"Each circular shelf is carried by its own bearing collar around the post\""
+    },
+    {
+      "subject": "lower_tier",
+      "relation": "around",
+      "object": "central_post",
+      "source": "prompt: \"bearing collar around the post\"（collar⊂tier）"
+    },
+    {
+      "subject": "upper_tier",
+      "relation": "around",
+      "object": "central_post",
+      "source": "prompt: \"bearing collar around the post\"（collar⊂tier）"
     }
   ],
   "proportion_claims": [],
-  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+  "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
 }

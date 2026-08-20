@@ -42,15 +42,16 @@
       "subject": "front_door",
       "relation": "attached_to",
       "object": "cabinet",
-      "source": "joint:cabinet_to_front_door"
+      "source": "prompt-kinematic: \"a hinged front door ... on two revolute hinge knuckles\""
     },
     {
       "subject": "instrument_panel",
       "relation": "attached_to",
       "object": "cabinet",
-      "source": "joint:cabinet_to_instrument_panel"
+      "source": "prompt-kinematic: \"an inner hinged instrument panel on a revolute hinge\"（挂靠对象原文未名, 按关节父件绑定）"
     }
   ],
   "proportion_claims": [],
-  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+  "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
 }

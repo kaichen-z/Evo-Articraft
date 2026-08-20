@@ -60,27 +60,34 @@
       "subject": "latch_leaf",
       "relation": "attached_to",
       "object": "fixed_frame",
-      "source": "joint:frame_to_latch_leaf"
+      "source": "prompt-kinematic: \"Each leaf is hinged to an outer post\""
     },
     {
       "subject": "bolt_leaf",
       "relation": "attached_to",
       "object": "fixed_frame",
-      "source": "joint:frame_to_bolt_leaf"
+      "source": "prompt-kinematic: \"Each leaf is hinged to an outer post\""
     },
     {
       "subject": "latch_lever",
-      "relation": "attached_to",
+      "relation": "supported_by",
       "object": "latch_leaf",
-      "source": "joint:latch_leaf_to_latch_lever"
+      "source": "prompt: \"one meeting stile carries a latch\""
     },
     {
       "subject": "cane_bolt",
-      "relation": "attached_to",
+      "relation": "supported_by",
       "object": "bolt_leaf",
-      "source": "joint:bolt_leaf_to_cane_bolt"
+      "source": "prompt: \"the other carries a vertical cane bolt\""
+    },
+    {
+      "subject": "cane_bolt",
+      "relation": "through",
+      "object": "bolt_leaf",
+      "source": "prompt: \"the cane bolt clipped through its guide loops on the meeting stile\""
     }
   ],
   "proportion_claims": [],
-  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+  "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
 }

@@ -96,6 +96,12 @@ def draft_contract(record_id: str, category: str, info: UrdfInfo) -> dict:
             "subject": j.child, "relation": "attached_to", "object": j.parent,
             "source": f"joint:{j.name}",
         })
+        # 活动件应被其父件物理托住(不信关节、只问几何)——
+        # 对应人工标注"活动零件是否具有可信的实体连接或支撑结构"
+        part_relations.append({
+            "subject": j.child, "relation": "supported_by", "object": j.parent,
+            "source": f"joint-support:{j.name}",
+        })
         low = j.child.lower()
         if any(w in low for w in INSIDE_WORDS):
             part_relations.append({
@@ -106,6 +112,16 @@ def draft_contract(record_id: str, category: str, info: UrdfInfo) -> dict:
             part_relations.append({
                 "subject": j.child, "relation": "above", "object": j.parent,
                 "source": f"name-heuristic:{j.child}",
+            })
+
+    # symmetric: 仅对 left_/right_ 命名对生成(径向阵列如 wheel_0..4 不是镜像对, 不生成)
+    lefts = {l for l in info.links if l.lower().startswith(("left_", "left-"))}
+    for l in sorted(lefts):
+        r = "right" + l[4:]
+        if r in info.links:
+            part_relations.append({
+                "subject": l, "relation": "symmetric", "object": r,
+                "source": "left-right-naming",
             })
 
     # proportion_claims: 命名对称组 → 成组形 claim（P0 真格式）

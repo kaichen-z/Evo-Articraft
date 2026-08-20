@@ -57,24 +57,13 @@
   ],
   "part_relations": [
     {
-      "subject": "navigation_cluster",
-      "relation": "attached_to",
-      "object": "lower_body",
-      "source": "joint:lower_to_navigation_cluster"
-    },
-    {
-      "subject": "numeric_keypad",
-      "relation": "attached_to",
-      "object": "lower_body",
-      "source": "joint:lower_to_numeric_keypad"
-    },
-    {
       "subject": "upper_body",
       "relation": "attached_to",
       "object": "lower_body",
-      "source": "joint:clamshell_hinge"
+      "source": "prompt-kinematic: \"lower keypad body and a matching upper display body joined by a dual-barrel hinge\""
     }
   ],
   "proportion_claims": [],
-  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+  "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
 }

@@ -49,23 +49,15 @@
   "part_relations": [
     {
       "subject": "middle_link",
-      "relation": "attached_to",
-      "object": "root_knuckle",
-      "source": "joint:root_joint"
-    },
-    {
-      "subject": "distal_link",
-      "relation": "attached_to",
-      "object": "middle_link",
-      "source": "joint:middle_joint"
-    },
-    {
-      "subject": "pad_tip",
-      "relation": "attached_to",
-      "object": "distal_link",
-      "source": "joint:distal_joint"
+      "relation": "between",
+      "objects": [
+        "root_knuckle",
+        "distal_link"
+      ],
+      "source": "prompt: \"a thick root knuckle, a tapered middle link, a short distal link\""
     }
   ],
   "proportion_claims": [],
-  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+  "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
 }

@@ -58,29 +58,12 @@
   "part_relations": [
     {
       "subject": "first_arm",
-      "relation": "attached_to",
+      "relation": "supported_by",
       "object": "mast_clamp",
-      "source": "joint:mast_to_first"
-    },
-    {
-      "subject": "second_arm",
-      "relation": "attached_to",
-      "object": "first_arm",
-      "source": "joint:first_to_second"
-    },
-    {
-      "subject": "head_swivel",
-      "relation": "attached_to",
-      "object": "second_arm",
-      "source": "joint:second_to_head"
-    },
-    {
-      "subject": "monitor_plate",
-      "relation": "attached_to",
-      "object": "head_swivel",
-      "source": "joint:head_to_plate"
+      "source": "prompt: \"A fixed mast clamp carries a first arm, a second arm, and a compact monitor plate\"（后两件为串链传递, 只测直接件）"
     }
   ],
   "proportion_claims": [],
-  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+  "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
 }

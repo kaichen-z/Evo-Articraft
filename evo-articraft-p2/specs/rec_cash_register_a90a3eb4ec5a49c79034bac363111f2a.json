@@ -129,136 +129,46 @@
   ],
   "part_relations": [
     {
-      "subject": "drawer",
-      "relation": "attached_to",
-      "object": "housing",
-      "source": "joint:housing_to_drawer"
-    },
-    {
-      "subject": "drawer",
-      "relation": "inside",
-      "object": "housing",
-      "source": "name-heuristic:drawer"
-    },
-    {
-      "subject": "menu_key_0_0",
-      "relation": "attached_to",
-      "object": "console_panel",
-      "source": "joint:console_panel_to_menu_key_0_0"
-    },
-    {
-      "subject": "menu_key_0_1",
-      "relation": "attached_to",
-      "object": "console_panel",
-      "source": "joint:console_panel_to_menu_key_0_1"
-    },
-    {
-      "subject": "menu_key_0_2",
-      "relation": "attached_to",
-      "object": "console_panel",
-      "source": "joint:console_panel_to_menu_key_0_2"
-    },
-    {
-      "subject": "menu_key_1_0",
-      "relation": "attached_to",
-      "object": "console_panel",
-      "source": "joint:console_panel_to_menu_key_1_0"
-    },
-    {
-      "subject": "menu_key_1_1",
-      "relation": "attached_to",
-      "object": "console_panel",
-      "source": "joint:console_panel_to_menu_key_1_1"
-    },
-    {
-      "subject": "menu_key_1_2",
-      "relation": "attached_to",
-      "object": "console_panel",
-      "source": "joint:console_panel_to_menu_key_1_2"
-    },
-    {
-      "subject": "number_key_0_0",
-      "relation": "attached_to",
-      "object": "console_panel",
-      "source": "joint:console_panel_to_number_key_0_0"
-    },
-    {
-      "subject": "number_key_0_1",
-      "relation": "attached_to",
-      "object": "console_panel",
-      "source": "joint:console_panel_to_number_key_0_1"
-    },
-    {
-      "subject": "number_key_0_2",
-      "relation": "attached_to",
-      "object": "console_panel",
-      "source": "joint:console_panel_to_number_key_0_2"
-    },
-    {
-      "subject": "number_key_1_0",
-      "relation": "attached_to",
-      "object": "console_panel",
-      "source": "joint:console_panel_to_number_key_1_0"
-    },
-    {
-      "subject": "number_key_1_1",
-      "relation": "attached_to",
-      "object": "console_panel",
-      "source": "joint:console_panel_to_number_key_1_1"
-    },
-    {
-      "subject": "number_key_1_2",
-      "relation": "attached_to",
-      "object": "console_panel",
-      "source": "joint:console_panel_to_number_key_1_2"
-    },
-    {
-      "subject": "number_key_2_0",
-      "relation": "attached_to",
-      "object": "console_panel",
-      "source": "joint:console_panel_to_number_key_2_0"
-    },
-    {
-      "subject": "number_key_2_1",
-      "relation": "attached_to",
-      "object": "console_panel",
-      "source": "joint:console_panel_to_number_key_2_1"
-    },
-    {
-      "subject": "number_key_2_2",
-      "relation": "attached_to",
-      "object": "console_panel",
-      "source": "joint:console_panel_to_number_key_2_2"
-    },
-    {
-      "subject": "number_key_3_0",
-      "relation": "attached_to",
-      "object": "console_panel",
-      "source": "joint:console_panel_to_number_key_3_0"
-    },
-    {
-      "subject": "number_key_3_1",
-      "relation": "attached_to",
-      "object": "console_panel",
-      "source": "joint:console_panel_to_number_key_3_1"
-    },
-    {
-      "subject": "number_key_3_2",
-      "relation": "attached_to",
-      "object": "console_panel",
-      "source": "joint:console_panel_to_number_key_3_2"
-    },
-    {
-      "subject": "screen_swivel",
-      "relation": "attached_to",
-      "object": "screen_stand",
-      "source": "joint:screen_stand_to_screen_swivel"
-    },
-    {
       "subject": "screen",
       "relation": "attached_to",
       "object": "screen_swivel",
-      "source": "joint:screen_swivel_to_screen"
+      "source": "prompt: \"a rear operator screen on a swivel mount\""
+    },
+    {
+      "subject": "menu_key_0",
+      "relation": "attached_to",
+      "object": "console_panel",
+      "source": "prompt: \"the keys sit in clear rows across the control face\""
+    },
+    {
+      "subject": "menu_key_1",
+      "relation": "attached_to",
+      "object": "console_panel",
+      "source": "prompt: \"the keys sit in clear rows across the control face\""
+    },
+    {
+      "subject": "number_key_0",
+      "relation": "attached_to",
+      "object": "console_panel",
+      "source": "prompt: \"the keys sit in clear rows across the control face\""
+    },
+    {
+      "subject": "number_key_1",
+      "relation": "attached_to",
+      "object": "console_panel",
+      "source": "prompt: \"the keys sit in clear rows across the control face\""
+    },
+    {
+      "subject": "number_key_2",
+      "relation": "attached_to",
+      "object": "console_panel",
+      "source": "prompt: \"the keys sit in clear rows across the control face\""
+    },
+    {
+      "subject": "number_key_3",
+      "relation": "attached_to",
+      "object": "console_panel",
+      "source": "prompt: \"the keys sit in clear rows across the control face\""
     }
   ],
   "proportion_claims": [
@@ -353,5 +263,6 @@
       "source": "symmetry-naming"
     }
   ],
-  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+  "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
 }

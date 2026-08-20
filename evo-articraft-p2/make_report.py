@@ -10,7 +10,8 @@ import pathlib
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from report_common import OUT, load_results, compute_stats, build_rows, build_evidence
+from report_common import (OUT, load_results, compute_stats, build_rows,
+                           build_evidence, build_human_comparison)
 
 REPORT = OUT / "p2_smoke_report.html"
 RUNTIME_S = 21
@@ -218,6 +219,7 @@ footer code{background:none;color:var(--muted)}
   <div class="ev-list">__EVIDENCE__</div>
 </section>
 
+__COMPARISON__
 <section>
   <h2>四、想提的问题</h2>
   <div class="qa">
@@ -251,6 +253,7 @@ html = (html
         .replace("__N_PEN__", str(st["n_pen"]))
         .replace("__ROWS__", build_rows(results))
         .replace("__EVIDENCE__", build_evidence(results))
+        .replace("__COMPARISON__", build_human_comparison(results))
         .replace("__PROV__", prov))
 
 REPORT.write_text(html, encoding="utf-8")

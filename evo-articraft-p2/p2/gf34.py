@@ -24,7 +24,21 @@ from . import consts
 from .binding import PartBinding, PartInstance
 from .mj_scene import Scene
 
-RELATION_ALIASES = {"attached": "attached_to"}
+# 别名 → 规范谓词（论元顺序翻转类别名如 "B carries A"→supported_by(A,B) 属抽取层职责）
+RELATION_ALIASES = {
+    "attached": "attached_to",
+    "mounted_on": "attached_to", "mounted_to": "attached_to",
+    "fixed_to": "attached_to", "fastened_to": "attached_to",
+    "connected_to": "attached_to", "flush_with": "attached_to",
+    "within": "inside", "housed_in": "inside", "embedded_in": "inside",
+    "on_top_of": "above", "sits_on": "above", "rests_on": "above", "atop": "above",
+    "under": "below", "beneath": "below", "underneath": "below",
+    "held_by": "supported_by", "suspended_from": "supported_by",
+    "passes_through": "through", "runs_through": "through",
+    "surrounds": "around", "wraps_around": "around", "encircles": "around",
+    "coaxial": "aligned", "concentric": "aligned", "in_line_with": "aligned",
+    "mirrored": "symmetric", "mirror_of": "symmetric",
+}
 
 
 # ============================================================ 公共几何
@@ -108,12 +122,130 @@ def _eval_pair(scene: Scene, rel: str, si: PartInstance, oi: PartInstance,
                 "measured": {"off_axis_offset_over_D": off / D},
                 "note": ";".join(notes)}
 
+    if rel == "below":
+        gap = float(lo_b[2] - hi_a[2])           # >0: A 完全在 B 下方
+        overlap = _footprint_overlap_frac(lo_a, hi_a, lo_b, hi_b)
+        ok = (gap >= -consts.ABOVE_TOL * D) and (overlap >= consts.ABOVE_MIN_OVERLAP)
+        return {"subject": si.instance_id, "object": oi.instance_id,
+                "satisfied": bool(ok),
+                "measured": {"z_gap_over_D": gap / D, "footprint_overlap": overlap},
+                "note": ";".join(notes)}
+
+    if rel == "supported_by":
+        # 悬空/支撑检测: 不信关节, 只问几何 —— 把 A 沿重力方向虚拟下移一小步,
+        # B 若能挡住(出现明显新增干涉)则 A 有支撑; 畅通无阻则 A 会掉(悬空)。
+        sd0 = scene.min_signed_distance(ga, gb)
+        if sd0 < -consts.ATTACH_MAX_PEN * D:
+            return {"subject": si.instance_id, "object": oi.instance_id,
+                    "satisfied": None, "measured": {"signed_distance": sd0,
+                                                    "signed_distance_over_D": sd0 / D},
+                    "note": (";".join(notes + ["baseline penetration: support probe invalid"]))}
+        delta = consts.SUPPORT_PROBE_DELTA * D
+        sd1 = scene.displaced_min_signed_distance(ga, gb, (0.0, 0.0, -delta))
+        drop = sd0 - sd1
+        ok = drop >= consts.SUPPORT_MIN_DROP_FRAC * delta
+        return {"subject": si.instance_id, "object": oi.instance_id,
+                "satisfied": bool(ok),
+                "measured": {"sd_baseline": sd0, "sd_probed": sd1,
+                             "drop": drop, "drop_over_delta": drop / delta,
+                             "probe_delta": delta},
+                "note": ";".join(notes)}
+
+    if rel == "through":
+        eps = consts.THROUGH_MIN_EXTEND * D
+        intersects = all(hi_a[i] > lo_b[i] and lo_a[i] < hi_b[i] for i in range(3))
+        ext_axes = [("x", "y", "z")[i] for i in range(3)
+                    if lo_a[i] <= lo_b[i] - eps and hi_a[i] >= hi_b[i] + eps]
+        ok = intersects and len(ext_axes) > 0
+        return {"subject": si.instance_id, "object": oi.instance_id,
+                "satisfied": bool(ok),
+                "measured": {"intersects": intersects, "extend_axes": ext_axes},
+                "note": ";".join(notes)}
+
+    if rel == "around":
+        frac = _aabb_inside_frac(lo_b, hi_b, lo_a, hi_a)   # B 落入 A 的比例
+        ea, eb = hi_a - lo_a, hi_b - lo_b
+        larger = bool(ea[0] > eb[0] and ea[1] > eb[1])
+        sd = scene.min_signed_distance(ga, gb)
+        not_deep = sd >= -consts.ATTACH_MAX_PEN * D
+        ok = frac >= consts.AROUND_MIN_FRAC and larger and not_deep
+        return {"subject": si.instance_id, "object": oi.instance_id,
+                "satisfied": bool(ok),
+                "measured": {"contain_fraction": frac, "horizontally_larger": larger,
+                             "signed_distance_over_D": sd / D},
+                "note": ";".join(notes)}
+
+    if rel == "symmetric":
+        alo, ahi = scene.world_aabb(list(range(scene.model.ngeom)))
+        cw = (alo + ahi) / 2
+        ca, cb = (lo_a + hi_a) / 2, (lo_b + hi_b) / 2
+        tol = consts.SYM_TOL * D
+        mirror_axis = None
+        for h in (0, 1):
+            other = 1 - h
+            mirror_err = abs(ca[h] + cb[h] - 2 * cw[h])
+            align_err = max(abs(ca[other] - cb[other]), abs(ca[2] - cb[2]))
+            if mirror_err <= tol and align_err <= tol:
+                mirror_axis = ("x", "y")[h]
+                break
+        la = float(max(hi_a - lo_a))
+        lb = float(max(hi_b - lo_b))
+        size_ok = bool(la > 1e-9 and lb > 1e-9 and
+                       abs(math.log(la / lb)) <= consts.SYM_SIZE_LOGTOL)
+        ok = mirror_axis is not None and size_ok
+        return {"subject": si.instance_id, "object": oi.instance_id,
+                "satisfied": bool(ok),
+                "measured": {"mirror_axis": mirror_axis, "size_log_ratio": (
+                    abs(math.log(la / lb)) if la > 1e-9 and lb > 1e-9 else None)},
+                "note": ";".join(notes)}
+
     return {"subject": si.instance_id, "object": oi.instance_id,
             "satisfied": None, "measured": None, "note": f"unknown relation '{rel}'"}
 
 
 def eval_relation(scene: Scene, binding: PartBinding, claim: dict) -> dict:
     rel = RELATION_ALIASES.get(claim["relation"], claim["relation"])
+
+    # between 是三元关系: {subject: A, relation: between, objects: [B, C]}
+    if rel == "between":
+        raw = claim.get("objects") or claim.get("object")
+        if not isinstance(raw, (list, tuple)) or len(raw) != 2:
+            return {**claim, "relation": rel, "satisfied": None, "pairs": [],
+                    "note": "unmeasurable: between needs objects: [B, C]"}
+        rs = binding.resolve(claim["subject"])
+        rb, rc = binding.resolve(raw[0]), binding.resolve(raw[1])
+        for name, r in ((claim["subject"], rs), (raw[0], rb), (raw[1], rc)):
+            if r is None:
+                return {**claim, "relation": rel, "satisfied": None, "pairs": [],
+                        "note": f"unmeasurable: unresolved reference '{name}'"}
+            if len(r) != 1:
+                return {**claim, "relation": rel, "satisfied": None, "pairs": [],
+                        "note": f"unmeasurable: ambiguous multi-instance reference '{name}'"}
+        insts = [rs[0], rb[0], rc[0]]
+        if any(not i.geom_ids for i in insts):
+            return {**claim, "relation": rel, "satisfied": None, "pairs": [],
+                    "note": "unmeasurable: a referenced part has no geoms"}
+        centers = []
+        for i in insts:
+            lo, hi = scene.world_aabb(i.geom_ids)
+            centers.append((lo + hi) / 2)
+        ca, cb2, cc = centers
+        v = cc - cb2
+        denom = float(v @ v)
+        D = scene.d_bbox
+        if denom < 1e-12:
+            return {**claim, "relation": rel, "satisfied": None, "pairs": [],
+                    "note": "unmeasurable: B and C coincide"}
+        t = float((ca - cb2) @ v) / denom
+        perp = float(np.linalg.norm((ca - cb2) - t * v))
+        ok = (0.0 <= t <= 1.0) and perp <= consts.BETWEEN_TOL * D
+        pair = {"subject": insts[0].instance_id,
+                "object": f"{insts[1].instance_id} ↔ {insts[2].instance_id}",
+                "satisfied": bool(ok),
+                "measured": {"t_along_segment": t, "perp_offset_over_D": perp / D},
+                "note": ""}
+        return {**claim, "relation": rel, "satisfied": bool(ok), "pairs": [pair], "note": ""}
+
     subj = binding.resolve(claim["subject"])
     obj = binding.resolve(claim["object"])
 

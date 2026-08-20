@@ -51,27 +51,16 @@
       "subject": "lid",
       "relation": "attached_to",
       "object": "base",
-      "source": "joint:base_to_lid"
-    },
-    {
-      "subject": "lid",
-      "relation": "above",
-      "object": "base",
-      "source": "name-heuristic:lid"
-    },
-    {
-      "subject": "latch_tab",
-      "relation": "attached_to",
-      "object": "lid",
-      "source": "joint:lid_to_latch"
+      "source": "prompt-kinematic: \"The lid rotates open on a rear horizontal revolute hinge\""
     },
     {
       "subject": "thermostat_knob",
       "relation": "attached_to",
       "object": "base",
-      "source": "joint:base_to_thermostat_knob"
+      "source": "prompt: \"a thermostat knob rotates continuously on a short side-face shaft\"（轴在 base 侧面）"
     }
   ],
   "proportion_claims": [],
-  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+  "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
 }

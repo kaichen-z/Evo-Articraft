@@ -57,30 +57,31 @@
   ],
   "part_relations": [
     {
-      "subject": "tower",
-      "relation": "attached_to",
-      "object": "base",
-      "source": "joint:base_to_tower"
-    },
-    {
-      "subject": "blower",
-      "relation": "attached_to",
-      "object": "tower",
-      "source": "joint:tower_to_blower"
-    },
-    {
       "subject": "speed_knob",
-      "relation": "attached_to",
+      "relation": "supported_by",
       "object": "tower",
-      "source": "joint:tower_to_speed_knob"
+      "source": "prompt: \"a top control deck carrying rotary knobs\"（deck⊂tower）"
     },
     {
       "subject": "timer_knob",
-      "relation": "attached_to",
+      "relation": "supported_by",
       "object": "tower",
-      "source": "joint:tower_to_timer_knob"
+      "source": "prompt: \"a top control deck carrying rotary knobs\"（deck⊂tower）"
+    },
+    {
+      "subject": "tower",
+      "relation": "above",
+      "object": "base",
+      "source": "prompt: \"oscillates on a vertical revolute joint above the base\""
+    },
+    {
+      "subject": "blower",
+      "relation": "inside",
+      "object": "tower",
+      "source": "prompt: \"the internal blower wheel\""
     }
   ],
   "proportion_claims": [],
-  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+  "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
 }

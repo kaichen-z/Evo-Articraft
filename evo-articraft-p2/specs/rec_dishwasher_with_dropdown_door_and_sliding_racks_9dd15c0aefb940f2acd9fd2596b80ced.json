@@ -102,70 +102,52 @@
   ],
   "part_relations": [
     {
-      "subject": "door",
-      "relation": "attached_to",
+      "subject": "rocker_0",
+      "relation": "supported_by",
+      "object": "control_pod",
+      "source": "prompt: \"a short front control pod carrying two rocker switches and a timer knob\""
+    },
+    {
+      "subject": "rocker_1",
+      "relation": "supported_by",
+      "object": "control_pod",
+      "source": "prompt: \"a short front control pod carrying two rocker switches and a timer knob\""
+    },
+    {
+      "subject": "timer_knob",
+      "relation": "supported_by",
+      "object": "control_pod",
+      "source": "prompt: \"a short front control pod carrying two rocker switches and a timer knob\""
+    },
+    {
+      "subject": "lower_rack",
+      "relation": "supported_by",
       "object": "body",
-      "source": "joint:body_to_door"
+      "source": "prompt: \"both racks slide prismatically on supported guides\"（guides⊂body）"
+    },
+    {
+      "subject": "upper_rack",
+      "relation": "supported_by",
+      "object": "body",
+      "source": "prompt: \"both racks slide prismatically on supported guides\"（guides⊂body）"
+    },
+    {
+      "subject": "lower_wash_arm",
+      "relation": "inside",
+      "object": "body",
+      "source": "prompt: \"wash arms rotate continuously on vertical hubs in the chamber\""
+    },
+    {
+      "subject": "upper_wash_arm",
+      "relation": "inside",
+      "object": "body",
+      "source": "prompt: \"wash arms rotate continuously on vertical hubs in the chamber\""
     },
     {
       "subject": "detergent_flap",
       "relation": "attached_to",
       "object": "door",
-      "source": "joint:door_to_detergent_flap"
-    },
-    {
-      "subject": "lower_rack",
-      "relation": "attached_to",
-      "object": "body",
-      "source": "joint:body_to_lower_rack"
-    },
-    {
-      "subject": "lower_rack",
-      "relation": "inside",
-      "object": "body",
-      "source": "name-heuristic:lower_rack"
-    },
-    {
-      "subject": "upper_rack",
-      "relation": "attached_to",
-      "object": "body",
-      "source": "joint:body_to_upper_rack"
-    },
-    {
-      "subject": "upper_rack",
-      "relation": "inside",
-      "object": "body",
-      "source": "name-heuristic:upper_rack"
-    },
-    {
-      "subject": "lower_wash_arm",
-      "relation": "attached_to",
-      "object": "body",
-      "source": "joint:body_to_lower_wash_arm"
-    },
-    {
-      "subject": "upper_wash_arm",
-      "relation": "attached_to",
-      "object": "body",
-      "source": "joint:body_to_upper_wash_arm"
-    },
-    {
-      "subject": "timer_knob",
-      "relation": "attached_to",
-      "object": "control_pod",
-      "source": "joint:control_pod_to_timer_knob"
-    },
-    {
-      "subject": "rocker_0",
-      "relation": "attached_to",
-      "object": "control_pod",
-      "source": "joint:control_pod_to_rocker_0"
-    },
-    {
-      "subject": "rocker_1",
-      "relation": "attached_to",
-      "object": "control_pod",
-      "source": "joint:control_pod_to_rocker_1"
+      "source": "prompt: \"the detergent flap on the inner door\""
     }
   ],
   "proportion_claims": [
@@ -183,5 +165,6 @@
       "source": "symmetry-naming"
     }
   ],
-  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+  "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
 }

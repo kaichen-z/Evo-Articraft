@@ -490,7 +490,7 @@ footer code{background:none;color:var(--muted)}
   </table></div>
 
   <h3 style="margin-top:22px">GF3 失败证据（逐条可回溯）</h3>
-  <p class="sec-note">说明：separated / contact / penetration 是 attached_to 这一种关系的测量结果三态（sd 正得多=悬空分离、零附近=接触、负=互相嵌入），只有 contact 算满足；inside/above/aligned 各有自己的失败度量。本次判负的声明里，attached_to 的失败<b>全部以 penetration 形态出现、0 条 separated</b>：伸缩臂三节杆彼此嵌入 5–13 cm，洗碗机碗架穿进机身约 30 cm，转盘中轴插在实心盘面里 13–14 cm；唯一的非 attached_to 失败是打印机的一条 above 声明——盖子嵌坐在机身翻边之间、底面比机身顶沿低 0.069·D，属于 above 语义与容差待校准的情形（见 Q4）。sd 为最小符号距离（负 = 穿透深度）。</p>
+  <p class="sec-note">说明：separated / contact / penetration 是 attached_to 这一种关系的测量结果三态（sd 正得多=悬空分离、零附近=接触、负=互相嵌入），只有 contact 算满足；inside/above/aligned 各有自己的失败度量。本次判负的声明里，attached_to 的失败<b>全部以 penetration 形态出现、0 条 separated</b>：伸缩臂三节杆彼此嵌入 5–13 cm，洗碗机碗架穿进机身约 30 cm，转盘中轴插在实心盘面里 13–14 cm；唯一的非 attached_to 失败是打印机的一条 above 声明——盖子嵌坐在机身翻边之间、底面比机身顶沿低 0.069·D，属于 above 语义与容差待校准的情形。sd 为最小符号距离（负 = 穿透深度）。</p>
   <div class="ev-list"><div class="ev-case"><div class="ev-head">棱柱-多级滑轨 · <span class="case-rid">rec_telescoping_boom_73c354e91fd74e1c8f4d08af5836cb4</span>
     <span class="score bad">GF3 0.000</span></div><ul><li><code>outer_tube</code> —attached_to→ <code>root_housing</code>：sd = -0.1300 m（-0.0807·D，penetration）</li><li><code>middle_tube</code> —attached_to→ <code>outer_tube</code>：sd = -0.0725 m（-0.0450·D，penetration）</li><li><code>inner_tube</code> —attached_to→ <code>middle_tube</code>：sd = -0.0460 m（-0.0286·D，penetration）</li></ul></div><div class="ev-case"><div class="ev-head">棱柱-台钳 · <span class="case-rid">rec_bench_vise_with_prismatic_jaw_0002</span>
     <span class="score bad">GF3 0.000</span></div><ul><li><code>jaw</code> —attached_to→ <code>bench</code>：sd = -0.0830 m（-0.0691·D，penetration）</li></ul></div><div class="ev-case"><div class="ev-head">棱柱-收银机抽屉 · <span class="case-rid">rec_cash_register_a90a3eb4ec5a49c79034bac363111f2a</span>
@@ -505,12 +505,237 @@ footer code{background:none;color:var(--muted)}
 </section>
 
 <section>
+  <h2>补充：与人工标注的比对</h2>
+  <p class="sec-note">标注源为逐项标注表 articraft_case_reviews_v6 (2)，含 2026-08-20 针对"对不齐案例"的定向复核（5 例被改判，表中已标注）。
+  人工清单与 GF 维度并非一一对应，按语义就近比对：<b>GF3 ↔「零件位置、朝向与装配关系」+「初始状态非预期穿插、悬浮或脱离」</b>两项；
+  <b>GF4 ↔「几何形状、尺寸和比例」</b>；GF1/GF2 在人工清单里没有对应维度（最接近的「零件数量种类」「必要结构」查的是存在性而非形似度），不做硬比对；
+  「运动过程穿模」「关节类型/轴向/范围」等项属 P3 运动学范畴，不参与。人工为二值勾选、GF 为连续分数，故只比"双方是否都报了问题"的方向一致性。</p>
+
+  <div class="tablewrap"><table>
+    <thead><tr><th>案例</th><th>GF3</th><th>人工·装配/穿插</th><th>对比</th><th>GF4</th><th>人工·几何比例</th><th>对比</th></tr></thead>
+    <tbody>
+<tr>
+  <td><div class="case-label">棱柱-多抽屉柜</div>
+      <div class="case-rid">rec_drawer_cabinet_with_sliding_drawers_…</div></td>
+  <td class="num"><span class="score ok">1.000</span><br><span class="sub">12/12条</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="score ok">一致·同净</span></td>
+  <td class="num"><span class="score ok">1.000</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="score ok">一致·同净</span></td>
+</tr>
+<tr>
+  <td><div class="case-label">棱柱-多级滑轨</div>
+      <div class="case-rid">rec_telescoping_boom_73c354e91fd74e1c8f4…</div></td>
+  <td class="num"><span class="score bad">0.000</span><br><span class="sub">0/3条</span></td>
+  <td>✗ 穿插/悬浮/脱离</td>
+  <td><span class="score ok">一致·同报</span></td>
+  <td class="num"><span class="na">n/a</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="na">无声明</span></td>
+</tr>
+<tr>
+  <td><div class="case-label">棱柱-台钳</div>
+      <div class="case-rid">rec_bench_vise_with_prismatic_jaw_0002…</div></td>
+  <td class="num"><span class="score bad">0.000</span><br><span class="sub">0/1条</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="score mid">仅机器</span></td>
+  <td class="num"><span class="na">n/a</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="na">无声明</span></td>
+</tr>
+<tr>
+  <td><div class="case-label">棱柱-收银机抽屉</div>
+      <div class="case-rid">rec_cash_register_a90a3eb4ec5a49c79034ba…</div></td>
+  <td class="num"><span class="score mid">0.955</span><br><span class="sub">21/22条</span></td>
+  <td>✗ 穿插/悬浮/脱离 <span class="tag-fused">08-20 复核改判</span></td>
+  <td><span class="score ok">一致·同报</span></td>
+  <td class="num"><span class="score ok">1.000</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="score ok">一致·同净</span></td>
+</tr>
+<tr>
+  <td><div class="case-label">旋转-园门</div>
+      <div class="case-rid">rec_garden_gate_3ffbd3e876a142d2ab569314…</div></td>
+  <td class="num"><span class="score mid">0.750</span><br><span class="sub">3/4条</span></td>
+  <td>✗ 穿插/悬浮/脱离</td>
+  <td><span class="score ok">一致·同报</span></td>
+  <td class="num"><span class="na">n/a</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="na">无声明</span></td>
+</tr>
+<tr>
+  <td><div class="case-label">旋转-电柜门</div>
+      <div class="case-rid">rec_electrical_cabinet_door_5c93513f9fd1…</div></td>
+  <td class="num"><span class="score ok">1.000</span><br><span class="sub">2/2条</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="score ok">一致·同净</span></td>
+  <td class="num"><span class="na">n/a</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="na">无声明</span></td>
+</tr>
+<tr>
+  <td><div class="case-label">旋转-垃圾桶盖</div>
+      <div class="case-rid">rec_wheelie_bin_with_hinged_lid_4cb061e3…</div></td>
+  <td class="num"><span class="score ok">1.000</span><br><span class="sub">4/4条</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="score ok">一致·同净</span></td>
+  <td class="num"><span class="score ok">1.000</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="score ok">一致·同净</span></td>
+</tr>
+<tr>
+  <td><div class="case-label">旋转-翻盖手机</div>
+      <div class="case-rid">rec_flip_phone_83b0fac634af42e2bd288f591…</div></td>
+  <td class="num"><span class="score bad">0.000</span><br><span class="sub">0/3条</span></td>
+  <td>✗ 穿插/悬浮/脱离 <span class="tag-fused">08-20 复核改判</span></td>
+  <td><span class="score ok">一致·同报</span></td>
+  <td class="num"><span class="na">n/a</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="na">无声明</span></td>
+</tr>
+<tr>
+  <td><div class="case-label">旋转-眼镜双铰链</div>
+      <div class="case-rid">rec_glasses_9bb2f7b74f5d40548747d32fd306…</div></td>
+  <td class="num"><span class="score ok">1.000</span><br><span class="sub">2/2条</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="score ok">一致·同净</span></td>
+  <td class="num"><span class="score ok">0.999</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="score ok">一致·同净</span></td>
+</tr>
+<tr>
+  <td><div class="case-label">旋转-贴合式家电</div>
+      <div class="case-rid">rec_panini_press_with_clamshell_lid_1e6c…</div></td>
+  <td class="num"><span class="score ok">1.000</span><br><span class="sub">4/4条</span></td>
+  <td>✗ 穿插/悬浮/脱离</td>
+  <td><span class="score bad">仅人工</span></td>
+  <td class="num"><span class="na">n/a</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="na">无声明</span></td>
+</tr>
+<tr>
+  <td><div class="case-label">转子-塔扇</div>
+      <div class="case-rid">rec_tower_fan_with_rotary_controls_c23bc…</div></td>
+  <td class="num"><span class="score ok">1.000</span><br><span class="sub">4/4条</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="score ok">一致·同净</span></td>
+  <td class="num"><span class="na">n/a</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="na">无声明</span></td>
+</tr>
+<tr>
+  <td><div class="case-label">转子-风力机</div>
+      <div class="case-rid">rec_wind_turbine_e10650a329fb4c79b8baeee…</div></td>
+  <td class="num"><span class="score ok">1.000</span><br><span class="sub">2/2条</span></td>
+  <td>✗ 穿插/悬浮/脱离</td>
+  <td><span class="score bad">仅人工</span></td>
+  <td class="num"><span class="na">n/a</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="na">无声明</span></td>
+</tr>
+<tr>
+  <td><div class="case-label">转子-转盘</div>
+      <div class="case-rid">rec_lazy_susan_efcb4237eb1c4f96a46d0b370…</div></td>
+  <td class="num"><span class="score bad">0.000</span><br><span class="sub">0/2条</span></td>
+  <td>✗ 穿插/悬浮/脱离 <span class="tag-fused">08-20 复核改判</span></td>
+  <td><span class="score ok">一致·同报</span></td>
+  <td class="num"><span class="na">n/a</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="na">无声明</span></td>
+</tr>
+<tr>
+  <td><div class="case-label">转子-水轮</div>
+      <div class="case-rid">rec_undershot_waterwheel_0003…</div></td>
+  <td class="num"><span class="score ok">1.000</span><br><span class="sub">1/1条</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="score ok">一致·同净</span></td>
+  <td class="num"><span class="na">n/a</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="na">无声明</span></td>
+</tr>
+<tr>
+  <td><div class="case-label">混合-办公椅</div>
+      <div class="case-rid">rec_office_chair_0004…</div></td>
+  <td class="num"><span class="score ok">1.000</span><br><span class="sub">6/6条</span></td>
+  <td>✗ 穿插/悬浮/脱离</td>
+  <td><span class="score bad">仅人工</span></td>
+  <td class="num"><span class="score mid">0.799</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="score mid">仅机器</span></td>
+</tr>
+<tr>
+  <td><div class="case-label">混合-显示器支架</div>
+      <div class="case-rid">rec_monitor_mount_c10308ed1ba241a9a83503…</div></td>
+  <td class="num"><span class="score mid">0.750</span><br><span class="sub">3/4条</span></td>
+  <td>✗ 穿插/悬浮/脱离 <span class="tag-fused">08-20 复核改判</span></td>
+  <td><span class="score ok">一致·同报</span></td>
+  <td class="num"><span class="na">n/a</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="na">无声明</span></td>
+</tr>
+<tr>
+  <td><div class="case-label">链-三自由度腕</div>
+      <div class="case-rid">rec_yawpitchroll_wrist_71a3903167694d5ab…</div></td>
+  <td class="num"><span class="score bad">0.333</span><br><span class="sub">1/3条</span></td>
+  <td>✗ 穿插/悬浮/脱离 <span class="tag-fused">08-20 复核改判</span></td>
+  <td><span class="score ok">一致·同报</span></td>
+  <td class="num"><span class="na">n/a</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="na">无声明</span></td>
+</tr>
+<tr>
+  <td><div class="case-label">链-指骨链</div>
+      <div class="case-rid">rec_fingerlike_phalanx_chain_4f7c64ddc97…</div></td>
+  <td class="num"><span class="score ok">1.000</span><br><span class="sub">3/3条</span></td>
+  <td>✗ 穿插/悬浮/脱离</td>
+  <td><span class="score bad">仅人工</span></td>
+  <td class="num"><span class="na">n/a</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="na">无声明</span></td>
+</tr>
+<tr>
+  <td><div class="case-label">混合-洗碗机</div>
+      <div class="case-rid">rec_dishwasher_with_dropdown_door_and_sl…</div></td>
+  <td class="num"><span class="score mid">0.636</span><br><span class="sub">7/11条</span></td>
+  <td>✗ 穿插/悬浮/脱离</td>
+  <td><span class="score ok">一致·同报</span></td>
+  <td class="num"><span class="score ok">1.000</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="score ok">一致·同净</span></td>
+</tr>
+<tr>
+  <td><div class="case-label">混合-打印机</div>
+      <div class="case-rid">rec_all_in_one_printer_with_scanner_lid_…</div></td>
+  <td class="num"><span class="score mid">0.833</span><br><span class="sub">10/12条</span></td>
+  <td>✗ 穿插/悬浮/脱离</td>
+  <td><span class="score ok">一致·同报</span></td>
+  <td class="num"><span class="score ok">1.000</span></td>
+  <td>✓ 未勾</td>
+  <td><span class="score ok">一致·同净</span></td>
+</tr></tbody>
+  </table></div>
+
+  <div class="legend" style="margin-top:14px">
+    <b>GF3 方向一致性：15/20（同报 9 + 同净 6）；仅机器报 1；仅人工报 4</b>
+    <ul>
+      <li><b>定向复核确认了 6 个"仅机器"案例中的 5 个是标注遗漏。</b>复核前 GF3 方向一致性为 10/20；复核后转盘（−0.19/−0.21·D）、显示器支架（−0.031·D）、三自由度腕（−0.029/−0.034·D）、收银机（−0.006·D）、翻盖手机（−0.008·D）全部改判为"穿插不满足"，一致性升至 15/20。<b>值得注意的是两个浅压入案例（收银机、翻盖手机）也被确认为真缺陷——这把此前"放宽 ATTACH_MAX_PEN"的倾向反转了：0.005·D 的容差目前看画得并不算严。</b></li>
+      <li><b>唯一剩下的"仅机器"是台钳</b>（jaw 嵌入 bench −0.069·D）。该案例标注人为 wanglin（07-29），不在本轮复核范围，且其"零件拆分与活动属性"已被勾不满足——建议按同样方式回看一次"穿插"维度。</li>
+      <li><b>仅人工报的 4 例（帕尼尼机、风力机、办公椅、指骨链）是已知的声明覆盖缺口。</b>替身声明只覆盖"关节相连零件对"的 attached 关系，而人工的"穿插/悬浮/脱离"覆盖任意零件对与悬浮脱离。接入 P0 真声明或补一个全零件对穿插扫描即可闭合。</li>
+      <li><b>GF4 与人工"几何比例"维度在本轮后完全无重叠样本。</b>收银机的"几何比例"勾选在复核中撤销，20 例中人工该维度已无失败；机器唯一报的办公椅（脚轮 5% 不等大）人工未勾。替身比例声明（命名对称）与人工"几何合理性"问的不是同一件事，此项比对要等 P0 真比例声明。</li>
+      <li><b>GF1/GF2 无对应维度，仅一条方向观察：</b>塔扇被人工勾了"零件数量/必要结构"，GF1 仍排第 1（p=0.757）——符合设计（GF1 只管整体形似、不管数量），说明感知指标与人工存在性检查互补而非冗余。</li>
+    </ul>
+  </div>
+</section>
+
+<section>
   <h2>四、想提的问题</h2>
   <div class="qa">
     <div class="q"><b>子部件引用的绑定约定。</b>P0 示例里出现了 <code>drawer_front</code> 这类比 part 更细的引用。在 MJCF 里它约定为 geom 名、site 名，还是 Gate 绑定表里单独的一层？我目前按 geom 名兜底解析，如果约定不同需要改解析器。</div>
     <div class="q"><b>tolerance → σ 的换算。</b>P0 声明 tolerance（如 0.10），P2 公式用 σ_r，换算规则没有写。我们暂用 σ = ln(1+tolerance)，效果是"偏到容差边界得 1/e≈0.37 分"。</div>
     <div class="q"><b>measure 的几何定义。</b>length/width/height 对摆放旋转过的零件有歧义。我们暂用 q0 世界系 AABB（height=Z 边、length=水平长边、width=水平短边）</div>
     <div class="q"><b>目前暂时没有MJCF文件</b>ArtiCraft 现存资产全部是 URDF（缓存里没有一个 .xml，代码库也没有 MJCF 导出能力），而 P1 规格按 MJCF 原生书写。是新生成管线直出 MJCF，还是需要 URDF→MJCF 转换步骤？</div>
+    <div class="q"><b>目前对悬空的理解还有一定的补充</b>目前的GF3对悬空的检测依旧停留在separated阶段，也就是零件没有任何其余的接触才会被判定为悬空。但是我在标注的时候对悬空的理解是：如果两个零件是相互独立的，并且中间没有insert等互动的话，就算二者是紧紧贴合着的，在重力的影响下我认为其中一个零件依旧会出现坠落的情况，所以这种零件关系我也会认为是悬空。请问我这种理解对吗？</div>
   </div>
 </section>
 

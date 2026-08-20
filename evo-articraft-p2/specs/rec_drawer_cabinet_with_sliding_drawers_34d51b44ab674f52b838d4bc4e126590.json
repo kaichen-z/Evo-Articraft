@@ -30,76 +30,10 @@
   ],
   "part_relations": [
     {
-      "subject": "drawer_0",
-      "relation": "attached_to",
-      "object": "body",
-      "source": "joint:body_to_drawer_0"
-    },
-    {
-      "subject": "drawer_0",
+      "subject": "drawer",
       "relation": "inside",
       "object": "body",
-      "source": "name-heuristic:drawer_0"
-    },
-    {
-      "subject": "drawer_1",
-      "relation": "attached_to",
-      "object": "body",
-      "source": "joint:body_to_drawer_1"
-    },
-    {
-      "subject": "drawer_1",
-      "relation": "inside",
-      "object": "body",
-      "source": "name-heuristic:drawer_1"
-    },
-    {
-      "subject": "drawer_2",
-      "relation": "attached_to",
-      "object": "body",
-      "source": "joint:body_to_drawer_2"
-    },
-    {
-      "subject": "drawer_2",
-      "relation": "inside",
-      "object": "body",
-      "source": "name-heuristic:drawer_2"
-    },
-    {
-      "subject": "drawer_3",
-      "relation": "attached_to",
-      "object": "body",
-      "source": "joint:body_to_drawer_3"
-    },
-    {
-      "subject": "drawer_3",
-      "relation": "inside",
-      "object": "body",
-      "source": "name-heuristic:drawer_3"
-    },
-    {
-      "subject": "drawer_4",
-      "relation": "attached_to",
-      "object": "body",
-      "source": "joint:body_to_drawer_4"
-    },
-    {
-      "subject": "drawer_4",
-      "relation": "inside",
-      "object": "body",
-      "source": "name-heuristic:drawer_4"
-    },
-    {
-      "subject": "drawer_5",
-      "relation": "attached_to",
-      "object": "body",
-      "source": "joint:body_to_drawer_5"
-    },
-    {
-      "subject": "drawer_5",
-      "relation": "inside",
-      "object": "body",
-      "source": "name-heuristic:drawer_5"
+      "source": "prompt: \"All six drawers slide ... within the rigid outer carcass\""
     }
   ],
   "proportion_claims": [
@@ -125,5 +59,6 @@
       "source": "symmetry-naming"
     }
   ],
-  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+  "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
 }

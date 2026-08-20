@@ -84,76 +84,34 @@
   ],
   "part_relations": [
     {
-      "subject": "key_0",
-      "relation": "attached_to",
-      "object": "control_panel",
-      "source": "joint:control_panel_to_key_0"
-    },
-    {
-      "subject": "key_1",
-      "relation": "attached_to",
-      "object": "control_panel",
-      "source": "joint:control_panel_to_key_1"
-    },
-    {
-      "subject": "key_2",
-      "relation": "attached_to",
-      "object": "control_panel",
-      "source": "joint:control_panel_to_key_2"
-    },
-    {
-      "subject": "key_3",
-      "relation": "attached_to",
-      "object": "control_panel",
-      "source": "joint:control_panel_to_key_3"
-    },
-    {
-      "subject": "flatbed_lid",
-      "relation": "attached_to",
-      "object": "body",
-      "source": "joint:body_to_flatbed_lid"
-    },
-    {
-      "subject": "flatbed_lid",
-      "relation": "above",
-      "object": "body",
-      "source": "name-heuristic:flatbed_lid"
-    },
-    {
-      "subject": "adf_lid",
-      "relation": "attached_to",
-      "object": "flatbed_lid",
-      "source": "joint:flatbed_lid_to_adf_lid"
-    },
-    {
-      "subject": "adf_lid",
-      "relation": "above",
-      "object": "flatbed_lid",
-      "source": "name-heuristic:adf_lid"
-    },
-    {
       "subject": "cassette",
-      "relation": "attached_to",
+      "relation": "inside",
       "object": "body",
-      "source": "joint:body_to_cassette"
-    },
-    {
-      "subject": "service_door",
-      "relation": "attached_to",
-      "object": "body",
-      "source": "joint:body_to_service_door"
-    },
-    {
-      "subject": "control_panel",
-      "relation": "attached_to",
-      "object": "body",
-      "source": "joint:body_to_control_panel"
+      "source": "prompt: \"the paper cassette slides prismatically from the lower body\""
     },
     {
       "subject": "selector_dial",
       "relation": "attached_to",
       "object": "control_panel",
-      "source": "joint:control_panel_to_selector_dial"
+      "source": "prompt: \"A selector dial at one side of the panel\""
+    },
+    {
+      "subject": "flatbed_lid",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "prompt-kinematic: \"The flatbed lid rotates upward on a rear hinge\""
+    },
+    {
+      "subject": "adf_lid",
+      "relation": "attached_to",
+      "object": "flatbed_lid",
+      "source": "prompt-kinematic: \"the ADF lid rotates on a top hinge\"（挂靠对象按关节父件绑定）"
+    },
+    {
+      "subject": "control_panel",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "prompt-kinematic: \"a tilting front touchscreen panel ... tilts on a short horizontal pivot\""
     }
   ],
   "proportion_claims": [
@@ -175,5 +133,6 @@
       "source": "symmetry-naming"
     }
   ],
-  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+  "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
 }

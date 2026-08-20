@@ -31,11 +31,12 @@
   "part_relations": [
     {
       "subject": "wheel",
-      "relation": "attached_to",
+      "relation": "supported_by",
       "object": "frame",
-      "source": "joint:wheel_spin"
+      "source": "prompt: \"rotary stages should sit on believable hubs, spindles, or bearing collars with clear support\""
     }
   ],
   "proportion_claims": [],
-  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+  "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
 }

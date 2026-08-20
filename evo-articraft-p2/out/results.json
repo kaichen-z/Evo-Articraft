@@ -24,6 +24,13 @@
       "ABOVE_TOL": 0.05,
       "ABOVE_MIN_OVERLAP": 0.3,
       "ALIGN_TOL": 0.05,
+      "SUPPORT_PROBE_DELTA": 0.005,
+      "SUPPORT_MIN_DROP_FRAC": 0.2,
+      "THROUGH_MIN_EXTEND": 0.01,
+      "BETWEEN_TOL": 0.1,
+      "AROUND_MIN_FRAC": 0.5,
+      "SYM_TOL": 0.05,
+      "SYM_SIZE_LOGTOL": 0.15,
       "SIGMA_R": 0.15,
       "DEFAULT_TOLERANCE": 0.1,
       "TOL_TO_SIGMA": "log1p",
@@ -67,76 +74,10 @@
         ],
         "part_relations": [
           {
-            "subject": "drawer_0",
-            "relation": "attached_to",
-            "object": "body",
-            "source": "joint:body_to_drawer_0"
-          },
-          {
-            "subject": "drawer_0",
+            "subject": "drawer",
             "relation": "inside",
             "object": "body",
-            "source": "name-heuristic:drawer_0"
-          },
-          {
-            "subject": "drawer_1",
-            "relation": "attached_to",
-            "object": "body",
-            "source": "joint:body_to_drawer_1"
-          },
-          {
-            "subject": "drawer_1",
-            "relation": "inside",
-            "object": "body",
-            "source": "name-heuristic:drawer_1"
-          },
-          {
-            "subject": "drawer_2",
-            "relation": "attached_to",
-            "object": "body",
-            "source": "joint:body_to_drawer_2"
-          },
-          {
-            "subject": "drawer_2",
-            "relation": "inside",
-            "object": "body",
-            "source": "name-heuristic:drawer_2"
-          },
-          {
-            "subject": "drawer_3",
-            "relation": "attached_to",
-            "object": "body",
-            "source": "joint:body_to_drawer_3"
-          },
-          {
-            "subject": "drawer_3",
-            "relation": "inside",
-            "object": "body",
-            "source": "name-heuristic:drawer_3"
-          },
-          {
-            "subject": "drawer_4",
-            "relation": "attached_to",
-            "object": "body",
-            "source": "joint:body_to_drawer_4"
-          },
-          {
-            "subject": "drawer_4",
-            "relation": "inside",
-            "object": "body",
-            "source": "name-heuristic:drawer_4"
-          },
-          {
-            "subject": "drawer_5",
-            "relation": "attached_to",
-            "object": "body",
-            "source": "joint:body_to_drawer_5"
-          },
-          {
-            "subject": "drawer_5",
-            "relation": "inside",
-            "object": "body",
-            "source": "name-heuristic:drawer_5"
+            "source": "prompt: \"All six drawers slide ... within the rigid outer carcass\""
           }
         ],
         "proportion_claims": [
@@ -162,43 +103,23 @@
             "source": "symmetry-naming"
           }
         ],
-        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+        "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
       },
       "t_global": "a 3D rendering of a drawer cabinet with sliding drawers",
       "d_bbox": 1.1518680479985544,
       "gf3": {
         "score": 1.0,
-        "n_claims": 12,
-        "n_evaluated": 12,
-        "n_satisfied": 12,
+        "n_claims": 1,
+        "n_evaluated": 1,
+        "n_satisfied": 1,
         "n_unmeasurable": 0,
         "claims": [
           {
-            "subject": "drawer_0",
-            "relation": "attached_to",
-            "object": "body",
-            "source": "joint:body_to_drawer_0",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "drawer_0",
-                "object": "body",
-                "satisfied": true,
-                "measured": {
-                  "signed_distance": 0.0,
-                  "signed_distance_over_D": 0.0,
-                  "state": "contact"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "drawer_0",
+            "subject": "drawer",
             "relation": "inside",
             "object": "body",
-            "source": "name-heuristic:drawer_0",
+            "source": "prompt: \"All six drawers slide ... within the rigid outer carcass\"",
             "satisfied": true,
             "pairs": [
               {
@@ -209,38 +130,7 @@
                   "inside_fraction": 0.9408284023668637
                 },
                 "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "drawer_1",
-            "relation": "attached_to",
-            "object": "body",
-            "source": "joint:body_to_drawer_1",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "drawer_1",
-                "object": "body",
-                "satisfied": true,
-                "measured": {
-                  "signed_distance": 0.0,
-                  "signed_distance_over_D": 0.0,
-                  "state": "contact"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "drawer_1",
-            "relation": "inside",
-            "object": "body",
-            "source": "name-heuristic:drawer_1",
-            "satisfied": true,
-            "pairs": [
+              },
               {
                 "subject": "drawer_1",
                 "object": "body",
@@ -249,38 +139,7 @@
                   "inside_fraction": 0.9408284023668637
                 },
                 "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "drawer_2",
-            "relation": "attached_to",
-            "object": "body",
-            "source": "joint:body_to_drawer_2",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "drawer_2",
-                "object": "body",
-                "satisfied": true,
-                "measured": {
-                  "signed_distance": 0.0,
-                  "signed_distance_over_D": 0.0,
-                  "state": "contact"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "drawer_2",
-            "relation": "inside",
-            "object": "body",
-            "source": "name-heuristic:drawer_2",
-            "satisfied": true,
-            "pairs": [
+              },
               {
                 "subject": "drawer_2",
                 "object": "body",
@@ -289,38 +148,7 @@
                   "inside_fraction": 0.9408284023668637
                 },
                 "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "drawer_3",
-            "relation": "attached_to",
-            "object": "body",
-            "source": "joint:body_to_drawer_3",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "drawer_3",
-                "object": "body",
-                "satisfied": true,
-                "measured": {
-                  "signed_distance": 0.0,
-                  "signed_distance_over_D": 0.0,
-                  "state": "contact"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "drawer_3",
-            "relation": "inside",
-            "object": "body",
-            "source": "name-heuristic:drawer_3",
-            "satisfied": true,
-            "pairs": [
+              },
               {
                 "subject": "drawer_3",
                 "object": "body",
@@ -329,38 +157,7 @@
                   "inside_fraction": 0.9408284023668639
                 },
                 "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "drawer_4",
-            "relation": "attached_to",
-            "object": "body",
-            "source": "joint:body_to_drawer_4",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "drawer_4",
-                "object": "body",
-                "satisfied": true,
-                "measured": {
-                  "signed_distance": 0.0,
-                  "signed_distance_over_D": 0.0,
-                  "state": "contact"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "drawer_4",
-            "relation": "inside",
-            "object": "body",
-            "source": "name-heuristic:drawer_4",
-            "satisfied": true,
-            "pairs": [
+              },
               {
                 "subject": "drawer_4",
                 "object": "body",
@@ -369,38 +166,7 @@
                   "inside_fraction": 0.9408284023668638
                 },
                 "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "drawer_5",
-            "relation": "attached_to",
-            "object": "body",
-            "source": "joint:body_to_drawer_5",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "drawer_5",
-                "object": "body",
-                "satisfied": true,
-                "measured": {
-                  "signed_distance": 0.0,
-                  "signed_distance_over_D": 0.0,
-                  "state": "contact"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "drawer_5",
-            "relation": "inside",
-            "object": "body",
-            "source": "name-heuristic:drawer_5",
-            "satisfied": true,
-            "pairs": [
+              },
               {
                 "subject": "drawer_5",
                 "object": "body",
@@ -630,71 +396,69 @@
         "part_relations": [
           {
             "subject": "outer_tube",
-            "relation": "attached_to",
+            "relation": "supported_by",
             "object": "root_housing",
-            "source": "joint:root_to_outer"
+            "source": "prompt: \"A broad root housing supports nested rectangular tubes\""
           },
           {
             "subject": "middle_tube",
-            "relation": "attached_to",
+            "relation": "inside",
             "object": "outer_tube",
-            "source": "joint:outer_to_middle"
+            "source": "prompt: \"nested rectangular tubes\""
           },
           {
             "subject": "inner_tube",
-            "relation": "attached_to",
+            "relation": "inside",
             "object": "middle_tube",
-            "source": "joint:middle_to_inner"
+            "source": "prompt: \"nested rectangular tubes\""
           }
         ],
         "proportion_claims": [],
-        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+        "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
       },
       "t_global": "a 3D rendering of a telescoping boom",
       "d_bbox": 1.6104996133373504,
       "gf3": {
-        "score": 0.0,
+        "score": 1.0,
         "n_claims": 3,
-        "n_evaluated": 3,
-        "n_satisfied": 0,
-        "n_unmeasurable": 0,
+        "n_evaluated": 2,
+        "n_satisfied": 2,
+        "n_unmeasurable": 1,
         "claims": [
           {
             "subject": "outer_tube",
-            "relation": "attached_to",
+            "relation": "supported_by",
             "object": "root_housing",
-            "source": "joint:root_to_outer",
-            "satisfied": false,
+            "source": "prompt: \"A broad root housing supports nested rectangular tubes\"",
+            "satisfied": null,
             "pairs": [
               {
                 "subject": "outer_tube",
                 "object": "root_housing",
-                "satisfied": false,
+                "satisfied": null,
                 "measured": {
                   "signed_distance": -0.1300000026822093,
-                  "signed_distance_over_D": -0.08072029425255023,
-                  "state": "penetration"
+                  "signed_distance_over_D": -0.08072029425255023
                 },
-                "note": ""
+                "note": "baseline penetration: support probe invalid"
               }
             ],
-            "note": ""
+            "note": "unmeasurable: no measurable instance pair"
           },
           {
             "subject": "middle_tube",
-            "relation": "attached_to",
+            "relation": "inside",
             "object": "outer_tube",
-            "source": "joint:outer_to_middle",
-            "satisfied": false,
+            "source": "prompt: \"nested rectangular tubes\"",
+            "satisfied": true,
             "pairs": [
               {
                 "subject": "middle_tube",
                 "object": "outer_tube",
-                "satisfied": false,
+                "satisfied": true,
                 "measured": {
-                  "signed_distance": -0.07249999977648273,
-                  "signed_distance_over_D": -0.045017086111709737,
-                  "state": "penetration"
+                  "inside_fraction": 0.9285714102315377
                 },
                 "note": ""
               }
@@ -703,19 +467,17 @@
           },
           {
             "subject": "inner_tube",
-            "relation": "attached_to",
+            "relation": "inside",
             "object": "middle_tube",
-            "source": "joint:middle_to_inner",
-            "satisfied": false,
+            "source": "prompt: \"nested rectangular tubes\"",
+            "satisfied": true,
             "pairs": [
               {
                 "subject": "inner_tube",
                 "object": "middle_tube",
-                "satisfied": false,
+                "satisfied": true,
                 "measured": {
-                  "signed_distance": -0.04599999915808448,
-                  "signed_distance_over_D": -0.028562564546514357,
-                  "state": "penetration"
+                  "inside_fraction": 0.9078947319662062
                 },
                 "note": ""
               }
@@ -818,44 +580,59 @@
         ],
         "part_relations": [
           {
-            "subject": "jaw",
-            "relation": "attached_to",
+            "subject": "guide_rod",
+            "relation": "through",
+            "object": "jaw",
+            "source": "prompt: \"parallel guide rod running through the jaw\""
+          },
+          {
+            "subject": "fixed_block",
+            "relation": "below",
             "object": "bench",
-            "source": "joint:jaw_slide"
+            "source": "prompt: \"a fixed block below the bench edge\""
           }
         ],
         "proportion_claims": [],
-        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+        "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
       },
       "t_global": "a 3D rendering of a bench vise with prismatic jaw",
       "d_bbox": 1.2006275320067252,
       "gf3": {
         "score": 0.0,
-        "n_claims": 1,
+        "n_claims": 2,
         "n_evaluated": 1,
         "n_satisfied": 0,
-        "n_unmeasurable": 0,
+        "n_unmeasurable": 1,
         "claims": [
           {
-            "subject": "jaw",
-            "relation": "attached_to",
-            "object": "bench",
-            "source": "joint:jaw_slide",
+            "subject": "guide_rod",
+            "relation": "through",
+            "object": "jaw",
+            "source": "prompt: \"parallel guide rod running through the jaw\"",
             "satisfied": false,
             "pairs": [
               {
-                "subject": "jaw",
-                "object": "bench",
+                "subject": "guide_rod",
+                "object": "jaw",
                 "satisfied": false,
                 "measured": {
-                  "signed_distance": -0.08299998026606466,
-                  "signed_distance_over_D": -0.06913049888780973,
-                  "state": "penetration"
+                  "intersects": true,
+                  "extend_axes": []
                 },
-                "note": ""
+                "note": "geom-level-ref"
               }
             ],
             "note": ""
+          },
+          {
+            "subject": "fixed_block",
+            "relation": "below",
+            "object": "bench",
+            "source": "prompt: \"a fixed block below the bench edge\"",
+            "satisfied": null,
+            "pairs": [],
+            "note": "unmeasurable: unresolved reference 'fixed_block'"
           }
         ]
       },
@@ -1038,136 +815,46 @@
         ],
         "part_relations": [
           {
-            "subject": "drawer",
-            "relation": "attached_to",
-            "object": "housing",
-            "source": "joint:housing_to_drawer"
-          },
-          {
-            "subject": "drawer",
-            "relation": "inside",
-            "object": "housing",
-            "source": "name-heuristic:drawer"
-          },
-          {
-            "subject": "menu_key_0_0",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_menu_key_0_0"
-          },
-          {
-            "subject": "menu_key_0_1",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_menu_key_0_1"
-          },
-          {
-            "subject": "menu_key_0_2",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_menu_key_0_2"
-          },
-          {
-            "subject": "menu_key_1_0",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_menu_key_1_0"
-          },
-          {
-            "subject": "menu_key_1_1",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_menu_key_1_1"
-          },
-          {
-            "subject": "menu_key_1_2",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_menu_key_1_2"
-          },
-          {
-            "subject": "number_key_0_0",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_number_key_0_0"
-          },
-          {
-            "subject": "number_key_0_1",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_number_key_0_1"
-          },
-          {
-            "subject": "number_key_0_2",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_number_key_0_2"
-          },
-          {
-            "subject": "number_key_1_0",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_number_key_1_0"
-          },
-          {
-            "subject": "number_key_1_1",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_number_key_1_1"
-          },
-          {
-            "subject": "number_key_1_2",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_number_key_1_2"
-          },
-          {
-            "subject": "number_key_2_0",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_number_key_2_0"
-          },
-          {
-            "subject": "number_key_2_1",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_number_key_2_1"
-          },
-          {
-            "subject": "number_key_2_2",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_number_key_2_2"
-          },
-          {
-            "subject": "number_key_3_0",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_number_key_3_0"
-          },
-          {
-            "subject": "number_key_3_1",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_number_key_3_1"
-          },
-          {
-            "subject": "number_key_3_2",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_number_key_3_2"
-          },
-          {
-            "subject": "screen_swivel",
-            "relation": "attached_to",
-            "object": "screen_stand",
-            "source": "joint:screen_stand_to_screen_swivel"
-          },
-          {
             "subject": "screen",
             "relation": "attached_to",
             "object": "screen_swivel",
-            "source": "joint:screen_swivel_to_screen"
+            "source": "prompt: \"a rear operator screen on a swivel mount\""
+          },
+          {
+            "subject": "menu_key_0",
+            "relation": "attached_to",
+            "object": "console_panel",
+            "source": "prompt: \"the keys sit in clear rows across the control face\""
+          },
+          {
+            "subject": "menu_key_1",
+            "relation": "attached_to",
+            "object": "console_panel",
+            "source": "prompt: \"the keys sit in clear rows across the control face\""
+          },
+          {
+            "subject": "number_key_0",
+            "relation": "attached_to",
+            "object": "console_panel",
+            "source": "prompt: \"the keys sit in clear rows across the control face\""
+          },
+          {
+            "subject": "number_key_1",
+            "relation": "attached_to",
+            "object": "console_panel",
+            "source": "prompt: \"the keys sit in clear rows across the control face\""
+          },
+          {
+            "subject": "number_key_2",
+            "relation": "attached_to",
+            "object": "console_panel",
+            "source": "prompt: \"the keys sit in clear rows across the control face\""
+          },
+          {
+            "subject": "number_key_3",
+            "relation": "attached_to",
+            "object": "console_panel",
+            "source": "prompt: \"the keys sit in clear rows across the control face\""
           }
         ],
         "proportion_claims": [
@@ -1262,32 +949,33 @@
             "source": "symmetry-naming"
           }
         ],
-        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+        "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
       },
       "t_global": "a 3D rendering of a cash register",
       "d_bbox": 0.6298610957981132,
       "gf3": {
-        "score": 0.9545454545454546,
-        "n_claims": 22,
-        "n_evaluated": 22,
-        "n_satisfied": 21,
+        "score": 0.8571428571428571,
+        "n_claims": 7,
+        "n_evaluated": 7,
+        "n_satisfied": 6,
         "n_unmeasurable": 0,
         "claims": [
           {
-            "subject": "drawer",
+            "subject": "screen",
             "relation": "attached_to",
-            "object": "housing",
-            "source": "joint:housing_to_drawer",
-            "satisfied": true,
+            "object": "screen_swivel",
+            "source": "prompt: \"a rear operator screen on a swivel mount\"",
+            "satisfied": false,
             "pairs": [
               {
-                "subject": "drawer",
-                "object": "housing",
-                "satisfied": true,
+                "subject": "screen",
+                "object": "screen_swivel",
+                "satisfied": false,
                 "measured": {
-                  "signed_distance": 0.0,
-                  "signed_distance_over_D": 0.0,
-                  "state": "contact"
+                  "signed_distance": -0.0040000000000000036,
+                  "signed_distance_over_D": -0.006350606549101911,
+                  "state": "penetration"
                 },
                 "note": ""
               }
@@ -1295,29 +983,10 @@
             "note": ""
           },
           {
-            "subject": "drawer",
-            "relation": "inside",
-            "object": "housing",
-            "source": "name-heuristic:drawer",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "drawer",
-                "object": "housing",
-                "satisfied": true,
-                "measured": {
-                  "inside_fraction": 0.9774436090225563
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "menu_key_0_0",
+            "subject": "menu_key_0",
             "relation": "attached_to",
             "object": "console_panel",
-            "source": "joint:console_panel_to_menu_key_0_0",
+            "source": "prompt: \"the keys sit in clear rows across the control face\"",
             "satisfied": true,
             "pairs": [
               {
@@ -1330,17 +999,7 @@
                   "state": "contact"
                 },
                 "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "menu_key_0_1",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_menu_key_0_1",
-            "satisfied": true,
-            "pairs": [
+              },
               {
                 "subject": "menu_key_0_1",
                 "object": "console_panel",
@@ -1351,17 +1010,7 @@
                   "state": "contact"
                 },
                 "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "menu_key_0_2",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_menu_key_0_2",
-            "satisfied": true,
-            "pairs": [
+              },
               {
                 "subject": "menu_key_0_2",
                 "object": "console_panel",
@@ -1377,10 +1026,10 @@
             "note": ""
           },
           {
-            "subject": "menu_key_1_0",
+            "subject": "menu_key_1",
             "relation": "attached_to",
             "object": "console_panel",
-            "source": "joint:console_panel_to_menu_key_1_0",
+            "source": "prompt: \"the keys sit in clear rows across the control face\"",
             "satisfied": true,
             "pairs": [
               {
@@ -1393,17 +1042,7 @@
                   "state": "contact"
                 },
                 "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "menu_key_1_1",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_menu_key_1_1",
-            "satisfied": true,
-            "pairs": [
+              },
               {
                 "subject": "menu_key_1_1",
                 "object": "console_panel",
@@ -1414,17 +1053,7 @@
                   "state": "contact"
                 },
                 "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "menu_key_1_2",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_menu_key_1_2",
-            "satisfied": true,
-            "pairs": [
+              },
               {
                 "subject": "menu_key_1_2",
                 "object": "console_panel",
@@ -1440,10 +1069,10 @@
             "note": ""
           },
           {
-            "subject": "number_key_0_0",
+            "subject": "number_key_0",
             "relation": "attached_to",
             "object": "console_panel",
-            "source": "joint:console_panel_to_number_key_0_0",
+            "source": "prompt: \"the keys sit in clear rows across the control face\"",
             "satisfied": true,
             "pairs": [
               {
@@ -1456,17 +1085,7 @@
                   "state": "contact"
                 },
                 "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "number_key_0_1",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_number_key_0_1",
-            "satisfied": true,
-            "pairs": [
+              },
               {
                 "subject": "number_key_0_1",
                 "object": "console_panel",
@@ -1477,17 +1096,7 @@
                   "state": "contact"
                 },
                 "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "number_key_0_2",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_number_key_0_2",
-            "satisfied": true,
-            "pairs": [
+              },
               {
                 "subject": "number_key_0_2",
                 "object": "console_panel",
@@ -1503,10 +1112,10 @@
             "note": ""
           },
           {
-            "subject": "number_key_1_0",
+            "subject": "number_key_1",
             "relation": "attached_to",
             "object": "console_panel",
-            "source": "joint:console_panel_to_number_key_1_0",
+            "source": "prompt: \"the keys sit in clear rows across the control face\"",
             "satisfied": true,
             "pairs": [
               {
@@ -1519,17 +1128,7 @@
                   "state": "contact"
                 },
                 "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "number_key_1_1",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_number_key_1_1",
-            "satisfied": true,
-            "pairs": [
+              },
               {
                 "subject": "number_key_1_1",
                 "object": "console_panel",
@@ -1540,17 +1139,7 @@
                   "state": "contact"
                 },
                 "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "number_key_1_2",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_number_key_1_2",
-            "satisfied": true,
-            "pairs": [
+              },
               {
                 "subject": "number_key_1_2",
                 "object": "console_panel",
@@ -1566,10 +1155,10 @@
             "note": ""
           },
           {
-            "subject": "number_key_2_0",
+            "subject": "number_key_2",
             "relation": "attached_to",
             "object": "console_panel",
-            "source": "joint:console_panel_to_number_key_2_0",
+            "source": "prompt: \"the keys sit in clear rows across the control face\"",
             "satisfied": true,
             "pairs": [
               {
@@ -1582,17 +1171,7 @@
                   "state": "contact"
                 },
                 "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "number_key_2_1",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_number_key_2_1",
-            "satisfied": true,
-            "pairs": [
+              },
               {
                 "subject": "number_key_2_1",
                 "object": "console_panel",
@@ -1603,17 +1182,7 @@
                   "state": "contact"
                 },
                 "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "number_key_2_2",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_number_key_2_2",
-            "satisfied": true,
-            "pairs": [
+              },
               {
                 "subject": "number_key_2_2",
                 "object": "console_panel",
@@ -1629,10 +1198,10 @@
             "note": ""
           },
           {
-            "subject": "number_key_3_0",
+            "subject": "number_key_3",
             "relation": "attached_to",
             "object": "console_panel",
-            "source": "joint:console_panel_to_number_key_3_0",
+            "source": "prompt: \"the keys sit in clear rows across the control face\"",
             "satisfied": true,
             "pairs": [
               {
@@ -1645,17 +1214,7 @@
                   "state": "contact"
                 },
                 "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "number_key_3_1",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_number_key_3_1",
-            "satisfied": true,
-            "pairs": [
+              },
               {
                 "subject": "number_key_3_1",
                 "object": "console_panel",
@@ -1666,17 +1225,7 @@
                   "state": "contact"
                 },
                 "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "number_key_3_2",
-            "relation": "attached_to",
-            "object": "console_panel",
-            "source": "joint:console_panel_to_number_key_3_2",
-            "satisfied": true,
-            "pairs": [
+              },
               {
                 "subject": "number_key_3_2",
                 "object": "console_panel",
@@ -1685,48 +1234,6 @@
                   "signed_distance": 0.0,
                   "signed_distance_over_D": 0.0,
                   "state": "contact"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "screen_swivel",
-            "relation": "attached_to",
-            "object": "screen_stand",
-            "source": "joint:screen_stand_to_screen_swivel",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "screen_swivel",
-                "object": "screen_stand",
-                "satisfied": true,
-                "measured": {
-                  "signed_distance": 0.0,
-                  "signed_distance_over_D": 0.0,
-                  "state": "contact"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "screen",
-            "relation": "attached_to",
-            "object": "screen_swivel",
-            "source": "joint:screen_swivel_to_screen",
-            "satisfied": false,
-            "pairs": [
-              {
-                "subject": "screen",
-                "object": "screen_swivel",
-                "satisfied": false,
-                "measured": {
-                  "signed_distance": -0.0040000000000000036,
-                  "signed_distance_over_D": -0.006350606549101911,
-                  "state": "penetration"
                 },
                 "note": ""
               }
@@ -2199,44 +1706,51 @@
             "subject": "latch_leaf",
             "relation": "attached_to",
             "object": "fixed_frame",
-            "source": "joint:frame_to_latch_leaf"
+            "source": "prompt-kinematic: \"Each leaf is hinged to an outer post\""
           },
           {
             "subject": "bolt_leaf",
             "relation": "attached_to",
             "object": "fixed_frame",
-            "source": "joint:frame_to_bolt_leaf"
+            "source": "prompt-kinematic: \"Each leaf is hinged to an outer post\""
           },
           {
             "subject": "latch_lever",
-            "relation": "attached_to",
+            "relation": "supported_by",
             "object": "latch_leaf",
-            "source": "joint:latch_leaf_to_latch_lever"
+            "source": "prompt: \"one meeting stile carries a latch\""
           },
           {
             "subject": "cane_bolt",
-            "relation": "attached_to",
+            "relation": "supported_by",
             "object": "bolt_leaf",
-            "source": "joint:bolt_leaf_to_cane_bolt"
+            "source": "prompt: \"the other carries a vertical cane bolt\""
+          },
+          {
+            "subject": "cane_bolt",
+            "relation": "through",
+            "object": "bolt_leaf",
+            "source": "prompt: \"the cane bolt clipped through its guide loops on the meeting stile\""
           }
         ],
         "proportion_claims": [],
-        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+        "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
       },
       "t_global": "a 3D rendering of a garden gate",
       "d_bbox": 3.1858280164175805,
       "gf3": {
-        "score": 0.75,
-        "n_claims": 4,
+        "score": 0.5,
+        "n_claims": 5,
         "n_evaluated": 4,
-        "n_satisfied": 3,
-        "n_unmeasurable": 0,
+        "n_satisfied": 2,
+        "n_unmeasurable": 1,
         "claims": [
           {
             "subject": "latch_leaf",
             "relation": "attached_to",
             "object": "fixed_frame",
-            "source": "joint:frame_to_latch_leaf",
+            "source": "prompt-kinematic: \"Each leaf is hinged to an outer post\"",
             "satisfied": true,
             "pairs": [
               {
@@ -2257,7 +1771,7 @@
             "subject": "bolt_leaf",
             "relation": "attached_to",
             "object": "fixed_frame",
-            "source": "joint:frame_to_bolt_leaf",
+            "source": "prompt-kinematic: \"Each leaf is hinged to an outer post\"",
             "satisfied": true,
             "pairs": [
               {
@@ -2276,19 +1790,41 @@
           },
           {
             "subject": "latch_lever",
-            "relation": "attached_to",
+            "relation": "supported_by",
             "object": "latch_leaf",
-            "source": "joint:latch_leaf_to_latch_lever",
-            "satisfied": false,
+            "source": "prompt: \"one meeting stile carries a latch\"",
+            "satisfied": null,
             "pairs": [
               {
                 "subject": "latch_lever",
                 "object": "latch_leaf",
-                "satisfied": false,
+                "satisfied": null,
                 "measured": {
                   "signed_distance": -0.02899974761154797,
-                  "signed_distance_over_D": -0.009102734818735692,
-                  "state": "penetration"
+                  "signed_distance_over_D": -0.009102734818735692
+                },
+                "note": "baseline penetration: support probe invalid"
+              }
+            ],
+            "note": "unmeasurable: no measurable instance pair"
+          },
+          {
+            "subject": "cane_bolt",
+            "relation": "supported_by",
+            "object": "bolt_leaf",
+            "source": "prompt: \"the other carries a vertical cane bolt\"",
+            "satisfied": false,
+            "pairs": [
+              {
+                "subject": "cane_bolt",
+                "object": "bolt_leaf",
+                "satisfied": false,
+                "measured": {
+                  "sd_baseline": -4.769290225913846e-07,
+                  "sd_probed": -4.484907218150177e-07,
+                  "drop": -2.843830077636693e-08,
+                  "drop_over_delta": -1.7853004386812696e-06,
+                  "probe_delta": 0.015929140082087904
                 },
                 "note": ""
               }
@@ -2297,19 +1833,18 @@
           },
           {
             "subject": "cane_bolt",
-            "relation": "attached_to",
+            "relation": "through",
             "object": "bolt_leaf",
-            "source": "joint:bolt_leaf_to_cane_bolt",
-            "satisfied": true,
+            "source": "prompt: \"the cane bolt clipped through its guide loops on the meeting stile\"",
+            "satisfied": false,
             "pairs": [
               {
                 "subject": "cane_bolt",
                 "object": "bolt_leaf",
-                "satisfied": true,
+                "satisfied": false,
                 "measured": {
-                  "signed_distance": -4.769290225913846e-07,
-                  "signed_distance_over_D": -1.497033173585072e-07,
-                  "state": "contact"
+                  "intersects": true,
+                  "extend_axes": []
                 },
                 "note": ""
               }
@@ -2431,17 +1966,18 @@
             "subject": "front_door",
             "relation": "attached_to",
             "object": "cabinet",
-            "source": "joint:cabinet_to_front_door"
+            "source": "prompt-kinematic: \"a hinged front door ... on two revolute hinge knuckles\""
           },
           {
             "subject": "instrument_panel",
             "relation": "attached_to",
             "object": "cabinet",
-            "source": "joint:cabinet_to_instrument_panel"
+            "source": "prompt-kinematic: \"an inner hinged instrument panel on a revolute hinge\"（挂靠对象原文未名, 按关节父件绑定）"
           }
         ],
         "proportion_claims": [],
-        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+        "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
       },
       "t_global": "a 3D rendering of a electrical cabinet door",
       "d_bbox": 2.312066175523529,
@@ -2456,7 +1992,7 @@
             "subject": "front_door",
             "relation": "attached_to",
             "object": "cabinet",
-            "source": "joint:cabinet_to_front_door",
+            "source": "prompt-kinematic: \"a hinged front door ... on two revolute hinge knuckles\"",
             "satisfied": true,
             "pairs": [
               {
@@ -2477,7 +2013,7 @@
             "subject": "instrument_panel",
             "relation": "attached_to",
             "object": "cabinet",
-            "source": "joint:cabinet_to_instrument_panel",
+            "source": "prompt-kinematic: \"an inner hinged instrument panel on a revolute hinge\"（挂靠对象原文未名, 按关节父件绑定）",
             "satisfied": true,
             "pairs": [
               {
@@ -2601,28 +2137,22 @@
         ],
         "part_relations": [
           {
+            "subject": "lid",
+            "relation": "supported_by",
+            "object": "bin_body",
+            "source": "prompt: \"Lid swing and wheel rolling should both be clearly supported\"（支撑者按关节父件绑定）"
+          },
+          {
             "subject": "left_wheel",
-            "relation": "attached_to",
+            "relation": "supported_by",
             "object": "rear_axle",
-            "source": "joint:left_wheel_spin"
+            "source": "prompt: \"Lid swing and wheel rolling should both be clearly supported\"（支撑者按关节父件绑定）"
           },
           {
             "subject": "right_wheel",
-            "relation": "attached_to",
+            "relation": "supported_by",
             "object": "rear_axle",
-            "source": "joint:right_wheel_spin"
-          },
-          {
-            "subject": "lid",
-            "relation": "attached_to",
-            "object": "bin_body",
-            "source": "joint:body_to_lid"
-          },
-          {
-            "subject": "lid",
-            "relation": "above",
-            "object": "bin_body",
-            "source": "name-heuristic:lid"
+            "source": "prompt: \"Lid swing and wheel rolling should both be clearly supported\"（支撑者按关节父件绑定）"
           }
         ],
         "proportion_claims": [
@@ -2640,32 +2170,58 @@
             "source": "symmetry-naming"
           }
         ],
-        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+        "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
       },
       "t_global": "a 3D rendering of a wheelie bin with hinged lid",
       "d_bbox": 0.5067347119324159,
       "gf3": {
-        "score": 1.0,
-        "n_claims": 4,
-        "n_evaluated": 4,
-        "n_satisfied": 4,
+        "score": 0.3333333333333333,
+        "n_claims": 3,
+        "n_evaluated": 3,
+        "n_satisfied": 1,
         "n_unmeasurable": 0,
         "claims": [
           {
-            "subject": "left_wheel",
-            "relation": "attached_to",
-            "object": "rear_axle",
-            "source": "joint:left_wheel_spin",
+            "subject": "lid",
+            "relation": "supported_by",
+            "object": "bin_body",
+            "source": "prompt: \"Lid swing and wheel rolling should both be clearly supported\"（支撑者按关节父件绑定）",
             "satisfied": true,
+            "pairs": [
+              {
+                "subject": "lid",
+                "object": "bin_body",
+                "satisfied": true,
+                "measured": {
+                  "sd_baseline": -0.002000000000000016,
+                  "sd_probed": -0.002533673559662053,
+                  "drop": 0.0005336735596620369,
+                  "drop_over_delta": 0.21063232776254484,
+                  "probe_delta": 0.00253367355966208
+                },
+                "note": ""
+              }
+            ],
+            "note": ""
+          },
+          {
+            "subject": "left_wheel",
+            "relation": "supported_by",
+            "object": "rear_axle",
+            "source": "prompt: \"Lid swing and wheel rolling should both be clearly supported\"（支撑者按关节父件绑定）",
+            "satisfied": false,
             "pairs": [
               {
                 "subject": "left_wheel",
                 "object": "rear_axle",
-                "satisfied": true,
+                "satisfied": false,
                 "measured": {
-                  "signed_distance": -1.484245232383077e-13,
-                  "signed_distance_over_D": -2.9290380102893626e-13,
-                  "state": "contact"
+                  "sd_baseline": -1.484245232383077e-13,
+                  "sd_probed": -9.306851073224771e-09,
+                  "drop": 9.306702648701534e-09,
+                  "drop_over_delta": 3.673205103005765e-06,
+                  "probe_delta": 0.00253367355966208
                 },
                 "note": ""
               }
@@ -2674,60 +2230,21 @@
           },
           {
             "subject": "right_wheel",
-            "relation": "attached_to",
+            "relation": "supported_by",
             "object": "rear_axle",
-            "source": "joint:right_wheel_spin",
-            "satisfied": true,
+            "source": "prompt: \"Lid swing and wheel rolling should both be clearly supported\"（支撑者按关节父件绑定）",
+            "satisfied": false,
             "pairs": [
               {
                 "subject": "right_wheel",
                 "object": "rear_axle",
-                "satisfied": true,
+                "satisfied": false,
                 "measured": {
-                  "signed_distance": -1.4842452322609159e-13,
-                  "signed_distance_over_D": -2.9290380100482877e-13,
-                  "state": "contact"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "lid",
-            "relation": "attached_to",
-            "object": "bin_body",
-            "source": "joint:body_to_lid",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "lid",
-                "object": "bin_body",
-                "satisfied": true,
-                "measured": {
-                  "signed_distance": -0.002000000000000016,
-                  "signed_distance_over_D": -0.003946838361187223,
-                  "state": "contact"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "lid",
-            "relation": "above",
-            "object": "bin_body",
-            "source": "name-heuristic:lid",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "lid",
-                "object": "bin_body",
-                "satisfied": true,
-                "measured": {
-                  "z_gap_over_D": -0.021707726966797507,
-                  "footprint_overlap": 0.915876915876916
+                  "sd_baseline": -1.4842452322609159e-13,
+                  "sd_probed": -9.306554224178283e-09,
+                  "drop": 9.306405799655057e-09,
+                  "drop_over_delta": 3.6730879414853535e-06,
+                  "probe_delta": 0.00253367355966208
                 },
                 "note": ""
               }
@@ -2881,83 +2398,30 @@
         ],
         "part_relations": [
           {
-            "subject": "navigation_cluster",
-            "relation": "attached_to",
-            "object": "lower_body",
-            "source": "joint:lower_to_navigation_cluster"
-          },
-          {
-            "subject": "numeric_keypad",
-            "relation": "attached_to",
-            "object": "lower_body",
-            "source": "joint:lower_to_numeric_keypad"
-          },
-          {
             "subject": "upper_body",
             "relation": "attached_to",
             "object": "lower_body",
-            "source": "joint:clamshell_hinge"
+            "source": "prompt-kinematic: \"lower keypad body and a matching upper display body joined by a dual-barrel hinge\""
           }
         ],
         "proportion_claims": [],
-        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+        "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
       },
       "t_global": "a 3D rendering of a flip phone",
       "d_bbox": 0.20146763335669932,
       "gf3": {
         "score": 0.0,
-        "n_claims": 3,
-        "n_evaluated": 3,
+        "n_claims": 1,
+        "n_evaluated": 1,
         "n_satisfied": 0,
         "n_unmeasurable": 0,
         "claims": [
           {
-            "subject": "navigation_cluster",
-            "relation": "attached_to",
-            "object": "lower_body",
-            "source": "joint:lower_to_navigation_cluster",
-            "satisfied": false,
-            "pairs": [
-              {
-                "subject": "navigation_cluster",
-                "object": "lower_body",
-                "satisfied": false,
-                "measured": {
-                  "signed_distance": -0.0015999999595806052,
-                  "signed_distance_over_D": -0.007941722116464229,
-                  "state": "penetration"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "numeric_keypad",
-            "relation": "attached_to",
-            "object": "lower_body",
-            "source": "joint:lower_to_numeric_keypad",
-            "satisfied": false,
-            "pairs": [
-              {
-                "subject": "numeric_keypad",
-                "object": "lower_body",
-                "satisfied": false,
-                "measured": {
-                  "signed_distance": -0.0015999999595806055,
-                  "signed_distance_over_D": -0.007941722116464229,
-                  "state": "penetration"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
             "subject": "upper_body",
             "relation": "attached_to",
             "object": "lower_body",
-            "source": "joint:clamshell_hinge",
+            "source": "prompt-kinematic: \"lower keypad body and a matching upper display body joined by a dual-barrel hinge\"",
             "satisfied": false,
             "pairs": [
               {
@@ -3078,15 +2542,15 @@
         "part_relations": [
           {
             "subject": "left_temple",
-            "relation": "attached_to",
+            "relation": "supported_by",
             "object": "front_frame",
-            "source": "joint:left_hinge"
+            "source": "prompt: \"each outer corner carries a slender temple arm\""
           },
           {
             "subject": "right_temple",
-            "relation": "attached_to",
+            "relation": "supported_by",
             "object": "front_frame",
-            "source": "joint:right_hinge"
+            "source": "prompt: \"each outer corner carries a slender temple arm\""
           }
         ],
         "proportion_claims": [
@@ -3104,32 +2568,35 @@
             "source": "symmetry-naming"
           }
         ],
-        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+        "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
       },
       "t_global": "a 3D rendering of a glasses",
       "d_bbox": 0.21574676260371206,
       "gf3": {
-        "score": 1.0,
+        "score": 0.0,
         "n_claims": 2,
         "n_evaluated": 2,
-        "n_satisfied": 2,
+        "n_satisfied": 0,
         "n_unmeasurable": 0,
         "claims": [
           {
             "subject": "left_temple",
-            "relation": "attached_to",
+            "relation": "supported_by",
             "object": "front_frame",
-            "source": "joint:left_hinge",
-            "satisfied": true,
+            "source": "prompt: \"each outer corner carries a slender temple arm\"",
+            "satisfied": false,
             "pairs": [
               {
                 "subject": "left_temple",
                 "object": "front_frame",
-                "satisfied": true,
+                "satisfied": false,
                 "measured": {
-                  "signed_distance": 0.0,
-                  "signed_distance_over_D": 0.0,
-                  "state": "contact"
+                  "sd_baseline": 0.0,
+                  "sd_probed": -1.120086035253004e-12,
+                  "drop": 1.120086035253004e-12,
+                  "drop_over_delta": 1.0383340373087314e-09,
+                  "probe_delta": 0.0010787338130185604
                 },
                 "note": ""
               }
@@ -3138,19 +2605,21 @@
           },
           {
             "subject": "right_temple",
-            "relation": "attached_to",
+            "relation": "supported_by",
             "object": "front_frame",
-            "source": "joint:right_hinge",
-            "satisfied": true,
+            "source": "prompt: \"each outer corner carries a slender temple arm\"",
+            "satisfied": false,
             "pairs": [
               {
                 "subject": "right_temple",
                 "object": "front_frame",
-                "satisfied": true,
+                "satisfied": false,
                 "measured": {
-                  "signed_distance": 0.0,
-                  "signed_distance_over_D": 0.0,
-                  "state": "contact"
+                  "sd_baseline": 0.0,
+                  "sd_probed": -2.6870848071536958e-15,
+                  "drop": 2.6870848071536958e-15,
+                  "drop_over_delta": 2.490961880238626e-12,
+                  "probe_delta": 0.0010787338130185604
                 },
                 "note": ""
               }
@@ -3284,44 +2753,33 @@
             "subject": "lid",
             "relation": "attached_to",
             "object": "base",
-            "source": "joint:base_to_lid"
-          },
-          {
-            "subject": "lid",
-            "relation": "above",
-            "object": "base",
-            "source": "name-heuristic:lid"
-          },
-          {
-            "subject": "latch_tab",
-            "relation": "attached_to",
-            "object": "lid",
-            "source": "joint:lid_to_latch"
+            "source": "prompt-kinematic: \"The lid rotates open on a rear horizontal revolute hinge\""
           },
           {
             "subject": "thermostat_knob",
             "relation": "attached_to",
             "object": "base",
-            "source": "joint:base_to_thermostat_knob"
+            "source": "prompt: \"a thermostat knob rotates continuously on a short side-face shaft\"（轴在 base 侧面）"
           }
         ],
         "proportion_claims": [],
-        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+        "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
       },
       "t_global": "a 3D rendering of a panini press with clamshell lid",
       "d_bbox": 0.9868078134008804,
       "gf3": {
         "score": 1.0,
-        "n_claims": 4,
-        "n_evaluated": 4,
-        "n_satisfied": 4,
+        "n_claims": 2,
+        "n_evaluated": 2,
+        "n_satisfied": 2,
         "n_unmeasurable": 0,
         "claims": [
           {
             "subject": "lid",
             "relation": "attached_to",
             "object": "base",
-            "source": "joint:base_to_lid",
+            "source": "prompt-kinematic: \"The lid rotates open on a rear horizontal revolute hinge\"",
             "satisfied": true,
             "pairs": [
               {
@@ -3339,51 +2797,10 @@
             "note": ""
           },
           {
-            "subject": "lid",
-            "relation": "above",
-            "object": "base",
-            "source": "name-heuristic:lid",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "lid",
-                "object": "base",
-                "satisfied": true,
-                "measured": {
-                  "z_gap_over_D": -0.03141522525247205,
-                  "footprint_overlap": 1.0
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "latch_tab",
-            "relation": "attached_to",
-            "object": "lid",
-            "source": "joint:lid_to_latch",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "latch_tab",
-                "object": "lid",
-                "satisfied": true,
-                "measured": {
-                  "signed_distance": -0.0015000027649082733,
-                  "signed_distance_over_D": -0.0015200556223189457,
-                  "state": "contact"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
             "subject": "thermostat_knob",
             "relation": "attached_to",
             "object": "base",
-            "source": "joint:base_to_thermostat_knob",
+            "source": "prompt: \"a thermostat knob rotates continuously on a short side-face shaft\"（轴在 base 侧面）",
             "satisfied": true,
             "pairs": [
               {
@@ -3523,32 +2940,33 @@
         ],
         "part_relations": [
           {
-            "subject": "tower",
-            "relation": "attached_to",
-            "object": "base",
-            "source": "joint:base_to_tower"
-          },
-          {
-            "subject": "blower",
-            "relation": "attached_to",
-            "object": "tower",
-            "source": "joint:tower_to_blower"
-          },
-          {
             "subject": "speed_knob",
-            "relation": "attached_to",
+            "relation": "supported_by",
             "object": "tower",
-            "source": "joint:tower_to_speed_knob"
+            "source": "prompt: \"a top control deck carrying rotary knobs\"（deck⊂tower）"
           },
           {
             "subject": "timer_knob",
-            "relation": "attached_to",
+            "relation": "supported_by",
             "object": "tower",
-            "source": "joint:tower_to_timer_knob"
+            "source": "prompt: \"a top control deck carrying rotary knobs\"（deck⊂tower）"
+          },
+          {
+            "subject": "tower",
+            "relation": "above",
+            "object": "base",
+            "source": "prompt: \"oscillates on a vertical revolute joint above the base\""
+          },
+          {
+            "subject": "blower",
+            "relation": "inside",
+            "object": "tower",
+            "source": "prompt: \"the internal blower wheel\""
           }
         ],
         "proportion_claims": [],
-        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+        "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
       },
       "t_global": "a 3D rendering of a tower fan with rotary controls",
       "d_bbox": 1.1007913965256295,
@@ -3560,52 +2978,10 @@
         "n_unmeasurable": 0,
         "claims": [
           {
-            "subject": "tower",
-            "relation": "attached_to",
-            "object": "base",
-            "source": "joint:base_to_tower",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "tower",
-                "object": "base",
-                "satisfied": true,
-                "measured": {
-                  "signed_distance": -2.8645656124925974e-09,
-                  "signed_distance_over_D": -2.6022783440476337e-09,
-                  "state": "contact"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "blower",
-            "relation": "attached_to",
-            "object": "tower",
-            "source": "joint:tower_to_blower",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "blower",
-                "object": "tower",
-                "satisfied": true,
-                "measured": {
-                  "signed_distance": -1.740391194380675e-07,
-                  "signed_distance_over_D": -1.5810363342898398e-07,
-                  "state": "contact"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
             "subject": "speed_knob",
-            "relation": "attached_to",
+            "relation": "supported_by",
             "object": "tower",
-            "source": "joint:tower_to_speed_knob",
+            "source": "prompt: \"a top control deck carrying rotary knobs\"（deck⊂tower）",
             "satisfied": true,
             "pairs": [
               {
@@ -3613,9 +2989,11 @@
                 "object": "tower",
                 "satisfied": true,
                 "measured": {
-                  "signed_distance": -2.457395398280937e-10,
-                  "signed_distance_over_D": -2.2323897207382672e-10,
-                  "state": "contact"
+                  "sd_baseline": -2.457395398280937e-10,
+                  "sd_probed": -0.005503957228367717,
+                  "drop": 0.0055039569826281776,
+                  "drop_over_delta": 1.0000000000000053,
+                  "probe_delta": 0.005503956982628148
                 },
                 "note": ""
               }
@@ -3624,9 +3002,9 @@
           },
           {
             "subject": "timer_knob",
-            "relation": "attached_to",
+            "relation": "supported_by",
             "object": "tower",
-            "source": "joint:tower_to_timer_knob",
+            "source": "prompt: \"a top control deck carrying rotary knobs\"（deck⊂tower）",
             "satisfied": true,
             "pairs": [
               {
@@ -3634,9 +3012,50 @@
                 "object": "tower",
                 "satisfied": true,
                 "measured": {
-                  "signed_distance": -4.483877713568063e-10,
-                  "signed_distance_over_D": -4.073321909782628e-10,
-                  "state": "contact"
+                  "sd_baseline": -4.483877713568063e-10,
+                  "sd_probed": -0.005503957431015949,
+                  "drop": 0.0055039569826281776,
+                  "drop_over_delta": 1.0000000000000053,
+                  "probe_delta": 0.005503956982628148
+                },
+                "note": ""
+              }
+            ],
+            "note": ""
+          },
+          {
+            "subject": "tower",
+            "relation": "above",
+            "object": "base",
+            "source": "prompt: \"oscillates on a vertical revolute joint above the base\"",
+            "satisfied": true,
+            "pairs": [
+              {
+                "subject": "tower",
+                "object": "base",
+                "satisfied": true,
+                "measured": {
+                  "z_gap_over_D": 2.2200300345479244e-09,
+                  "footprint_overlap": 1.0
+                },
+                "note": ""
+              }
+            ],
+            "note": ""
+          },
+          {
+            "subject": "blower",
+            "relation": "inside",
+            "object": "tower",
+            "source": "prompt: \"the internal blower wheel\"",
+            "satisfied": true,
+            "pairs": [
+              {
+                "subject": "blower",
+                "object": "tower",
+                "satisfied": true,
+                "measured": {
+                  "inside_fraction": 1.0
                 },
                 "note": ""
               }
@@ -3758,17 +3177,18 @@
             "subject": "nacelle",
             "relation": "attached_to",
             "object": "tower",
-            "source": "joint:yaw"
+            "source": "prompt: \"The nacelle stays clearly mounted on a yaw bearing at the tower top\""
           },
           {
-            "subject": "rotor",
-            "relation": "attached_to",
-            "object": "nacelle",
-            "source": "joint:rotor_spin"
+            "subject": "nacelle",
+            "relation": "above",
+            "object": "tower",
+            "source": "prompt: \"at the tower top\""
           }
         ],
         "proportion_claims": [],
-        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+        "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
       },
       "t_global": "a 3D rendering of a wind turbine",
       "d_bbox": 178.34544873941886,
@@ -3783,7 +3203,7 @@
             "subject": "nacelle",
             "relation": "attached_to",
             "object": "tower",
-            "source": "joint:yaw",
+            "source": "prompt: \"The nacelle stays clearly mounted on a yaw bearing at the tower top\"",
             "satisfied": true,
             "pairs": [
               {
@@ -3801,20 +3221,19 @@
             "note": ""
           },
           {
-            "subject": "rotor",
-            "relation": "attached_to",
-            "object": "nacelle",
-            "source": "joint:rotor_spin",
+            "subject": "nacelle",
+            "relation": "above",
+            "object": "tower",
+            "source": "prompt: \"at the tower top\"",
             "satisfied": true,
             "pairs": [
               {
-                "subject": "rotor",
-                "object": "nacelle",
+                "subject": "nacelle",
+                "object": "tower",
                 "satisfied": true,
                 "measured": {
-                  "signed_distance": -0.06384647074140669,
-                  "signed_distance_over_D": -0.0003579932720048998,
-                  "state": "contact"
+                  "z_gap_over_D": 0.0,
+                  "footprint_overlap": 0.8614785928143311
                 },
                 "note": ""
               }
@@ -3929,34 +3348,87 @@
         "part_relations": [
           {
             "subject": "lower_tier",
-            "relation": "attached_to",
+            "relation": "supported_by",
             "object": "central_post",
-            "source": "joint:post_to_lower_tier"
+            "source": "prompt: \"Each circular shelf is carried by its own bearing collar around the post\""
           },
           {
             "subject": "upper_tier",
-            "relation": "attached_to",
+            "relation": "supported_by",
             "object": "central_post",
-            "source": "joint:post_to_upper_tier"
+            "source": "prompt: \"Each circular shelf is carried by its own bearing collar around the post\""
+          },
+          {
+            "subject": "lower_tier",
+            "relation": "around",
+            "object": "central_post",
+            "source": "prompt: \"bearing collar around the post\"（collar⊂tier）"
+          },
+          {
+            "subject": "upper_tier",
+            "relation": "around",
+            "object": "central_post",
+            "source": "prompt: \"bearing collar around the post\"（collar⊂tier）"
           }
         ],
         "proportion_claims": [],
-        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+        "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
       },
       "t_global": "a 3D rendering of a lazy susan",
       "d_bbox": 0.6784511711651418,
       "gf3": {
         "score": 0.0,
-        "n_claims": 2,
+        "n_claims": 4,
         "n_evaluated": 2,
         "n_satisfied": 0,
-        "n_unmeasurable": 0,
+        "n_unmeasurable": 2,
         "claims": [
           {
             "subject": "lower_tier",
-            "relation": "attached_to",
+            "relation": "supported_by",
             "object": "central_post",
-            "source": "joint:post_to_lower_tier",
+            "source": "prompt: \"Each circular shelf is carried by its own bearing collar around the post\"",
+            "satisfied": null,
+            "pairs": [
+              {
+                "subject": "lower_tier",
+                "object": "central_post",
+                "satisfied": null,
+                "measured": {
+                  "signed_distance": -0.14500000074505798,
+                  "signed_distance_over_D": -0.21372208776062904
+                },
+                "note": "baseline penetration: support probe invalid"
+              }
+            ],
+            "note": "unmeasurable: no measurable instance pair"
+          },
+          {
+            "subject": "upper_tier",
+            "relation": "supported_by",
+            "object": "central_post",
+            "source": "prompt: \"Each circular shelf is carried by its own bearing collar around the post\"",
+            "satisfied": null,
+            "pairs": [
+              {
+                "subject": "upper_tier",
+                "object": "central_post",
+                "satisfied": null,
+                "measured": {
+                  "signed_distance": -0.13099999956786615,
+                  "signed_distance_over_D": -0.19308685007189624
+                },
+                "note": "baseline penetration: support probe invalid"
+              }
+            ],
+            "note": "unmeasurable: no measurable instance pair"
+          },
+          {
+            "subject": "lower_tier",
+            "relation": "around",
+            "object": "central_post",
+            "source": "prompt: \"bearing collar around the post\"（collar⊂tier）",
             "satisfied": false,
             "pairs": [
               {
@@ -3964,9 +3436,9 @@
                 "object": "central_post",
                 "satisfied": false,
                 "measured": {
-                  "signed_distance": -0.14500000074505798,
-                  "signed_distance_over_D": -0.21372208776062904,
-                  "state": "penetration"
+                  "contain_fraction": 0.14678899352566943,
+                  "horizontally_larger": true,
+                  "signed_distance_over_D": -0.21372208776062904
                 },
                 "note": ""
               }
@@ -3975,9 +3447,9 @@
           },
           {
             "subject": "upper_tier",
-            "relation": "attached_to",
+            "relation": "around",
             "object": "central_post",
-            "source": "joint:post_to_upper_tier",
+            "source": "prompt: \"bearing collar around the post\"（collar⊂tier）",
             "satisfied": false,
             "pairs": [
               {
@@ -3985,9 +3457,9 @@
                 "object": "central_post",
                 "satisfied": false,
                 "measured": {
-                  "signed_distance": -0.13099999956786615,
-                  "signed_distance_over_D": -0.19308685007189624,
-                  "state": "penetration"
+                  "contain_fraction": 0.13761468009527694,
+                  "horizontally_larger": true,
+                  "signed_distance_over_D": -0.19308685007189624
                 },
                 "note": ""
               }
@@ -4091,13 +3563,14 @@
         "part_relations": [
           {
             "subject": "wheel",
-            "relation": "attached_to",
+            "relation": "supported_by",
             "object": "frame",
-            "source": "joint:wheel_spin"
+            "source": "prompt: \"rotary stages should sit on believable hubs, spindles, or bearing collars with clear support\""
           }
         ],
         "proportion_claims": [],
-        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+        "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
       },
       "t_global": "a 3D rendering of a undershot waterwheel",
       "d_bbox": 4.711772490263086,
@@ -4110,9 +3583,9 @@
         "claims": [
           {
             "subject": "wheel",
-            "relation": "attached_to",
+            "relation": "supported_by",
             "object": "frame",
-            "source": "joint:wheel_spin",
+            "source": "prompt: \"rotary stages should sit on believable hubs, spindles, or bearing collars with clear support\"",
             "satisfied": true,
             "pairs": [
               {
@@ -4120,9 +3593,11 @@
                 "object": "frame",
                 "satisfied": true,
                 "measured": {
-                  "signed_distance": -2.4790259067316163e-06,
-                  "signed_distance_over_D": -5.261344667754104e-07,
-                  "state": "contact"
+                  "sd_baseline": -2.4790259067316163e-06,
+                  "sd_probed": -0.023561339026835174,
+                  "drop": 0.023558860000928442,
+                  "drop_over_delta": 0.9999998959887392,
+                  "probe_delta": 0.02355886245131543
                 },
                 "note": ""
               }
@@ -4221,39 +3696,21 @@
         "part_relations": [
           {
             "subject": "seat_assembly",
-            "relation": "attached_to",
+            "relation": "above",
             "object": "base",
-            "source": "joint:seat_tilt"
+            "source": "prompt: \"The seat sits above a central pedestal\"（seat/pedestal 分别⊂两 link）"
           },
           {
-            "subject": "wheel_0",
-            "relation": "attached_to",
-            "object": "base",
-            "source": "joint:wheel_spin_0"
+            "subject": "left_arm_pad",
+            "relation": "symmetric",
+            "object": "right_arm_pad",
+            "source": "prompt: \"paired armrests flank the seat\"（geom 级子部件引用）"
           },
           {
-            "subject": "wheel_1",
+            "subject": "wheel",
             "relation": "attached_to",
             "object": "base",
-            "source": "joint:wheel_spin_1"
-          },
-          {
-            "subject": "wheel_2",
-            "relation": "attached_to",
-            "object": "base",
-            "source": "joint:wheel_spin_2"
-          },
-          {
-            "subject": "wheel_3",
-            "relation": "attached_to",
-            "object": "base",
-            "source": "joint:wheel_spin_3"
-          },
-          {
-            "subject": "wheel_4",
-            "relation": "attached_to",
-            "object": "base",
-            "source": "joint:wheel_spin_4"
+            "source": "prompt: \"The caster wheels rotate continuously on their axles\"（axle⊂base）"
           }
         ],
         "proportion_claims": [
@@ -4277,22 +3734,23 @@
             "source": "symmetry-naming"
           }
         ],
-        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+        "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
       },
       "t_global": "a 3D rendering of a office chair",
       "d_bbox": 1.4466949355387178,
       "gf3": {
         "score": 1.0,
-        "n_claims": 6,
-        "n_evaluated": 6,
-        "n_satisfied": 6,
+        "n_claims": 3,
+        "n_evaluated": 3,
+        "n_satisfied": 3,
         "n_unmeasurable": 0,
         "claims": [
           {
             "subject": "seat_assembly",
-            "relation": "attached_to",
+            "relation": "above",
             "object": "base",
-            "source": "joint:seat_tilt",
+            "source": "prompt: \"The seat sits above a central pedestal\"（seat/pedestal 分别⊂两 link）",
             "satisfied": true,
             "pairs": [
               {
@@ -4300,9 +3758,8 @@
                 "object": "base",
                 "satisfied": true,
                 "measured": {
-                  "signed_distance": -0.003000000000000003,
-                  "signed_distance_over_D": -0.0020736921975073263,
-                  "state": "contact"
+                  "z_gap_over_D": -0.002073692197507326,
+                  "footprint_overlap": 0.9889125214208601
                 },
                 "note": ""
               }
@@ -4310,10 +3767,30 @@
             "note": ""
           },
           {
-            "subject": "wheel_0",
+            "subject": "left_arm_pad",
+            "relation": "symmetric",
+            "object": "right_arm_pad",
+            "source": "prompt: \"paired armrests flank the seat\"（geom 级子部件引用）",
+            "satisfied": true,
+            "pairs": [
+              {
+                "subject": "left_arm_pad",
+                "object": "right_arm_pad",
+                "satisfied": true,
+                "measured": {
+                  "mirror_axis": "x",
+                  "size_log_ratio": 0.0
+                },
+                "note": "geom-level-ref"
+              }
+            ],
+            "note": ""
+          },
+          {
+            "subject": "wheel",
             "relation": "attached_to",
             "object": "base",
-            "source": "joint:wheel_spin_0",
+            "source": "prompt: \"The caster wheels rotate continuously on their axles\"（axle⊂base）",
             "satisfied": true,
             "pairs": [
               {
@@ -4326,17 +3803,7 @@
                   "state": "contact"
                 },
                 "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "wheel_1",
-            "relation": "attached_to",
-            "object": "base",
-            "source": "joint:wheel_spin_1",
-            "satisfied": true,
-            "pairs": [
+              },
               {
                 "subject": "wheel_1",
                 "object": "base",
@@ -4347,17 +3814,7 @@
                   "state": "contact"
                 },
                 "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "wheel_2",
-            "relation": "attached_to",
-            "object": "base",
-            "source": "joint:wheel_spin_2",
-            "satisfied": true,
-            "pairs": [
+              },
               {
                 "subject": "wheel_2",
                 "object": "base",
@@ -4368,17 +3825,7 @@
                   "state": "contact"
                 },
                 "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "wheel_3",
-            "relation": "attached_to",
-            "object": "base",
-            "source": "joint:wheel_spin_3",
-            "satisfied": true,
-            "pairs": [
+              },
               {
                 "subject": "wheel_3",
                 "object": "base",
@@ -4389,17 +3836,7 @@
                   "state": "contact"
                 },
                 "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "wheel_4",
-            "relation": "attached_to",
-            "object": "base",
-            "source": "joint:wheel_spin_4",
-            "satisfied": true,
-            "pairs": [
+              },
               {
                 "subject": "wheel_4",
                 "object": "base",
@@ -4624,124 +4061,43 @@
         "part_relations": [
           {
             "subject": "first_arm",
-            "relation": "attached_to",
+            "relation": "supported_by",
             "object": "mast_clamp",
-            "source": "joint:mast_to_first"
-          },
-          {
-            "subject": "second_arm",
-            "relation": "attached_to",
-            "object": "first_arm",
-            "source": "joint:first_to_second"
-          },
-          {
-            "subject": "head_swivel",
-            "relation": "attached_to",
-            "object": "second_arm",
-            "source": "joint:second_to_head"
-          },
-          {
-            "subject": "monitor_plate",
-            "relation": "attached_to",
-            "object": "head_swivel",
-            "source": "joint:head_to_plate"
+            "source": "prompt: \"A fixed mast clamp carries a first arm, a second arm, and a compact monitor plate\"（后两件为串链传递, 只测直接件）"
           }
         ],
         "proportion_claims": [],
-        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+        "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
       },
       "t_global": "a 3D rendering of a monitor mount",
       "d_bbox": 1.611868794057498,
       "gf3": {
-        "score": 0.75,
-        "n_claims": 4,
-        "n_evaluated": 4,
-        "n_satisfied": 3,
-        "n_unmeasurable": 0,
+        "score": null,
+        "n_claims": 1,
+        "n_evaluated": 0,
+        "n_satisfied": 0,
+        "n_unmeasurable": 1,
         "claims": [
           {
             "subject": "first_arm",
-            "relation": "attached_to",
+            "relation": "supported_by",
             "object": "mast_clamp",
-            "source": "joint:mast_to_first",
-            "satisfied": false,
+            "source": "prompt: \"A fixed mast clamp carries a first arm, a second arm, and a compact monitor plate\"（后两件为串链传递, 只测直接件）",
+            "satisfied": null,
             "pairs": [
               {
                 "subject": "first_arm",
                 "object": "mast_clamp",
-                "satisfied": false,
+                "satisfied": null,
                 "measured": {
                   "signed_distance": -0.049999999999999996,
-                  "signed_distance_over_D": -0.03101989453753046,
-                  "state": "penetration"
+                  "signed_distance_over_D": -0.03101989453753046
                 },
-                "note": ""
+                "note": "baseline penetration: support probe invalid"
               }
             ],
-            "note": ""
-          },
-          {
-            "subject": "second_arm",
-            "relation": "attached_to",
-            "object": "first_arm",
-            "source": "joint:first_to_second",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "second_arm",
-                "object": "first_arm",
-                "satisfied": true,
-                "measured": {
-                  "signed_distance": 4.333342374871281e-34,
-                  "signed_distance_over_D": 2.6883964692703787e-34,
-                  "state": "contact"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "head_swivel",
-            "relation": "attached_to",
-            "object": "second_arm",
-            "source": "joint:second_to_head",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "head_swivel",
-                "object": "second_arm",
-                "satisfied": true,
-                "measured": {
-                  "signed_distance": 0.0,
-                  "signed_distance_over_D": 0.0,
-                  "state": "contact"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "monitor_plate",
-            "relation": "attached_to",
-            "object": "head_swivel",
-            "source": "joint:head_to_plate",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "monitor_plate",
-                "object": "head_swivel",
-                "satisfied": true,
-                "measured": {
-                  "signed_distance": 0.0,
-                  "signed_distance_over_D": 0.0,
-                  "state": "contact"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
+            "note": "unmeasurable: no measurable instance pair"
           }
         ]
       },
@@ -4864,93 +4220,45 @@
         ],
         "part_relations": [
           {
-            "subject": "yaw_collar",
-            "relation": "attached_to",
-            "object": "base",
-            "source": "joint:yaw"
-          },
-          {
             "subject": "pitch_yoke",
-            "relation": "attached_to",
-            "object": "yaw_collar",
-            "source": "joint:pitch"
-          },
-          {
-            "subject": "roll_spindle",
-            "relation": "attached_to",
-            "object": "pitch_yoke",
-            "source": "joint:roll"
+            "relation": "between",
+            "objects": [
+              "yaw_collar",
+              "roll_spindle"
+            ],
+            "source": "prompt: \"a yaw collar at the root, a pitch yoke in the middle, and a short roll spindle ... at the nose\""
           }
         ],
         "proportion_claims": [],
-        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+        "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
       },
       "t_global": "a 3D rendering of a yaw-pitch-roll wrist",
       "d_bbox": 0.58639412919101,
       "gf3": {
-        "score": 0.3333333333333333,
-        "n_claims": 3,
-        "n_evaluated": 3,
-        "n_satisfied": 1,
+        "score": 0.0,
+        "n_claims": 1,
+        "n_evaluated": 1,
+        "n_satisfied": 0,
         "n_unmeasurable": 0,
         "claims": [
           {
-            "subject": "yaw_collar",
-            "relation": "attached_to",
-            "object": "base",
-            "source": "joint:yaw",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "yaw_collar",
-                "object": "base",
-                "satisfied": true,
-                "measured": {
-                  "signed_distance": -4.2809425448986355e-10,
-                  "signed_distance_over_D": -7.300452599695411e-10,
-                  "state": "contact"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
             "subject": "pitch_yoke",
-            "relation": "attached_to",
-            "object": "yaw_collar",
-            "source": "joint:pitch",
+            "relation": "between",
+            "objects": [
+              "yaw_collar",
+              "roll_spindle"
+            ],
+            "source": "prompt: \"a yaw collar at the root, a pitch yoke in the middle, and a short roll spindle ... at the nose\"",
             "satisfied": false,
             "pairs": [
               {
                 "subject": "pitch_yoke",
-                "object": "yaw_collar",
+                "object": "yaw_collar ↔ roll_spindle",
                 "satisfied": false,
                 "measured": {
-                  "signed_distance": -0.01715000000043411,
-                  "signed_distance_over_D": -0.029246541100427233,
-                  "state": "penetration"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "roll_spindle",
-            "relation": "attached_to",
-            "object": "pitch_yoke",
-            "source": "joint:roll",
-            "satisfied": false,
-            "pairs": [
-              {
-                "subject": "roll_spindle",
-                "object": "pitch_yoke",
-                "satisfied": false,
-                "measured": {
-                  "signed_distance": -0.020000000000472223,
-                  "signed_distance_over_D": -0.03410675346982796,
-                  "state": "penetration"
+                  "t_along_segment": 0.5251902335600714,
+                  "perp_offset_over_D": 0.10563002493909926
                 },
                 "note": ""
               }
@@ -5072,92 +4380,44 @@
         "part_relations": [
           {
             "subject": "middle_link",
-            "relation": "attached_to",
-            "object": "root_knuckle",
-            "source": "joint:root_joint"
-          },
-          {
-            "subject": "distal_link",
-            "relation": "attached_to",
-            "object": "middle_link",
-            "source": "joint:middle_joint"
-          },
-          {
-            "subject": "pad_tip",
-            "relation": "attached_to",
-            "object": "distal_link",
-            "source": "joint:distal_joint"
+            "relation": "between",
+            "objects": [
+              "root_knuckle",
+              "distal_link"
+            ],
+            "source": "prompt: \"a thick root knuckle, a tapered middle link, a short distal link\""
           }
         ],
         "proportion_claims": [],
-        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+        "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
       },
       "t_global": "a 3D rendering of a finger-like phalanx chain",
       "d_bbox": 0.6717990771056477,
       "gf3": {
         "score": 1.0,
-        "n_claims": 3,
-        "n_evaluated": 3,
-        "n_satisfied": 3,
+        "n_claims": 1,
+        "n_evaluated": 1,
+        "n_satisfied": 1,
         "n_unmeasurable": 0,
         "claims": [
           {
             "subject": "middle_link",
-            "relation": "attached_to",
-            "object": "root_knuckle",
-            "source": "joint:root_joint",
+            "relation": "between",
+            "objects": [
+              "root_knuckle",
+              "distal_link"
+            ],
+            "source": "prompt: \"a thick root knuckle, a tapered middle link, a short distal link\"",
             "satisfied": true,
             "pairs": [
               {
                 "subject": "middle_link",
-                "object": "root_knuckle",
+                "object": "root_knuckle ↔ distal_link",
                 "satisfied": true,
                 "measured": {
-                  "signed_distance": 0.0,
-                  "signed_distance_over_D": 0.0,
-                  "state": "contact"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "distal_link",
-            "relation": "attached_to",
-            "object": "middle_link",
-            "source": "joint:middle_joint",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "distal_link",
-                "object": "middle_link",
-                "satisfied": true,
-                "measured": {
-                  "signed_distance": 0.0,
-                  "signed_distance_over_D": 0.0,
-                  "state": "contact"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "pad_tip",
-            "relation": "attached_to",
-            "object": "distal_link",
-            "source": "joint:distal_joint",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "pad_tip",
-                "object": "distal_link",
-                "satisfied": true,
-                "measured": {
-                  "signed_distance": 0.0,
-                  "signed_distance_over_D": 0.0,
-                  "state": "contact"
+                  "t_along_segment": 0.48410404095671394,
+                  "perp_offset_over_D": 2.6053862721622957e-05
                 },
                 "note": ""
               }
@@ -5332,70 +4592,52 @@
         ],
         "part_relations": [
           {
-            "subject": "door",
-            "relation": "attached_to",
+            "subject": "rocker_0",
+            "relation": "supported_by",
+            "object": "control_pod",
+            "source": "prompt: \"a short front control pod carrying two rocker switches and a timer knob\""
+          },
+          {
+            "subject": "rocker_1",
+            "relation": "supported_by",
+            "object": "control_pod",
+            "source": "prompt: \"a short front control pod carrying two rocker switches and a timer knob\""
+          },
+          {
+            "subject": "timer_knob",
+            "relation": "supported_by",
+            "object": "control_pod",
+            "source": "prompt: \"a short front control pod carrying two rocker switches and a timer knob\""
+          },
+          {
+            "subject": "lower_rack",
+            "relation": "supported_by",
             "object": "body",
-            "source": "joint:body_to_door"
+            "source": "prompt: \"both racks slide prismatically on supported guides\"（guides⊂body）"
+          },
+          {
+            "subject": "upper_rack",
+            "relation": "supported_by",
+            "object": "body",
+            "source": "prompt: \"both racks slide prismatically on supported guides\"（guides⊂body）"
+          },
+          {
+            "subject": "lower_wash_arm",
+            "relation": "inside",
+            "object": "body",
+            "source": "prompt: \"wash arms rotate continuously on vertical hubs in the chamber\""
+          },
+          {
+            "subject": "upper_wash_arm",
+            "relation": "inside",
+            "object": "body",
+            "source": "prompt: \"wash arms rotate continuously on vertical hubs in the chamber\""
           },
           {
             "subject": "detergent_flap",
             "relation": "attached_to",
             "object": "door",
-            "source": "joint:door_to_detergent_flap"
-          },
-          {
-            "subject": "lower_rack",
-            "relation": "attached_to",
-            "object": "body",
-            "source": "joint:body_to_lower_rack"
-          },
-          {
-            "subject": "lower_rack",
-            "relation": "inside",
-            "object": "body",
-            "source": "name-heuristic:lower_rack"
-          },
-          {
-            "subject": "upper_rack",
-            "relation": "attached_to",
-            "object": "body",
-            "source": "joint:body_to_upper_rack"
-          },
-          {
-            "subject": "upper_rack",
-            "relation": "inside",
-            "object": "body",
-            "source": "name-heuristic:upper_rack"
-          },
-          {
-            "subject": "lower_wash_arm",
-            "relation": "attached_to",
-            "object": "body",
-            "source": "joint:body_to_lower_wash_arm"
-          },
-          {
-            "subject": "upper_wash_arm",
-            "relation": "attached_to",
-            "object": "body",
-            "source": "joint:body_to_upper_wash_arm"
-          },
-          {
-            "subject": "timer_knob",
-            "relation": "attached_to",
-            "object": "control_pod",
-            "source": "joint:control_pod_to_timer_knob"
-          },
-          {
-            "subject": "rocker_0",
-            "relation": "attached_to",
-            "object": "control_pod",
-            "source": "joint:control_pod_to_rocker_0"
-          },
-          {
-            "subject": "rocker_1",
-            "relation": "attached_to",
-            "object": "control_pod",
-            "source": "joint:control_pod_to_rocker_1"
+            "source": "prompt: \"the detergent flap on the inner door\""
           }
         ],
         "proportion_claims": [
@@ -5413,32 +4655,159 @@
             "source": "symmetry-naming"
           }
         ],
-        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+        "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
       },
       "t_global": "a 3D rendering of a dishwasher with dropdown door and sliding racks",
       "d_bbox": 1.2921875583075664,
       "gf3": {
-        "score": 0.6363636363636364,
-        "n_claims": 11,
-        "n_evaluated": 11,
-        "n_satisfied": 7,
-        "n_unmeasurable": 0,
+        "score": 0.5,
+        "n_claims": 8,
+        "n_evaluated": 6,
+        "n_satisfied": 3,
+        "n_unmeasurable": 2,
         "claims": [
           {
-            "subject": "door",
-            "relation": "attached_to",
+            "subject": "rocker_0",
+            "relation": "supported_by",
+            "object": "control_pod",
+            "source": "prompt: \"a short front control pod carrying two rocker switches and a timer knob\"",
+            "satisfied": false,
+            "pairs": [
+              {
+                "subject": "rocker_0",
+                "object": "control_pod",
+                "satisfied": false,
+                "measured": {
+                  "sd_baseline": -0.0030000029156805885,
+                  "sd_probed": -0.0030000029156805885,
+                  "drop": 0.0,
+                  "drop_over_delta": 0.0,
+                  "probe_delta": 0.006460937791537832
+                },
+                "note": ""
+              }
+            ],
+            "note": ""
+          },
+          {
+            "subject": "rocker_1",
+            "relation": "supported_by",
+            "object": "control_pod",
+            "source": "prompt: \"a short front control pod carrying two rocker switches and a timer knob\"",
+            "satisfied": false,
+            "pairs": [
+              {
+                "subject": "rocker_1",
+                "object": "control_pod",
+                "satisfied": false,
+                "measured": {
+                  "sd_baseline": -0.0030000029156805885,
+                  "sd_probed": -0.0030000029156805885,
+                  "drop": 0.0,
+                  "drop_over_delta": 0.0,
+                  "probe_delta": 0.006460937791537832
+                },
+                "note": ""
+              }
+            ],
+            "note": ""
+          },
+          {
+            "subject": "timer_knob",
+            "relation": "supported_by",
+            "object": "control_pod",
+            "source": "prompt: \"a short front control pod carrying two rocker switches and a timer knob\"",
+            "satisfied": false,
+            "pairs": [
+              {
+                "subject": "timer_knob",
+                "object": "control_pod",
+                "satisfied": false,
+                "measured": {
+                  "sd_baseline": -8.688581976112886e-08,
+                  "sd_probed": -8.688581976112886e-08,
+                  "drop": 0.0,
+                  "drop_over_delta": 0.0,
+                  "probe_delta": 0.006460937791537832
+                },
+                "note": ""
+              }
+            ],
+            "note": ""
+          },
+          {
+            "subject": "lower_rack",
+            "relation": "supported_by",
             "object": "body",
-            "source": "joint:body_to_door",
+            "source": "prompt: \"both racks slide prismatically on supported guides\"（guides⊂body）",
+            "satisfied": null,
+            "pairs": [
+              {
+                "subject": "lower_rack",
+                "object": "body",
+                "satisfied": null,
+                "measured": {
+                  "signed_distance": -0.3150000023841862,
+                  "signed_distance_over_D": -0.2437726631548405
+                },
+                "note": "baseline penetration: support probe invalid"
+              }
+            ],
+            "note": "unmeasurable: no measurable instance pair"
+          },
+          {
+            "subject": "upper_rack",
+            "relation": "supported_by",
+            "object": "body",
+            "source": "prompt: \"both racks slide prismatically on supported guides\"（guides⊂body）",
+            "satisfied": null,
+            "pairs": [
+              {
+                "subject": "upper_rack",
+                "object": "body",
+                "satisfied": null,
+                "measured": {
+                  "signed_distance": -0.2686000023841862,
+                  "signed_distance_over_D": -0.20786456320318017
+                },
+                "note": "baseline penetration: support probe invalid"
+              }
+            ],
+            "note": "unmeasurable: no measurable instance pair"
+          },
+          {
+            "subject": "lower_wash_arm",
+            "relation": "inside",
+            "object": "body",
+            "source": "prompt: \"wash arms rotate continuously on vertical hubs in the chamber\"",
             "satisfied": true,
             "pairs": [
               {
-                "subject": "door",
+                "subject": "lower_wash_arm",
                 "object": "body",
                 "satisfied": true,
                 "measured": {
-                  "signed_distance": -2.823021261200154e-09,
-                  "signed_distance_over_D": -2.1846838278628737e-09,
-                  "state": "contact"
+                  "inside_fraction": 1.0
+                },
+                "note": ""
+              }
+            ],
+            "note": ""
+          },
+          {
+            "subject": "upper_wash_arm",
+            "relation": "inside",
+            "object": "body",
+            "source": "prompt: \"wash arms rotate continuously on vertical hubs in the chamber\"",
+            "satisfied": true,
+            "pairs": [
+              {
+                "subject": "upper_wash_arm",
+                "object": "body",
+                "satisfied": true,
+                "measured": {
+                  "inside_fraction": 1.0
                 },
                 "note": ""
               }
@@ -5449,7 +4818,7 @@
             "subject": "detergent_flap",
             "relation": "attached_to",
             "object": "door",
-            "source": "joint:door_to_detergent_flap",
+            "source": "prompt: \"the detergent flap on the inner door\"",
             "satisfied": true,
             "pairs": [
               {
@@ -5459,191 +4828,6 @@
                 "measured": {
                   "signed_distance": -6.861886520851184e-11,
                   "signed_distance_over_D": -5.3102867898205827e-11,
-                  "state": "contact"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "lower_rack",
-            "relation": "attached_to",
-            "object": "body",
-            "source": "joint:body_to_lower_rack",
-            "satisfied": false,
-            "pairs": [
-              {
-                "subject": "lower_rack",
-                "object": "body",
-                "satisfied": false,
-                "measured": {
-                  "signed_distance": -0.3150000023841862,
-                  "signed_distance_over_D": -0.2437726631548405,
-                  "state": "penetration"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "lower_rack",
-            "relation": "inside",
-            "object": "body",
-            "source": "name-heuristic:lower_rack",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "lower_rack",
-                "object": "body",
-                "satisfied": true,
-                "measured": {
-                  "inside_fraction": 1.0
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "upper_rack",
-            "relation": "attached_to",
-            "object": "body",
-            "source": "joint:body_to_upper_rack",
-            "satisfied": false,
-            "pairs": [
-              {
-                "subject": "upper_rack",
-                "object": "body",
-                "satisfied": false,
-                "measured": {
-                  "signed_distance": -0.2686000023841862,
-                  "signed_distance_over_D": -0.20786456320318017,
-                  "state": "penetration"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "upper_rack",
-            "relation": "inside",
-            "object": "body",
-            "source": "name-heuristic:upper_rack",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "upper_rack",
-                "object": "body",
-                "satisfied": true,
-                "measured": {
-                  "inside_fraction": 1.0
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "lower_wash_arm",
-            "relation": "attached_to",
-            "object": "body",
-            "source": "joint:body_to_lower_wash_arm",
-            "satisfied": false,
-            "pairs": [
-              {
-                "subject": "lower_wash_arm",
-                "object": "body",
-                "satisfied": false,
-                "measured": {
-                  "signed_distance": -0.16199999995682512,
-                  "signed_distance_over_D": -0.12536879721160873,
-                  "state": "penetration"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "upper_wash_arm",
-            "relation": "attached_to",
-            "object": "body",
-            "source": "joint:body_to_upper_wash_arm",
-            "satisfied": false,
-            "pairs": [
-              {
-                "subject": "upper_wash_arm",
-                "object": "body",
-                "satisfied": false,
-                "measured": {
-                  "signed_distance": -0.29999999929954935,
-                  "signed_distance_over_D": -0.23216443880056564,
-                  "state": "penetration"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "timer_knob",
-            "relation": "attached_to",
-            "object": "control_pod",
-            "source": "joint:control_pod_to_timer_knob",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "timer_knob",
-                "object": "control_pod",
-                "satisfied": true,
-                "measured": {
-                  "signed_distance": -8.688581976112886e-08,
-                  "signed_distance_over_D": -6.723932543889136e-08,
-                  "state": "contact"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "rocker_0",
-            "relation": "attached_to",
-            "object": "control_pod",
-            "source": "joint:control_pod_to_rocker_0",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "rocker_0",
-                "object": "control_pod",
-                "satisfied": true,
-                "measured": {
-                  "signed_distance": -0.0030000029156805885,
-                  "signed_distance_over_D": -0.002321646649817478,
-                  "state": "contact"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "rocker_1",
-            "relation": "attached_to",
-            "object": "control_pod",
-            "source": "joint:control_pod_to_rocker_1",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "rocker_1",
-                "object": "control_pod",
-                "satisfied": true,
-                "measured": {
-                  "signed_distance": -0.0030000029156805885,
-                  "signed_distance_over_D": -0.002321646649817478,
                   "state": "contact"
                 },
                 "note": ""
@@ -5867,76 +5051,34 @@
         ],
         "part_relations": [
           {
-            "subject": "key_0",
-            "relation": "attached_to",
-            "object": "control_panel",
-            "source": "joint:control_panel_to_key_0"
-          },
-          {
-            "subject": "key_1",
-            "relation": "attached_to",
-            "object": "control_panel",
-            "source": "joint:control_panel_to_key_1"
-          },
-          {
-            "subject": "key_2",
-            "relation": "attached_to",
-            "object": "control_panel",
-            "source": "joint:control_panel_to_key_2"
-          },
-          {
-            "subject": "key_3",
-            "relation": "attached_to",
-            "object": "control_panel",
-            "source": "joint:control_panel_to_key_3"
-          },
-          {
-            "subject": "flatbed_lid",
-            "relation": "attached_to",
-            "object": "body",
-            "source": "joint:body_to_flatbed_lid"
-          },
-          {
-            "subject": "flatbed_lid",
-            "relation": "above",
-            "object": "body",
-            "source": "name-heuristic:flatbed_lid"
-          },
-          {
-            "subject": "adf_lid",
-            "relation": "attached_to",
-            "object": "flatbed_lid",
-            "source": "joint:flatbed_lid_to_adf_lid"
-          },
-          {
-            "subject": "adf_lid",
-            "relation": "above",
-            "object": "flatbed_lid",
-            "source": "name-heuristic:adf_lid"
-          },
-          {
             "subject": "cassette",
-            "relation": "attached_to",
+            "relation": "inside",
             "object": "body",
-            "source": "joint:body_to_cassette"
-          },
-          {
-            "subject": "service_door",
-            "relation": "attached_to",
-            "object": "body",
-            "source": "joint:body_to_service_door"
-          },
-          {
-            "subject": "control_panel",
-            "relation": "attached_to",
-            "object": "body",
-            "source": "joint:body_to_control_panel"
+            "source": "prompt: \"the paper cassette slides prismatically from the lower body\""
           },
           {
             "subject": "selector_dial",
             "relation": "attached_to",
             "object": "control_panel",
-            "source": "joint:control_panel_to_selector_dial"
+            "source": "prompt: \"A selector dial at one side of the panel\""
+          },
+          {
+            "subject": "flatbed_lid",
+            "relation": "attached_to",
+            "object": "body",
+            "source": "prompt-kinematic: \"The flatbed lid rotates upward on a rear hinge\""
+          },
+          {
+            "subject": "adf_lid",
+            "relation": "attached_to",
+            "object": "flatbed_lid",
+            "source": "prompt-kinematic: \"the ADF lid rotates on a top hinge\"（挂靠对象按关节父件绑定）"
+          },
+          {
+            "subject": "control_panel",
+            "relation": "attached_to",
+            "object": "body",
+            "source": "prompt-kinematic: \"a tilting front touchscreen panel ... tilts on a short horizontal pivot\""
           }
         ],
         "proportion_claims": [
@@ -5958,32 +5100,31 @@
             "source": "symmetry-naming"
           }
         ],
-        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+        "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+        "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
       },
       "t_global": "a 3D rendering of a all-in-one printer with scanner lid and paper tray",
       "d_bbox": 1.2713528157592333,
       "gf3": {
-        "score": 0.8333333333333334,
-        "n_claims": 12,
-        "n_evaluated": 12,
-        "n_satisfied": 10,
+        "score": 1.0,
+        "n_claims": 5,
+        "n_evaluated": 5,
+        "n_satisfied": 5,
         "n_unmeasurable": 0,
         "claims": [
           {
-            "subject": "key_0",
-            "relation": "attached_to",
-            "object": "control_panel",
-            "source": "joint:control_panel_to_key_0",
+            "subject": "cassette",
+            "relation": "inside",
+            "object": "body",
+            "source": "prompt: \"the paper cassette slides prismatically from the lower body\"",
             "satisfied": true,
             "pairs": [
               {
-                "subject": "key_0",
-                "object": "control_panel",
+                "subject": "cassette",
+                "object": "body",
                 "satisfied": true,
                 "measured": {
-                  "signed_distance": -0.005000001759687882,
-                  "signed_distance_over_D": -0.003932819983335589,
-                  "state": "contact"
+                  "inside_fraction": 1.0
                 },
                 "note": ""
               }
@@ -5991,61 +5132,19 @@
             "note": ""
           },
           {
-            "subject": "key_1",
+            "subject": "selector_dial",
             "relation": "attached_to",
             "object": "control_panel",
-            "source": "joint:control_panel_to_key_1",
+            "source": "prompt: \"A selector dial at one side of the panel\"",
             "satisfied": true,
             "pairs": [
               {
-                "subject": "key_1",
+                "subject": "selector_dial",
                 "object": "control_panel",
                 "satisfied": true,
                 "measured": {
-                  "signed_distance": -0.00500000164190088,
-                  "signed_distance_over_D": -0.003932819890688607,
-                  "state": "contact"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "key_2",
-            "relation": "attached_to",
-            "object": "control_panel",
-            "source": "joint:control_panel_to_key_2",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "key_2",
-                "object": "control_panel",
-                "satisfied": true,
-                "measured": {
-                  "signed_distance": -0.005000001465989231,
-                  "signed_distance_over_D": -0.003932819752322886,
-                  "state": "contact"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "key_3",
-            "relation": "attached_to",
-            "object": "control_panel",
-            "source": "joint:control_panel_to_key_3",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "key_3",
-                "object": "control_panel",
-                "satisfied": true,
-                "measured": {
-                  "signed_distance": -0.005000001290077588,
-                  "signed_distance_over_D": -0.0039328196139571696,
+                  "signed_distance": -0.006000004276455478,
+                  "signed_distance_over_D": -0.00471938568277946,
                   "state": "contact"
                 },
                 "note": ""
@@ -6057,7 +5156,7 @@
             "subject": "flatbed_lid",
             "relation": "attached_to",
             "object": "body",
-            "source": "joint:body_to_flatbed_lid",
+            "source": "prompt-kinematic: \"The flatbed lid rotates upward on a rear hinge\"",
             "satisfied": true,
             "pairs": [
               {
@@ -6075,30 +5174,10 @@
             "note": ""
           },
           {
-            "subject": "flatbed_lid",
-            "relation": "above",
-            "object": "body",
-            "source": "name-heuristic:flatbed_lid",
-            "satisfied": false,
-            "pairs": [
-              {
-                "subject": "flatbed_lid",
-                "object": "body",
-                "satisfied": false,
-                "measured": {
-                  "z_gap_over_D": -0.06886222038182517,
-                  "footprint_overlap": 1.0
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
             "subject": "adf_lid",
             "relation": "attached_to",
             "object": "flatbed_lid",
-            "source": "joint:flatbed_lid_to_adf_lid",
+            "source": "prompt-kinematic: \"the ADF lid rotates on a top hinge\"（挂靠对象按关节父件绑定）",
             "satisfied": true,
             "pairs": [
               {
@@ -6116,72 +5195,10 @@
             "note": ""
           },
           {
-            "subject": "adf_lid",
-            "relation": "above",
-            "object": "flatbed_lid",
-            "source": "name-heuristic:adf_lid",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "adf_lid",
-                "object": "flatbed_lid",
-                "satisfied": true,
-                "measured": {
-                  "z_gap_over_D": -0.01554787076611608,
-                  "footprint_overlap": 0.6644383695085754
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "cassette",
-            "relation": "attached_to",
-            "object": "body",
-            "source": "joint:body_to_cassette",
-            "satisfied": false,
-            "pairs": [
-              {
-                "subject": "cassette",
-                "object": "body",
-                "satisfied": false,
-                "measured": {
-                  "signed_distance": -0.10800000052147456,
-                  "signed_distance_over_D": -0.08494888215351813,
-                  "state": "penetration"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "service_door",
-            "relation": "attached_to",
-            "object": "body",
-            "source": "joint:body_to_service_door",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "service_door",
-                "object": "body",
-                "satisfied": true,
-                "measured": {
-                  "signed_distance": -5.9671908706283494e-09,
-                  "signed_distance_over_D": -4.693575848231264e-09,
-                  "state": "contact"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
             "subject": "control_panel",
             "relation": "attached_to",
             "object": "body",
-            "source": "joint:body_to_control_panel",
+            "source": "prompt-kinematic: \"a tilting front touchscreen panel ... tilts on a short horizontal pivot\"",
             "satisfied": true,
             "pairs": [
               {
@@ -6191,27 +5208,6 @@
                 "measured": {
                   "signed_distance": -0.0031884798675587806,
                   "signed_distance_over_D": -0.0025079425852804417,
-                  "state": "contact"
-                },
-                "note": ""
-              }
-            ],
-            "note": ""
-          },
-          {
-            "subject": "selector_dial",
-            "relation": "attached_to",
-            "object": "control_panel",
-            "source": "joint:control_panel_to_selector_dial",
-            "satisfied": true,
-            "pairs": [
-              {
-                "subject": "selector_dial",
-                "object": "control_panel",
-                "satisfied": true,
-                "measured": {
-                  "signed_distance": -0.006000004276455478,
-                  "signed_distance_over_D": -0.00471938568277946,
                   "state": "contact"
                 },
                 "note": ""

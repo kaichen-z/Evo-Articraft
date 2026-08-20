@@ -40,39 +40,21 @@
   "part_relations": [
     {
       "subject": "seat_assembly",
-      "relation": "attached_to",
+      "relation": "above",
       "object": "base",
-      "source": "joint:seat_tilt"
+      "source": "prompt: \"The seat sits above a central pedestal\"（seat/pedestal 分别⊂两 link）"
     },
     {
-      "subject": "wheel_0",
-      "relation": "attached_to",
-      "object": "base",
-      "source": "joint:wheel_spin_0"
+      "subject": "left_arm_pad",
+      "relation": "symmetric",
+      "object": "right_arm_pad",
+      "source": "prompt: \"paired armrests flank the seat\"（geom 级子部件引用）"
     },
     {
-      "subject": "wheel_1",
+      "subject": "wheel",
       "relation": "attached_to",
       "object": "base",
-      "source": "joint:wheel_spin_1"
-    },
-    {
-      "subject": "wheel_2",
-      "relation": "attached_to",
-      "object": "base",
-      "source": "joint:wheel_spin_2"
-    },
-    {
-      "subject": "wheel_3",
-      "relation": "attached_to",
-      "object": "base",
-      "source": "joint:wheel_spin_3"
-    },
-    {
-      "subject": "wheel_4",
-      "relation": "attached_to",
-      "object": "base",
-      "source": "joint:wheel_spin_4"
+      "source": "prompt: \"The caster wheels rotate continuously on their axles\"（axle⊂base）"
     }
   ],
   "proportion_claims": [
@@ -96,5 +78,6 @@
       "source": "symmetry-naming"
     }
   ],
-  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件",
+  "_relations_note": "仅含 prompt 字面声明的关系(手工抽取, 每条带原文引句); 推测声明已移除"
 }
