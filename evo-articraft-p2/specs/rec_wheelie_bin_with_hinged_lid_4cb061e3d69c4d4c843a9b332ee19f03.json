@@ -1,0 +1,91 @@
+{
+  "record_id": "rec_wheelie_bin_with_hinged_lid_4cb061e3d69c4d4c843a9b332ee19f03",
+  "overall_description": "Generate a compact apartment/desktop version of Wheelie bin with hinged lid. Keep footprint and envelope efficient while preserving full functional articulation from a wheeled bin shell with rear axle and full-width hinged lid. Emphasize fold-flat or stow-friendly behavior where relevant, plus safe clearances around moving parts. Lid swing and wheel rolling should both be clearly supported. Ensure a single coherent assembly graph with zero floaters. No floating parts.",
+  "required_parts": [
+    {
+      "id": "bin_body",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "rear_axle",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "wheel",
+      "count": 2,
+      "role": "movable"
+    },
+    {
+      "id": "lid",
+      "count": 1,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "wheelie bin with hinged lid",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "bin_body",
+      "geometry": "bin body of a wheelie bin with hinged lid"
+    },
+    {
+      "id": "rear_axle",
+      "geometry": "rear axle of a wheelie bin with hinged lid"
+    },
+    {
+      "id": "wheel",
+      "geometry": "wheel of a wheelie bin with hinged lid"
+    },
+    {
+      "id": "lid",
+      "geometry": "lid of a wheelie bin with hinged lid"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "left_wheel",
+      "relation": "attached_to",
+      "object": "rear_axle",
+      "source": "joint:left_wheel_spin"
+    },
+    {
+      "subject": "right_wheel",
+      "relation": "attached_to",
+      "object": "rear_axle",
+      "source": "joint:right_wheel_spin"
+    },
+    {
+      "subject": "lid",
+      "relation": "attached_to",
+      "object": "bin_body",
+      "source": "joint:body_to_lid"
+    },
+    {
+      "subject": "lid",
+      "relation": "above",
+      "object": "bin_body",
+      "source": "name-heuristic:lid"
+    }
+  ],
+  "proportion_claims": [
+    {
+      "parts": [
+        "left_wheel",
+        "right_wheel"
+      ],
+      "measure": "long",
+      "target_ratio": [
+        1.0,
+        1.0
+      ],
+      "tolerance": 0.1,
+      "source": "symmetry-naming"
+    }
+  ],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

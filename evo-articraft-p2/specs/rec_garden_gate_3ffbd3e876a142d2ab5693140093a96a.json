@@ -1,0 +1,86 @@
+{
+  "record_id": "rec_garden_gate_3ffbd3e876a142d2ab5693140093a96a",
+  "overall_description": "A double-leaf courtyard gate with two narrow framed leaves meeting under a shallow arch. Each leaf is hinged to an outer post, and one meeting stile carries a latch while the other carries a vertical cane bolt that drops into the ground. The two leaves rotate on separate vertical hinge axes at the posts, the latch lever rotates on its small pivot, and the cane bolt slides vertically in its guide loops. Keep the cane bolt clipped through its guide loops on the meeting stile so it remains captured when raised and lowered.",
+  "required_parts": [
+    {
+      "id": "fixed_frame",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "latch_leaf",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "bolt_leaf",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "latch_lever",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "cane_bolt",
+      "count": 1,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "garden gate",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "fixed_frame",
+      "geometry": "fixed frame of a garden gate"
+    },
+    {
+      "id": "latch_leaf",
+      "geometry": "latch leaf of a garden gate"
+    },
+    {
+      "id": "bolt_leaf",
+      "geometry": "bolt leaf of a garden gate"
+    },
+    {
+      "id": "latch_lever",
+      "geometry": "latch lever of a garden gate"
+    },
+    {
+      "id": "cane_bolt",
+      "geometry": "cane bolt of a garden gate"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "latch_leaf",
+      "relation": "attached_to",
+      "object": "fixed_frame",
+      "source": "joint:frame_to_latch_leaf"
+    },
+    {
+      "subject": "bolt_leaf",
+      "relation": "attached_to",
+      "object": "fixed_frame",
+      "source": "joint:frame_to_bolt_leaf"
+    },
+    {
+      "subject": "latch_lever",
+      "relation": "attached_to",
+      "object": "latch_leaf",
+      "source": "joint:latch_leaf_to_latch_lever"
+    },
+    {
+      "subject": "cane_bolt",
+      "relation": "attached_to",
+      "object": "bolt_leaf",
+      "source": "joint:bolt_leaf_to_cane_bolt"
+    }
+  ],
+  "proportion_claims": [],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

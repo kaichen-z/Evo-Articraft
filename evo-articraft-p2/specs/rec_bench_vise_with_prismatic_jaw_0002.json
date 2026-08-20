@@ -1,0 +1,41 @@
+{
+  "record_id": "rec_bench_vise_with_prismatic_jaw_0002",
+  "overall_description": "A traditional woodworking leg vise with a wide flat screw-threaded face jaw pivoting outward from a guide pin at the bottom, an iron parallel guide rod running through the jaw and a fixed block below the bench edge, and a large-diameter threaded screw with a turned wooden handle driving the jaw. The jaw slides on the parallel rod while the screw drives it open and closed, and the bench apron has a captured nut housing for the screw.",
+  "required_parts": [
+    {
+      "id": "bench",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "jaw",
+      "count": 1,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "bench vise with prismatic jaw",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "bench",
+      "geometry": "bench of a bench vise with prismatic jaw"
+    },
+    {
+      "id": "jaw",
+      "geometry": "jaw of a bench vise with prismatic jaw"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "jaw",
+      "relation": "attached_to",
+      "object": "bench",
+      "source": "joint:jaw_slide"
+    }
+  ],
+  "proportion_claims": [],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

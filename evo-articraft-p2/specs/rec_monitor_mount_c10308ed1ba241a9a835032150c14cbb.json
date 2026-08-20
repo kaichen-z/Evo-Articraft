@@ -1,0 +1,86 @@
+{
+  "record_id": "rec_monitor_mount_c10308ed1ba241a9a835032150c14cbb",
+  "overall_description": "A pole-mounted monitor support with articulated head. A fixed mast clamp carries a first arm, a second arm, and a compact monitor plate, with the head hardware kept clearly smaller than the arm links. The arm has two serial revolute joints, plus a head swivel revolute and a head tilt revolute.",
+  "required_parts": [
+    {
+      "id": "mast_clamp",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "first_arm",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "second_arm",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "head_swivel",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "monitor_plate",
+      "count": 1,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "monitor mount",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "mast_clamp",
+      "geometry": "mast clamp of a monitor mount"
+    },
+    {
+      "id": "first_arm",
+      "geometry": "first arm of a monitor mount"
+    },
+    {
+      "id": "second_arm",
+      "geometry": "second arm of a monitor mount"
+    },
+    {
+      "id": "head_swivel",
+      "geometry": "head swivel of a monitor mount"
+    },
+    {
+      "id": "monitor_plate",
+      "geometry": "monitor plate of a monitor mount"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "first_arm",
+      "relation": "attached_to",
+      "object": "mast_clamp",
+      "source": "joint:mast_to_first"
+    },
+    {
+      "subject": "second_arm",
+      "relation": "attached_to",
+      "object": "first_arm",
+      "source": "joint:first_to_second"
+    },
+    {
+      "subject": "head_swivel",
+      "relation": "attached_to",
+      "object": "second_arm",
+      "source": "joint:second_to_head"
+    },
+    {
+      "subject": "monitor_plate",
+      "relation": "attached_to",
+      "object": "head_swivel",
+      "source": "joint:head_to_plate"
+    }
+  ],
+  "proportion_claims": [],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

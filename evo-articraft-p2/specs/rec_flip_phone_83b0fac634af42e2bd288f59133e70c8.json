@@ -1,0 +1,80 @@
+{
+  "record_id": "rec_flip_phone_83b0fac634af42e2bd288f59133e70c8",
+  "overall_description": "A standard clamshell flip phone with a rounded-rectangle lower keypad body and a matching upper display body joined by a dual-barrel hinge on a revolute joint that opens to approximately 170 degrees.",
+  "required_parts": [
+    {
+      "id": "lower_body",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "upper_body",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "earpiece_grille",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "navigation_cluster",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "numeric_keypad",
+      "count": 1,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "flip phone",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "lower_body",
+      "geometry": "lower body of a flip phone"
+    },
+    {
+      "id": "upper_body",
+      "geometry": "upper body of a flip phone"
+    },
+    {
+      "id": "earpiece_grille",
+      "geometry": "earpiece grille of a flip phone"
+    },
+    {
+      "id": "navigation_cluster",
+      "geometry": "navigation cluster of a flip phone"
+    },
+    {
+      "id": "numeric_keypad",
+      "geometry": "numeric keypad of a flip phone"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "navigation_cluster",
+      "relation": "attached_to",
+      "object": "lower_body",
+      "source": "joint:lower_to_navigation_cluster"
+    },
+    {
+      "subject": "numeric_keypad",
+      "relation": "attached_to",
+      "object": "lower_body",
+      "source": "joint:lower_to_numeric_keypad"
+    },
+    {
+      "subject": "upper_body",
+      "relation": "attached_to",
+      "object": "lower_body",
+      "source": "joint:clamshell_hinge"
+    }
+  ],
+  "proportion_claims": [],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

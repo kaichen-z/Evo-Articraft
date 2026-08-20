@@ -1,0 +1,357 @@
+{
+  "record_id": "rec_cash_register_a90a3eb4ec5a49c79034bac363111f2a",
+  "overall_description": "A compact point-of-sale register with a rectangular drawer base, an angled control pod, and a rear operator screen on a swivel mount, plus a bank of menu keys and a numeric pad on the sloped console. the upper pod stays visibly separate from the drawer housing, and the keys sit in clear rows across the control face. The drawer translates prismatically on straight runners, the screen swivels on a vertical revolute joint, and the screen tilts on a horizontal hinge at the head of its mount, and the menu keys and number keys each depress independently along their own local axes. Small shop-counter scale.",
+  "required_parts": [
+    {
+      "id": "housing",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "drawer",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "pod",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "console_panel",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "menu_key_0",
+      "count": 3,
+      "role": "movable"
+    },
+    {
+      "id": "menu_key_1",
+      "count": 3,
+      "role": "movable"
+    },
+    {
+      "id": "number_key_0",
+      "count": 3,
+      "role": "movable"
+    },
+    {
+      "id": "number_key_1",
+      "count": 3,
+      "role": "movable"
+    },
+    {
+      "id": "number_key_2",
+      "count": 3,
+      "role": "movable"
+    },
+    {
+      "id": "number_key_3",
+      "count": 3,
+      "role": "movable"
+    },
+    {
+      "id": "screen_stand",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "screen_swivel",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "screen",
+      "count": 1,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "cash register",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "housing",
+      "geometry": "housing of a cash register"
+    },
+    {
+      "id": "drawer",
+      "geometry": "drawer of a cash register"
+    },
+    {
+      "id": "pod",
+      "geometry": "pod of a cash register"
+    },
+    {
+      "id": "console_panel",
+      "geometry": "console panel of a cash register"
+    },
+    {
+      "id": "menu_key_0",
+      "geometry": "menu key 0 of a cash register"
+    },
+    {
+      "id": "menu_key_1",
+      "geometry": "menu key 1 of a cash register"
+    },
+    {
+      "id": "number_key_0",
+      "geometry": "number key 0 of a cash register"
+    },
+    {
+      "id": "number_key_1",
+      "geometry": "number key 1 of a cash register"
+    },
+    {
+      "id": "number_key_2",
+      "geometry": "number key 2 of a cash register"
+    },
+    {
+      "id": "number_key_3",
+      "geometry": "number key 3 of a cash register"
+    },
+    {
+      "id": "screen_stand",
+      "geometry": "screen stand of a cash register"
+    },
+    {
+      "id": "screen_swivel",
+      "geometry": "screen swivel of a cash register"
+    },
+    {
+      "id": "screen",
+      "geometry": "screen of a cash register"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "drawer",
+      "relation": "attached_to",
+      "object": "housing",
+      "source": "joint:housing_to_drawer"
+    },
+    {
+      "subject": "drawer",
+      "relation": "inside",
+      "object": "housing",
+      "source": "name-heuristic:drawer"
+    },
+    {
+      "subject": "menu_key_0_0",
+      "relation": "attached_to",
+      "object": "console_panel",
+      "source": "joint:console_panel_to_menu_key_0_0"
+    },
+    {
+      "subject": "menu_key_0_1",
+      "relation": "attached_to",
+      "object": "console_panel",
+      "source": "joint:console_panel_to_menu_key_0_1"
+    },
+    {
+      "subject": "menu_key_0_2",
+      "relation": "attached_to",
+      "object": "console_panel",
+      "source": "joint:console_panel_to_menu_key_0_2"
+    },
+    {
+      "subject": "menu_key_1_0",
+      "relation": "attached_to",
+      "object": "console_panel",
+      "source": "joint:console_panel_to_menu_key_1_0"
+    },
+    {
+      "subject": "menu_key_1_1",
+      "relation": "attached_to",
+      "object": "console_panel",
+      "source": "joint:console_panel_to_menu_key_1_1"
+    },
+    {
+      "subject": "menu_key_1_2",
+      "relation": "attached_to",
+      "object": "console_panel",
+      "source": "joint:console_panel_to_menu_key_1_2"
+    },
+    {
+      "subject": "number_key_0_0",
+      "relation": "attached_to",
+      "object": "console_panel",
+      "source": "joint:console_panel_to_number_key_0_0"
+    },
+    {
+      "subject": "number_key_0_1",
+      "relation": "attached_to",
+      "object": "console_panel",
+      "source": "joint:console_panel_to_number_key_0_1"
+    },
+    {
+      "subject": "number_key_0_2",
+      "relation": "attached_to",
+      "object": "console_panel",
+      "source": "joint:console_panel_to_number_key_0_2"
+    },
+    {
+      "subject": "number_key_1_0",
+      "relation": "attached_to",
+      "object": "console_panel",
+      "source": "joint:console_panel_to_number_key_1_0"
+    },
+    {
+      "subject": "number_key_1_1",
+      "relation": "attached_to",
+      "object": "console_panel",
+      "source": "joint:console_panel_to_number_key_1_1"
+    },
+    {
+      "subject": "number_key_1_2",
+      "relation": "attached_to",
+      "object": "console_panel",
+      "source": "joint:console_panel_to_number_key_1_2"
+    },
+    {
+      "subject": "number_key_2_0",
+      "relation": "attached_to",
+      "object": "console_panel",
+      "source": "joint:console_panel_to_number_key_2_0"
+    },
+    {
+      "subject": "number_key_2_1",
+      "relation": "attached_to",
+      "object": "console_panel",
+      "source": "joint:console_panel_to_number_key_2_1"
+    },
+    {
+      "subject": "number_key_2_2",
+      "relation": "attached_to",
+      "object": "console_panel",
+      "source": "joint:console_panel_to_number_key_2_2"
+    },
+    {
+      "subject": "number_key_3_0",
+      "relation": "attached_to",
+      "object": "console_panel",
+      "source": "joint:console_panel_to_number_key_3_0"
+    },
+    {
+      "subject": "number_key_3_1",
+      "relation": "attached_to",
+      "object": "console_panel",
+      "source": "joint:console_panel_to_number_key_3_1"
+    },
+    {
+      "subject": "number_key_3_2",
+      "relation": "attached_to",
+      "object": "console_panel",
+      "source": "joint:console_panel_to_number_key_3_2"
+    },
+    {
+      "subject": "screen_swivel",
+      "relation": "attached_to",
+      "object": "screen_stand",
+      "source": "joint:screen_stand_to_screen_swivel"
+    },
+    {
+      "subject": "screen",
+      "relation": "attached_to",
+      "object": "screen_swivel",
+      "source": "joint:screen_swivel_to_screen"
+    }
+  ],
+  "proportion_claims": [
+    {
+      "parts": [
+        "menu_key_0_0",
+        "menu_key_0_1",
+        "menu_key_0_2"
+      ],
+      "measure": "long",
+      "target_ratio": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": 0.1,
+      "source": "symmetry-naming"
+    },
+    {
+      "parts": [
+        "menu_key_1_0",
+        "menu_key_1_1",
+        "menu_key_1_2"
+      ],
+      "measure": "long",
+      "target_ratio": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": 0.1,
+      "source": "symmetry-naming"
+    },
+    {
+      "parts": [
+        "number_key_0_0",
+        "number_key_0_1",
+        "number_key_0_2"
+      ],
+      "measure": "long",
+      "target_ratio": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": 0.1,
+      "source": "symmetry-naming"
+    },
+    {
+      "parts": [
+        "number_key_1_0",
+        "number_key_1_1",
+        "number_key_1_2"
+      ],
+      "measure": "long",
+      "target_ratio": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": 0.1,
+      "source": "symmetry-naming"
+    },
+    {
+      "parts": [
+        "number_key_2_0",
+        "number_key_2_1",
+        "number_key_2_2"
+      ],
+      "measure": "long",
+      "target_ratio": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": 0.1,
+      "source": "symmetry-naming"
+    },
+    {
+      "parts": [
+        "number_key_3_0",
+        "number_key_3_1",
+        "number_key_3_2"
+      ],
+      "measure": "long",
+      "target_ratio": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": 0.1,
+      "source": "symmetry-naming"
+    }
+  ],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

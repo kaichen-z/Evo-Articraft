@@ -1,0 +1,71 @@
+{
+  "record_id": "rec_fingerlike_phalanx_chain_4f7c64ddc97c4e75920f166c8615df5f",
+  "overall_description": "An industrial finger module with a thick root knuckle, a tapered middle link, a short distal link, and a broad pad tip. The links should feel rigid and mechanical, built from side plates and pin barrels rather than any soft organic shell treatment. Use realistic detail such as machined hinge bosses, pad inserts, chamfered link edges, and believable thickness around the base knuckle. The root, middle, and distal joints are serial revolute joints bending in one plane. Keep every part mechanically grounded with no floating members, and make sure the articulation paths stay clear so nothing clips through covers, stops, housings, rails, or neighboring links.",
+  "required_parts": [
+    {
+      "id": "root_knuckle",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "middle_link",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "distal_link",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "pad_tip",
+      "count": 1,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "finger-like phalanx chain",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "root_knuckle",
+      "geometry": "root knuckle of a finger-like phalanx chain"
+    },
+    {
+      "id": "middle_link",
+      "geometry": "middle link of a finger-like phalanx chain"
+    },
+    {
+      "id": "distal_link",
+      "geometry": "distal link of a finger-like phalanx chain"
+    },
+    {
+      "id": "pad_tip",
+      "geometry": "pad tip of a finger-like phalanx chain"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "middle_link",
+      "relation": "attached_to",
+      "object": "root_knuckle",
+      "source": "joint:root_joint"
+    },
+    {
+      "subject": "distal_link",
+      "relation": "attached_to",
+      "object": "middle_link",
+      "source": "joint:middle_joint"
+    },
+    {
+      "subject": "pad_tip",
+      "relation": "attached_to",
+      "object": "distal_link",
+      "source": "joint:distal_joint"
+    }
+  ],
+  "proportion_claims": [],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

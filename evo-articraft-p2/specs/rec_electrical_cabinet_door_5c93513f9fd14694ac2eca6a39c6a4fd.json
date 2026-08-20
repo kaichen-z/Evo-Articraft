@@ -1,0 +1,56 @@
+{
+  "record_id": "rec_electrical_cabinet_door_5c93513f9fd14694ac2eca6a39c6a4fd",
+  "overall_description": "A relay protection panel with a tall narrow steel cabinet and a hinged front door on the left edge on two revolute hinge knuckles, with an inner hinged instrument panel on a revolute hinge at its left edge for relay wiring access.",
+  "required_parts": [
+    {
+      "id": "cabinet",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "front_door",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "instrument_panel",
+      "count": 1,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "electrical cabinet door",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "cabinet",
+      "geometry": "cabinet of a electrical cabinet door"
+    },
+    {
+      "id": "front_door",
+      "geometry": "front door of a electrical cabinet door"
+    },
+    {
+      "id": "instrument_panel",
+      "geometry": "instrument panel of a electrical cabinet door"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "front_door",
+      "relation": "attached_to",
+      "object": "cabinet",
+      "source": "joint:cabinet_to_front_door"
+    },
+    {
+      "subject": "instrument_panel",
+      "relation": "attached_to",
+      "object": "cabinet",
+      "source": "joint:cabinet_to_instrument_panel"
+    }
+  ],
+  "proportion_claims": [],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

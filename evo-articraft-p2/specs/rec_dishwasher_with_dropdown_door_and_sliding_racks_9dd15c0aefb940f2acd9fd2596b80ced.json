@@ -1,0 +1,187 @@
+{
+  "record_id": "rec_dishwasher_with_dropdown_door_and_sliding_racks_9dd15c0aefb940f2acd9fd2596b80ced",
+  "overall_description": "A stainless underbar glasswasher with a heavy dropdown front door, a lower glass rack, a shallower upper rack, and a short front control pod carrying two rocker switches and a timer knob. The main door rotates on a bottom horizontal hinge, both racks slide prismatically on supported guides, and the lower and upper wash arms rotate continuously on vertical hubs in the chamber. The timer knob rotates continuously, both rocker switches articulate independently on short pivots, and the detergent flap on the inner door opens on a small hinge. The wash chamber and door liner should read as a true hollow appliance cavity rather than a filled box. Commercial undercounter scale.",
+  "required_parts": [
+    {
+      "id": "body",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "control_pod",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "door",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "detergent_flap",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "lower_rack",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "upper_rack",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "lower_wash_arm",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "upper_wash_arm",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "timer_knob",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "rocker",
+      "count": 2,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "dishwasher with dropdown door and sliding racks",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "body",
+      "geometry": "body of a dishwasher with dropdown door and sliding racks"
+    },
+    {
+      "id": "control_pod",
+      "geometry": "control pod of a dishwasher with dropdown door and sliding racks"
+    },
+    {
+      "id": "door",
+      "geometry": "door of a dishwasher with dropdown door and sliding racks"
+    },
+    {
+      "id": "detergent_flap",
+      "geometry": "detergent flap of a dishwasher with dropdown door and sliding racks"
+    },
+    {
+      "id": "lower_rack",
+      "geometry": "lower rack of a dishwasher with dropdown door and sliding racks"
+    },
+    {
+      "id": "upper_rack",
+      "geometry": "upper rack of a dishwasher with dropdown door and sliding racks"
+    },
+    {
+      "id": "lower_wash_arm",
+      "geometry": "lower wash arm of a dishwasher with dropdown door and sliding racks"
+    },
+    {
+      "id": "upper_wash_arm",
+      "geometry": "upper wash arm of a dishwasher with dropdown door and sliding racks"
+    },
+    {
+      "id": "timer_knob",
+      "geometry": "timer knob of a dishwasher with dropdown door and sliding racks"
+    },
+    {
+      "id": "rocker",
+      "geometry": "rocker of a dishwasher with dropdown door and sliding racks"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "door",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "joint:body_to_door"
+    },
+    {
+      "subject": "detergent_flap",
+      "relation": "attached_to",
+      "object": "door",
+      "source": "joint:door_to_detergent_flap"
+    },
+    {
+      "subject": "lower_rack",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "joint:body_to_lower_rack"
+    },
+    {
+      "subject": "lower_rack",
+      "relation": "inside",
+      "object": "body",
+      "source": "name-heuristic:lower_rack"
+    },
+    {
+      "subject": "upper_rack",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "joint:body_to_upper_rack"
+    },
+    {
+      "subject": "upper_rack",
+      "relation": "inside",
+      "object": "body",
+      "source": "name-heuristic:upper_rack"
+    },
+    {
+      "subject": "lower_wash_arm",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "joint:body_to_lower_wash_arm"
+    },
+    {
+      "subject": "upper_wash_arm",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "joint:body_to_upper_wash_arm"
+    },
+    {
+      "subject": "timer_knob",
+      "relation": "attached_to",
+      "object": "control_pod",
+      "source": "joint:control_pod_to_timer_knob"
+    },
+    {
+      "subject": "rocker_0",
+      "relation": "attached_to",
+      "object": "control_pod",
+      "source": "joint:control_pod_to_rocker_0"
+    },
+    {
+      "subject": "rocker_1",
+      "relation": "attached_to",
+      "object": "control_pod",
+      "source": "joint:control_pod_to_rocker_1"
+    }
+  ],
+  "proportion_claims": [
+    {
+      "parts": [
+        "rocker_0",
+        "rocker_1"
+      ],
+      "measure": "long",
+      "target_ratio": [
+        1.0,
+        1.0
+      ],
+      "tolerance": 0.1,
+      "source": "symmetry-naming"
+    }
+  ],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

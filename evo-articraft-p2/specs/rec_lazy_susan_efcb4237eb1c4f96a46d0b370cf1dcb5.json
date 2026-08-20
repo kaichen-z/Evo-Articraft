@@ -1,0 +1,65 @@
+{
+  "record_id": "rec_lazy_susan_efcb4237eb1c4f96a46d0b370cf1dcb5",
+  "overall_description": "A two-tier lazy Susan with a fixed central post and two separate rotating shelves. Each circular shelf is carried by its own bearing collar around the post, so the upper and lower tiers can move independently. The lower shelf rotates on one vertical revolute axis around the post, and the upper shelf rotates on a second vertical revolute axis on its own collar.",
+  "required_parts": [
+    {
+      "id": "base",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "central_post",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "lower_tier",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "upper_tier",
+      "count": 1,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "lazy susan",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "base",
+      "geometry": "base of a lazy susan"
+    },
+    {
+      "id": "central_post",
+      "geometry": "central post of a lazy susan"
+    },
+    {
+      "id": "lower_tier",
+      "geometry": "lower tier of a lazy susan"
+    },
+    {
+      "id": "upper_tier",
+      "geometry": "upper tier of a lazy susan"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "lower_tier",
+      "relation": "attached_to",
+      "object": "central_post",
+      "source": "joint:post_to_lower_tier"
+    },
+    {
+      "subject": "upper_tier",
+      "relation": "attached_to",
+      "object": "central_post",
+      "source": "joint:post_to_upper_tier"
+    }
+  ],
+  "proportion_claims": [],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

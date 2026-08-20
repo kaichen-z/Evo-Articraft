@@ -1,0 +1,129 @@
+{
+  "record_id": "rec_drawer_cabinet_with_sliding_drawers_34d51b44ab674f52b838d4bc4e126590",
+  "overall_description": "A laboratory specimen drawer cabinet with a tall rectangular body and six shallow drawers. All six drawers slide prismatically on straight internal runners within the rigid outer carcass. Lab storage scale.",
+  "required_parts": [
+    {
+      "id": "body",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "drawer",
+      "count": 6,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "drawer cabinet with sliding drawers",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "body",
+      "geometry": "body of a drawer cabinet with sliding drawers"
+    },
+    {
+      "id": "drawer",
+      "geometry": "drawer of a drawer cabinet with sliding drawers"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "drawer_0",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "joint:body_to_drawer_0"
+    },
+    {
+      "subject": "drawer_0",
+      "relation": "inside",
+      "object": "body",
+      "source": "name-heuristic:drawer_0"
+    },
+    {
+      "subject": "drawer_1",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "joint:body_to_drawer_1"
+    },
+    {
+      "subject": "drawer_1",
+      "relation": "inside",
+      "object": "body",
+      "source": "name-heuristic:drawer_1"
+    },
+    {
+      "subject": "drawer_2",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "joint:body_to_drawer_2"
+    },
+    {
+      "subject": "drawer_2",
+      "relation": "inside",
+      "object": "body",
+      "source": "name-heuristic:drawer_2"
+    },
+    {
+      "subject": "drawer_3",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "joint:body_to_drawer_3"
+    },
+    {
+      "subject": "drawer_3",
+      "relation": "inside",
+      "object": "body",
+      "source": "name-heuristic:drawer_3"
+    },
+    {
+      "subject": "drawer_4",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "joint:body_to_drawer_4"
+    },
+    {
+      "subject": "drawer_4",
+      "relation": "inside",
+      "object": "body",
+      "source": "name-heuristic:drawer_4"
+    },
+    {
+      "subject": "drawer_5",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "joint:body_to_drawer_5"
+    },
+    {
+      "subject": "drawer_5",
+      "relation": "inside",
+      "object": "body",
+      "source": "name-heuristic:drawer_5"
+    }
+  ],
+  "proportion_claims": [
+    {
+      "parts": [
+        "drawer_0",
+        "drawer_1",
+        "drawer_2",
+        "drawer_3",
+        "drawer_4",
+        "drawer_5"
+      ],
+      "measure": "long",
+      "target_ratio": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": 0.1,
+      "source": "symmetry-naming"
+    }
+  ],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

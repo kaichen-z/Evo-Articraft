@@ -1,0 +1,86 @@
+{
+  "record_id": "rec_tower_fan_with_rotary_controls_c23bcbc7114b484290d573db335cd72d",
+  "overall_description": "A modern tower fan with a tall rectangular housing, a circular pedestal base, and a top control deck carrying rotary knobs, plus a carry handle integrated into the rear of the top cap. the tower body stays visibly separate from the base joint that provides oscillation, and the handle remains a real opening or supported bridge in the cap. The tower body oscillates on a vertical revolute joint above the base, the internal blower wheel rotates continuously about the vertical center axis, and the rotary controls turn continuously on their local axes. Residential tower-fan scale.",
+  "required_parts": [
+    {
+      "id": "base",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "tower",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "blower",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "speed_knob",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "timer_knob",
+      "count": 1,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "tower fan with rotary controls",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "base",
+      "geometry": "base of a tower fan with rotary controls"
+    },
+    {
+      "id": "tower",
+      "geometry": "tower of a tower fan with rotary controls"
+    },
+    {
+      "id": "blower",
+      "geometry": "blower of a tower fan with rotary controls"
+    },
+    {
+      "id": "speed_knob",
+      "geometry": "speed knob of a tower fan with rotary controls"
+    },
+    {
+      "id": "timer_knob",
+      "geometry": "timer knob of a tower fan with rotary controls"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "tower",
+      "relation": "attached_to",
+      "object": "base",
+      "source": "joint:base_to_tower"
+    },
+    {
+      "subject": "blower",
+      "relation": "attached_to",
+      "object": "tower",
+      "source": "joint:tower_to_blower"
+    },
+    {
+      "subject": "speed_knob",
+      "relation": "attached_to",
+      "object": "tower",
+      "source": "joint:tower_to_speed_knob"
+    },
+    {
+      "subject": "timer_knob",
+      "relation": "attached_to",
+      "object": "tower",
+      "source": "joint:tower_to_timer_knob"
+    }
+  ],
+  "proportion_claims": [],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

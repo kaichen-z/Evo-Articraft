@@ -1,0 +1,77 @@
+{
+  "record_id": "rec_panini_press_with_clamshell_lid_1e6c986dda874fd6a176cd1becc0658d",
+  "overall_description": "A family-size panini grill with a wide rectangular base, a thick insulated clamshell lid, and a latch tab at the front lip. The lid rotates open on a rear horizontal revolute hinge, the latch tab rotates downward on a small front hinge to release the lid, and a thermostat knob rotates continuously on a short side-face shaft. Medium kitchen counter scale.",
+  "required_parts": [
+    {
+      "id": "base",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "lid",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "latch_tab",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "thermostat_knob",
+      "count": 1,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "panini press with clamshell lid",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "base",
+      "geometry": "base of a panini press with clamshell lid"
+    },
+    {
+      "id": "lid",
+      "geometry": "lid of a panini press with clamshell lid"
+    },
+    {
+      "id": "latch_tab",
+      "geometry": "latch tab of a panini press with clamshell lid"
+    },
+    {
+      "id": "thermostat_knob",
+      "geometry": "thermostat knob of a panini press with clamshell lid"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "lid",
+      "relation": "attached_to",
+      "object": "base",
+      "source": "joint:base_to_lid"
+    },
+    {
+      "subject": "lid",
+      "relation": "above",
+      "object": "base",
+      "source": "name-heuristic:lid"
+    },
+    {
+      "subject": "latch_tab",
+      "relation": "attached_to",
+      "object": "lid",
+      "source": "joint:lid_to_latch"
+    },
+    {
+      "subject": "thermostat_knob",
+      "relation": "attached_to",
+      "object": "base",
+      "source": "joint:base_to_thermostat_knob"
+    }
+  ],
+  "proportion_claims": [],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

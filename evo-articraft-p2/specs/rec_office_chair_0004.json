@@ -1,0 +1,100 @@
+{
+  "record_id": "rec_office_chair_0004",
+  "overall_description": "A mesh-backed office chair with a five-wheel base and a simple tilt mechanism. The seat sits above a central pedestal, the back frame rises from the rear bracket, and paired armrests flank the seat. The caster wheels rotate continuously on their axles, and the seat-back assembly tilts about a transverse revolute axis through roughly 15 degrees.",
+  "required_parts": [
+    {
+      "id": "base",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "seat_assembly",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "wheel",
+      "count": 5,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "office chair",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "base",
+      "geometry": "base of a office chair"
+    },
+    {
+      "id": "seat_assembly",
+      "geometry": "seat assembly of a office chair"
+    },
+    {
+      "id": "wheel",
+      "geometry": "wheel of a office chair"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "seat_assembly",
+      "relation": "attached_to",
+      "object": "base",
+      "source": "joint:seat_tilt"
+    },
+    {
+      "subject": "wheel_0",
+      "relation": "attached_to",
+      "object": "base",
+      "source": "joint:wheel_spin_0"
+    },
+    {
+      "subject": "wheel_1",
+      "relation": "attached_to",
+      "object": "base",
+      "source": "joint:wheel_spin_1"
+    },
+    {
+      "subject": "wheel_2",
+      "relation": "attached_to",
+      "object": "base",
+      "source": "joint:wheel_spin_2"
+    },
+    {
+      "subject": "wheel_3",
+      "relation": "attached_to",
+      "object": "base",
+      "source": "joint:wheel_spin_3"
+    },
+    {
+      "subject": "wheel_4",
+      "relation": "attached_to",
+      "object": "base",
+      "source": "joint:wheel_spin_4"
+    }
+  ],
+  "proportion_claims": [
+    {
+      "parts": [
+        "wheel_0",
+        "wheel_1",
+        "wheel_2",
+        "wheel_3",
+        "wheel_4"
+      ],
+      "measure": "long",
+      "target_ratio": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": 0.1,
+      "source": "symmetry-naming"
+    }
+  ],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

@@ -1,0 +1,56 @@
+{
+  "record_id": "rec_wind_turbine_e10650a329fb4c79b8baeee1fa7b8566",
+  "overall_description": "A horizontal-axis wind turbine with a tapered tower, a nacelle, and a three-blade rotor hub at the front. The nacelle stays clearly mounted on a yaw bearing at the tower top instead of reading as part of the tower shaft. The rotor spins continuously about the main shaft axis and the nacelle yaws about the vertical tower axis. Utility wind-turbine scale.",
+  "required_parts": [
+    {
+      "id": "tower",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "nacelle",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "rotor",
+      "count": 1,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "wind turbine",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "tower",
+      "geometry": "tower of a wind turbine"
+    },
+    {
+      "id": "nacelle",
+      "geometry": "nacelle of a wind turbine"
+    },
+    {
+      "id": "rotor",
+      "geometry": "rotor of a wind turbine"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "nacelle",
+      "relation": "attached_to",
+      "object": "tower",
+      "source": "joint:yaw"
+    },
+    {
+      "subject": "rotor",
+      "relation": "attached_to",
+      "object": "nacelle",
+      "source": "joint:rotor_spin"
+    }
+  ],
+  "proportion_claims": [],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

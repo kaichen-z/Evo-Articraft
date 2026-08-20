@@ -1,0 +1,179 @@
+{
+  "record_id": "rec_all_in_one_printer_with_scanner_lid_and_paper_tray_401e9042a65b4e4c84b3193175918b05",
+  "overall_description": "A tall all-in-one printer with an automatic document feeder lid, a front paper cassette, a side service door, and a tilting front touchscreen panel surrounded by four hard keys. The flatbed lid rotates upward on a rear hinge, the paper cassette slides prismatically from the lower body, the ADF lid rotates on a top hinge, and the control panel tilts on a short horizontal pivot. A selector dial at one side of the panel rotates continuously, and the four hard keys are separate prismatic push buttons. Keep the scanner bed, feeder throat, and tray path as hollow appliance geometry. Small-office printer scale.",
+  "required_parts": [
+    {
+      "id": "body",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "flatbed_lid",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "adf_lid",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "cassette",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "service_door",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "control_panel",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "selector_dial",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "key",
+      "count": 4,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "all-in-one printer with scanner lid and paper tray",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "body",
+      "geometry": "body of a all-in-one printer with scanner lid and paper tray"
+    },
+    {
+      "id": "flatbed_lid",
+      "geometry": "flatbed lid of a all-in-one printer with scanner lid and paper tray"
+    },
+    {
+      "id": "adf_lid",
+      "geometry": "adf lid of a all-in-one printer with scanner lid and paper tray"
+    },
+    {
+      "id": "cassette",
+      "geometry": "cassette of a all-in-one printer with scanner lid and paper tray"
+    },
+    {
+      "id": "service_door",
+      "geometry": "service door of a all-in-one printer with scanner lid and paper tray"
+    },
+    {
+      "id": "control_panel",
+      "geometry": "control panel of a all-in-one printer with scanner lid and paper tray"
+    },
+    {
+      "id": "selector_dial",
+      "geometry": "selector dial of a all-in-one printer with scanner lid and paper tray"
+    },
+    {
+      "id": "key",
+      "geometry": "key of a all-in-one printer with scanner lid and paper tray"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "key_0",
+      "relation": "attached_to",
+      "object": "control_panel",
+      "source": "joint:control_panel_to_key_0"
+    },
+    {
+      "subject": "key_1",
+      "relation": "attached_to",
+      "object": "control_panel",
+      "source": "joint:control_panel_to_key_1"
+    },
+    {
+      "subject": "key_2",
+      "relation": "attached_to",
+      "object": "control_panel",
+      "source": "joint:control_panel_to_key_2"
+    },
+    {
+      "subject": "key_3",
+      "relation": "attached_to",
+      "object": "control_panel",
+      "source": "joint:control_panel_to_key_3"
+    },
+    {
+      "subject": "flatbed_lid",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "joint:body_to_flatbed_lid"
+    },
+    {
+      "subject": "flatbed_lid",
+      "relation": "above",
+      "object": "body",
+      "source": "name-heuristic:flatbed_lid"
+    },
+    {
+      "subject": "adf_lid",
+      "relation": "attached_to",
+      "object": "flatbed_lid",
+      "source": "joint:flatbed_lid_to_adf_lid"
+    },
+    {
+      "subject": "adf_lid",
+      "relation": "above",
+      "object": "flatbed_lid",
+      "source": "name-heuristic:adf_lid"
+    },
+    {
+      "subject": "cassette",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "joint:body_to_cassette"
+    },
+    {
+      "subject": "service_door",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "joint:body_to_service_door"
+    },
+    {
+      "subject": "control_panel",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "joint:body_to_control_panel"
+    },
+    {
+      "subject": "selector_dial",
+      "relation": "attached_to",
+      "object": "control_panel",
+      "source": "joint:control_panel_to_selector_dial"
+    }
+  ],
+  "proportion_claims": [
+    {
+      "parts": [
+        "key_0",
+        "key_1",
+        "key_2",
+        "key_3"
+      ],
+      "measure": "long",
+      "target_ratio": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": 0.1,
+      "source": "symmetry-naming"
+    }
+  ],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

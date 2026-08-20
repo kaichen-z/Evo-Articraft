@@ -1,0 +1,71 @@
+{
+  "record_id": "rec_yawpitchroll_wrist_71a3903167694d5ab1a72ebd73fa28f6",
+  "overall_description": "A compact tool wrist with a yaw collar at the root, a pitch yoke in the middle, and a short roll spindle carrying a flange at the nose. The three axis supports should be easy to distinguish by shape and scale. Yaw is a revolute joint about a vertical axis, pitch is a revolute joint about a horizontal cross-axis, and roll is a revolute joint about the tool axis.",
+  "required_parts": [
+    {
+      "id": "base",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "yaw_collar",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "pitch_yoke",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "roll_spindle",
+      "count": 1,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "yaw-pitch-roll wrist",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "base",
+      "geometry": "base of a yaw-pitch-roll wrist"
+    },
+    {
+      "id": "yaw_collar",
+      "geometry": "yaw collar of a yaw-pitch-roll wrist"
+    },
+    {
+      "id": "pitch_yoke",
+      "geometry": "pitch yoke of a yaw-pitch-roll wrist"
+    },
+    {
+      "id": "roll_spindle",
+      "geometry": "roll spindle of a yaw-pitch-roll wrist"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "yaw_collar",
+      "relation": "attached_to",
+      "object": "base",
+      "source": "joint:yaw"
+    },
+    {
+      "subject": "pitch_yoke",
+      "relation": "attached_to",
+      "object": "yaw_collar",
+      "source": "joint:pitch"
+    },
+    {
+      "subject": "roll_spindle",
+      "relation": "attached_to",
+      "object": "pitch_yoke",
+      "source": "joint:roll"
+    }
+  ],
+  "proportion_claims": [],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}
