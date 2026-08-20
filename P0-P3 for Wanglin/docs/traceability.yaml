@@ -1,0 +1,652 @@
+# Every item of the original specification, and what became of it.
+#
+# The original specs are task-2_08-16-p0.html (Prompt Contract) and task-2_08-16-p3.html
+# (Kinematic Fidelity). This file is the ledger against them: one entry per item, each
+# carrying a disposition and, when the disposition is not `literal`, the reason and what
+# replaced it. tests/test_traceability.py checks that the ledger stays complete and that
+# nothing silently changes status.
+#
+# Dispositions:
+#   literal   -- implemented exactly as the spec states it
+#   clarified -- the spec's intent is kept; something it left undefined is now pinned down
+#   replaced  -- the spec's text cannot be implemented as written; something else stands
+#                in for it, and `reason` says why the original cannot work
+#   changed   -- a deliberate departure from what the spec says, with a reason
+#   added     -- not in the spec at all
+#   decided   -- the departure is settled and argued, but the code is not written yet.
+#                Distinct from `deferred`, which means the question is still open, and
+#                from `replaced`/`changed`, which claim something already stands in place.
+#   deferred  -- not yet built
+#   external  -- someone else's phase; recorded so the boundary is visible
+
+spec_version: task-2_08-16
+ledger_version: 1
+
+items:
+
+  # ====================================================================================
+  # P0 · Prompt Contract
+  # ====================================================================================
+
+  - id: P0.core_rule
+    spec: "一类声明只服务一个检查 / score only frozen, separated fields so the same claim is not counted twice"
+    disposition: literal
+    where: evo_p0p3/p0/schema.py
+    note: >
+      Kept, and enforced in one place the original violated: states.closed, the reference
+      configuration and range.min are the same number, so KF1 scores them as a single
+      combined claim rather than three.
+
+  - id: P0.overall_description
+    spec: "面向人类的完整对象描述，不直接作为任何单项指标的评分文本"
+    disposition: literal
+    where: evo_p0p3/p0/schema.py::Contract.overall_description
+
+  - id: P0.required_parts.id
+    spec: "唯一且稳定的 id"
+    disposition: literal
+    where: evo_p0p3/p0/schema.py::Part.id
+
+  - id: P0.required_parts.count
+    spec: "明确的 count"
+    disposition: changed
+    replaced_by: "enumerated instances plus an optional `group` label"
+    where: evo_p0p3/p0/loader.py::_parts
+    reason: >
+      Nothing in any of the four spec pages says how {id: drawer, count: 3} expands into
+      the drawer_1..drawer_3 that the spec's own joints and proportion_claims then use,
+      nor what order the Gate assigns indices in. The example is homogeneous so the
+      ambiguity is invisible there, but it decides the verdict for any heterogeneous set
+      -- mirrored left and right doors, or drawers with different travel. Writing `count`
+      is now a load error with that explanation.
+
+  - id: P0.required_parts.role
+    spec: "fixed 或 movable 角色"
+    disposition: changed
+    replaced_by: "fixed | movable | attached, plus a rigid_attachments list"
+    where: evo_p0p3/p0/schema.py::Role
+    reason: >
+      The spec's own example already breaks its two-value vocabulary by writing
+      `role: follows_drawer`, and that string cannot say which handle follows which
+      drawer -- handle_3 riding drawer_2 passes every check. Worse, calling a handle
+      `movable` makes Gate G2 demand a motion chain the correct handle must not have.
+
+  - id: P0.required_parts.gate_binding
+    spec: "part ID → MJCF body/geom 绑定；missing part 直接 Gate FAIL"
+    disposition: external
+    note: >
+      Gate is P1's phase. P3 consumes the binding and never infers a name. A minimal Gate
+      is planned for the pilot so the binding exists; it is not a substitute for P1.
+
+  - id: P0.geometry_fields
+    spec: "global_form → GF1, part_geometry → GF2, part_relations → GF3, proportion_claims → GF4"
+    disposition: external
+    where: evo_p0p3/p0/schema.py::Contract
+    note: >
+      Carried and subject to referential integrity, but not interpreted here. P3 must not
+      rescore static geometry.
+
+  - id: P0.kinematic_claims.joints
+    spec: "声明 part、parent、joint type、axis、anchor、range、reference state 与 closed/open 状态"
+    disposition: clarified
+    where: evo_p0p3/p0/schema.py::Joint
+    note: >
+      All seven fields kept. `axis` and `anchor` needed定义 -- see the two entries below,
+      since the spec names both but the schema example supplies neither in usable form.
+
+  - id: P0.joints.axis
+    spec: "axis: depth"
+    disposition: replaced
+    replaced_by: "axis.semantic | axis.relational | axis.numeric"
+    where: evo_p0p3/p0/schema.py::Axis
+    reason: >
+      `depth` is a word, and no page in P0-P3 defines an object frame to resolve it
+      against. A URDF carries no semantic orientation -- two identical cabinets authored
+      ninety degrees apart are the same object with different numbers -- so a numeric axis
+      is only meaningful once a front direction is anchored. Requiring generators to
+      author in a canonical frame would turn a convention violation into a kinematics
+      failure, which across several generators measures who read the frame documentation
+      rather than whose joints are right. semantic resolves against gravity, which is free
+      and rotation-invariant; relational resolves from the geometry of two named parts, so
+      it follows the asset; numeric is reported N/A unless canonical_frame.front is set.
+
+  - id: P0.joints.anchor
+    spec: "anchor（散文中声明，schema 示例中不存在）"
+    disposition: replaced
+    replaced_by: "anchor.on_edge_of | anchor.through_center_of, N/A for slide and free"
+    where: evo_p0p3/p0/schema.py::Anchor
+    reason: >
+      Two problems. A translation has no centre, so MuJoCo ignores a slide joint's pos
+      entirely and an anchor claim on one can never fail -- and all three joints in the
+      spec's example are slides, so the field that matters most for hinges is never
+      exercised. And P0 is authored before the asset exists, so it cannot know where the
+      hinge should be in metric coordinates; envelope_m gives a size range, not a
+      geometry. Both replacements are frame-free and scale-free geometric relations. They
+      are opposites and both are required: a door demands its geometry lie to one side of
+      the axis plane, a gear demands symmetry about it, and scoring a gear with the door
+      predicate fails it by construction. Which joint types carry an anchor was settled by
+      measurement, not reasoning: displacing pos by 0.25 m moves the child geometry by
+      0.000000 for slide, 0.171449 for hinge, 0.191345 for ball and 0.000000 for free. An
+      earlier version of this repository excluded ball on the assumption that only a hinge
+      has a line in space to be wrong about, and so rejected a claim a model can genuinely
+      fail; a ball joint's anchor is its centre of rotation.
+
+  - id: P0.joints.range
+    spec: "range_m: [0.0, 0.4]"
+    disposition: changed
+    replaced_by: "range: {unit: m|rad, min, max}"
+    where: evo_p0p3/p0/schema.py::Range
+    reason: >
+      range_m is slide-only, and all three joints in the example are slides, so the spec
+      never states a field name or unit for a hinge's angular range.
+
+  - id: P0.joints.states
+    spec: "states: {closed: 0.0, open: 0.4}"
+    disposition: clarified
+    where: evo_p0p3/p0/schema.py::AssetState
+    note: >
+      Kept per joint, and given a whole-asset counterpart -- see P0.asset_states.
+
+  - id: P0.kinematic_claims.couplings
+    spec: "声明 equality、tendon、齿轮或刚性耦合的成员、系数、相位、固定成员与预期自由度"
+    disposition: clarified
+    where: evo_p0p3/p0/schema.py::Coupling
+    reason: >
+      The prose names six things to declare and the schema example is `couplings: []`, so
+      none of them had a representation and KF2 was unimplementable. The relation is
+      written as dependent = coefficient * independent + offset, deliberately isomorphic
+      to MuJoCo's equality/joint polycoef so the comparison is field against field.
+      `mechanism` stays open: a fixed tendon realising the same relation is equally
+      correct.
+
+  - id: P0.kinematic_claims.independent_dofs
+    spec: "列出运动扫掠中可以独立驱动的 joint；依赖 joint 必须由 coupling 关系求得"
+    disposition: literal
+    where: evo_p0p3/p0/schema.py::KinematicClaims.independent_dofs
+
+  - id: P0.kinematic_claims.contact_policy
+    spec: "冻结允许与禁止的部件接触对，以及只在 closed、open 或 all states 生效的条件"
+    disposition: changed
+    replaced_by: "required | permitted | forbidden, with an explicit precedence rule"
+    where: evo_p0p3/p0/schema.py::ContactPolicy
+    reason: >
+      `allowed` never says what it asserts. Read as a permission it can never fail and
+      contributes nothing; read as an obligation it needs a contact tolerance and a state
+      predicate, neither of which the spec provides. The distinction matters: nothing in
+      the original requires a declared travel stop to be realised by any geometry, so a
+      mechanism limited only by its `range` attribute scores the same as one with a real
+      stop. Splitting the buckets forces the decision at authoring time. Precedence is
+      added because the spec's own example puts one pair in both buckets, leaving
+      S_collision undefined at exactly the states the sweep begins and ends in.
+
+  - id: P0.contact_policy.relation
+    spec: "relation: stop_contact"
+    disposition: clarified
+    where: evo_p0p3/p0/schema.py::ContactRelation
+    reason: "The token is defined nowhere in the spec. The vocabulary is now closed and frozen."
+
+  - id: P0.asset_states
+    spec: "（无）"
+    disposition: added
+    where: evo_p0p3/p0/schema.py::AssetState
+    reason: >
+      joints[].states labels are per joint, but contact_policy and
+      dynamics_claims.initial_state consume them as whole-asset properties. With three
+      independent drawers a sweep sample at (0.0, 0.40, 0.35) has to be classifiable, and
+      without a tolerance an exact-equality reading can match zero samples of a continuous
+      sweep -- so the claims conditioned on that state are never evaluated, and never
+      evaluated reads as passing.
+
+  - id: P0.tolerances
+    spec: "（无）"
+    disposition: added
+    where: evo_p0p3/p0/schema.py::Tolerances
+    reason: >
+      P3 requires every threshold frozen before evaluation, but no contract field held
+      one, so in practice they would be decided silently by whoever wrote the code.
+      digest() emits a hash with every result.
+
+  - id: P0.canonical_frame
+    spec: "（无）"
+    disposition: added
+    where: evo_p0p3/p0/schema.py::CanonicalFrame
+    reason: >
+      The axis rework needs somewhere to say which directions are determined and which are
+      not. Gravity fixes the vertical for free -- MuJoCo's default is (0, 0, -9.81) and +z
+      up is near universal in MJCF -- while the yaw about it is fixed by nothing in the
+      file or in physics. Separating the two is what lets a semantic axis be scored on
+      every asset while a numeric one is honestly reported N/A until a front is anchored.
+
+  - id: P0.authoring.unique_ids
+    spec: "唯一 ID。所有字段复用同一组 part IDs"
+    disposition: clarified
+    where: evo_p0p3/p0/admission.py::_a1_referential_integrity
+    reason: >
+      The rule was stated but not enforced, and the spec's own example violates it:
+      contact_policy names drawer_side and cabinet_wall, part_relations names
+      drawer_front, and none of the three is a required part. A1 now rejects the contract
+      before generation. This matters more than any other single rule: in the previous
+      attempt "part not found" produced 42 of 63 false alarms yet carried 4 of 7 true
+      positives, because it could mean either an asset defect or a contract typo, and a
+      paired bootstrap showed no matcher could separate them.
+
+  - id: P0.authoring.measurable
+    spec: "声明必须可测。关系和比例必须能转换为确定性检查"
+    disposition: literal
+    where: evo_p0p3/p0/admission.py
+
+  - id: P0.authoring.freeze
+    spec: "生成前冻结。看到候选资产后不得补写或放宽声明"
+    disposition: literal
+    note: >
+      Extended to the evaluator itself: the code is frozen before it sees a real asset,
+      and the ten pilot contracts are authored from prompts without opening the models.
+      Tuning either against known answers would prove nothing.
+
+  - id: P0.admission
+    spec: "准入要求：每条 prompt 必须为每个 required part 提供 part_geometry，并包含适用且可验证的声明"
+    disposition: clarified
+    where: evo_p0p3/p0/admission.py
+    note: "A1..A16 implemented and each tested for its ability to fire."
+
+  - id: P0.dynamics_claims
+    spec: "input_protocol / functional_scenarios / stability_thresholds → P4"
+    disposition: external
+    note: "P4's input. Not parsed here beyond being carried."
+
+  # ====================================================================================
+  # P3 · Kinematic Fidelity
+  # ====================================================================================
+
+  - id: P3.input.read_from_p0
+    spec: "从 P0 读取 joints、couplings、independent_dofs 与 contact_policy"
+    disposition: literal
+    where: evo_p0p3/p0/loader.py
+
+  - id: P3.input.gate_bindings
+    spec: "从 Gate 读取已绑定的 body、joint、tendon 与 geom"
+    disposition: clarified
+    where: evo_p0p3/p3/gate.py
+    note: >
+      A stand-in Gate, faithful to P1's four checks with one stated exception: G3 reports
+      but does not gate. MuJoCo refuses to compile a moving body with no mass, so the
+      loader synthesises inertia for the 341 of 546 real assets declaring none -- and P3's
+      scope excludes mass entirely, so nothing it measures could depend on that value.
+      Failing those out would discard two thirds of the corpus over a property P3 never
+      reads. Checks that an earlier failure prevented from running report `not_run` rather
+      than `fail`, which is P1's own instruction to classify each failure under the
+      earliest matching gate: without it one missing part produces three failures and a
+      reader cannot tell the cause from its shadow.
+
+  - id: P3.input.compiled_mjmodel
+    spec: "编译后的 mjModel"
+    disposition: clarified
+    where: evo_p0p3/p3/mjcf.py
+    reason: >
+      Articraft ships URDF, and compiling it needs two patches the spec does not mention.
+      discardvisual="false" is load-bearing: these assets carry only <visual> geometry, so
+      MuJoCo's importer otherwise drops everything and every geometric predicate silently
+      passes on nothing. And only 205 of 546 declare <inertial>, while MuJoCo refuses to
+      compile a moving body with no mass, so the rest get one synthesised -- flagged, and
+      never used in scoring.
+
+  - id: P3.input.frozen_thresholds
+    spec: "所有阈值和采样规则在测试前冻结"
+    disposition: clarified
+    where: evo_p0p3/p0/schema.py::Tolerances
+    reason: "Given a home in the contract and a hash, since the spec named no field for them."
+
+  - id: P3.scope
+    spec: "使用 qpos、正向运动学、约束残差与 signed distance；不使用质量、摩擦、阻尼或 actuator。No dynamic rollout"
+    disposition: literal
+    where: evo_p0p3/p3/mjcf.py
+    note: >
+      Held strictly. The synthesised inertia exists only to satisfy the compiler and is
+      excluded from every score.
+
+  - id: P3.KF1.bullet1
+    spec: "复用 Gate 的 part → body/joint 绑定，核对 parent、joint type 与固定附件"
+    disposition: clarified
+    where: evo_p0p3/p3/kf1.py::parent
+    note: >
+      Parent implemented; joint type and rigid followers still owed. Decided on the
+      NEAREST DECLARED ANCESTOR rather than on ancestry alone: a lower drawer hung off an
+      upper drawer still has the carcass somewhere up its chain, so "is the declared
+      parent an ancestor?" passes an asset where opening the upper drawer drags the lower
+      one out. Bodies the contract never declared are transparent, since generators insert
+      unnamed intermediate links freely and treating one as a parent would fail correct
+      assets over an authoring style the contract says nothing about.
+
+  - id: P3.KF1.bullet2
+    spec: "把局部 axis 和 anchor 转到统一坐标系，测量轴夹角与锚点偏差"
+    disposition: clarified
+    where: evo_p0p3/p3/kf1.py::axis_semantic
+    note: >
+      Split three ways because one comparison cannot carry it. axis_semantic settles
+      vertical against horizontal from gravity alone, needing no object frame and
+      surviving any rotation about the vertical. axis_admits_motion settles the finer
+      direction geometrically: a drawer sliding sideways into a wall is exactly as
+      horizontal as one sliding out through its opening, so only the geometry knows which
+      is which. anchor measures where the line sits relative to the part rather than at
+      what coordinate, since P0 is written before the asset exists. The numeric form is
+      implemented as N/A until canonical_frame.front is anchored.
+
+  - id: P3.KF1.bullet3
+    spec: "核对 range、limited、ref/qpos0，以及 closed/open 等语义状态"
+    disposition: clarified
+    where: evo_p0p3/p3/kf1.py::range_and_reference
+    note: >
+      Will be scored as ONE combined claim, not four: closed, ref/qpos0 and range.min are
+      typically the same declared number, and counting it repeatedly inflates the
+      denominator with claims that cannot vary independently.
+
+  - id: P3.KF1.bullet4
+    spec: "slide 不得产生额外旋转；hinge 的 anchor 在小扰动下必须保持固定"
+    disposition: replaced
+    where: evo_p0p3/p3/kf1.py::dof_composition
+    replaced_by: "a DOF-composition check, and the frame-free anchor predicates"
+    reason: >
+      Both halves are tautologies on a compiled mjModel. A MuJoCo slide is pure
+      translation by construction, and mj_kinematics derives a hinge's anchor from the
+      declared jnt_pos so it cannot move. No model can fail either. The same trap was
+      already measured once on this project: a fault injection displacing a joint origin
+      by a full link diagonal produced zero detection, because the joint origin IS the
+      child frame origin and moving it carries the geometry along.
+
+  - id: P3.KF1.formula
+    spec: "KF1 = satisfied articulation claims / applicable articulation claims"
+    disposition: deferred
+    note: >
+      Structure kept. Declaration-reading and geometry/FK claims will be reported as
+      separate sub-scores as well: joint type parsed at 100% completeness in the previous
+      corpus and matched in nearly every asset, so a flat proportion is dominated by
+      claims that cannot vary.
+
+  - id: P3.KF2.bullet1
+    spec: "检查 coupling 是否 active，并引用正确的 joint、tendon 与 body 角色"
+    disposition: literal
+    where: evo_p0p3/p3/kf2.py::bound
+
+  - id: P3.KF2.bullet2
+    spec: "核对系数、符号、固定成员、reference phase 与 expected DOF"
+    disposition: clarified
+    where: evo_p0p3/p3/kf2.py::coefficient
+    note: >
+      Coefficient, sign and offset read straight off eq_data, whose polynomial form is
+      exactly URDF mimic semantics and exactly P0's relation -- field to field, nothing
+      interpreted. A model writing the relation with the roles swapped describes the same
+      mechanism and is accepted with the coefficient inverted, rather than failed over
+      which way round it was typed. expected_dof counts member DOFs less the active
+      equalities among them; the limitation of counting rows instead of taking a rank is
+      recorded in the docstring.
+
+  - id: P3.KF2.bullet3
+    spec: "只采样独立自由度；依赖状态由目标 coupling 关系生成"
+    disposition: literal
+    where: evo_p0p3/p3/kf2.py::residual
+
+  - id: P3.KF2.bullet4
+    spec: "在每个样本计算归一化 coupling residual，报告最大值及首次失败状态"
+    disposition: clarified
+    where: evo_p0p3/p3/mjcf.py
+    note: >
+      The residual is MuJoCo's own efc_pos on the asset's equality rows, read after
+      mj_forward with no stepping. Verified: 0.000000 at a correct 3:1 ratio, 1.0 and 2.0
+      for a 2:1 implementation as |q| grows, 3.0 when the dependent joint never moves.
+      The normalizer must be declared per coupling rather than defaulted -- a gear ranging
+      over three turns spans 37.7 rad, so a relative epsilon of 0.02 would tolerate 43
+      degrees of phase error.
+
+  - id: P3.KF2.formula
+    spec: "KF2 = mean_g 1[max_q |r_g,norm(q)| ≤ epsilon_g]"
+    disposition: changed
+    where: evo_p0p3/p3/kf2.py::bound
+    replaced_by: "KF2 = mean_g 1[bound(g)] * 1[max_q |r| ≤ epsilon_g]"
+    reason: >
+      The residual exists only if the model instantiates a constraint. If a generator
+      declares nothing, max over an empty set makes the indicator true and the worst
+      possible model scores 1.0 -- the single most severe coupling failure scored as a
+      perfect pass. The prose bullet "check that coupling is active" was the intended
+      guard, but the formula is what gets implemented.
+
+  - id: P3.KF2.na
+    spec: "没有 coupling claim 的独立单关节对象将 KF2 标为 N/A，不自动记 0 或 1"
+    disposition: literal
+    where: evo_p0p3/p3/verdict.py::score
+
+  - id: P3.KF2.urdf_mimic
+    spec: "（无）"
+    disposition: added
+    where: evo_p0p3/p3/mjcf.py::parse_mimics
+    reason: >
+      URDF expresses coupling only through <mimic>, and MuJoCo's importer drops it
+      silently -- verified on all seven real assets that declare one, every one compiling
+      to neq = 0, including a gear assembly with -1 and 0.777778 ratios and a shutter
+      linking fourteen slats. Without translation KF2 would score all seven zero for
+      having no implementing constraint, blaming the asset for the reader's gap.
+
+  - id: P3.KF3.motion1
+    spec: "closed、open 与中间关键状态可达，轨迹连续且覆盖声明范围"
+    disposition: replaced
+    where: evo_p0p3/p3/kf3.py::Session.state_reachability
+    replaced_by: "reachability scored as reachable WITHOUT forbidden interference"
+    reason: >
+      Reachability as written cannot fail. Writing a configuration into qpos always
+      succeeds, and forward kinematics is exact and continuous by construction, so
+      "closed and open are reachable" and "the path is continuous" are properties of
+      MuJoCo rather than of the asset -- the same tautology class that already cost this
+      project a fault-injection experiment with zero detections. What an asset genuinely
+      can fail is arriving at a declared state through its own geometry, so the state is
+      scored on whether any forbidden pair is violated while holding it.
+
+  - id: P3.KF3.motion2
+    spec: "相对位姿遵循 KF1 的 slide、hinge、ball 或 free 运动语义"
+    disposition: replaced
+    where: evo_p0p3/p3/kf1.py::dof_composition
+    replaced_by: "KF1.dof_composition -- one declared degree of freedom, one MuJoCo joint"
+    reason: >
+      A MuJoCo slide translates and a hinge rotates by construction, so checking that the
+      relative pose follows the declared semantics tests the solver rather than the asset.
+      The failure it aims at is real -- a part whose motion is not what the single declared
+      DOF describes -- and it is reachable by counting the joints on the body instead: a
+      free joint or a slide stacked with a hinge through a dummy link both fail that.
+
+  - id: P3.KF3.motion3
+    spec: "不出现跳变、假关节或 qpos 改变而可见部件不动"
+    disposition: decided
+    replaced_by: "an FK + AABB scale-anchor and displacement predicate"
+    reason: >
+      "Visually" requires rendering, which P3's own Scope box forbids -- it grants only
+      qpos, forward kinematics, constraint residuals and signed distance. So the one
+      bullet that names the most obvious kinematic failure a human can state, "I opened it
+      and nothing moved", has no admissible operator as written. The replacement
+      normalizes by the joint's own declared travel rather than a whole-asset diagonal,
+      which only 19 of 607 annotated assets could produce.
+
+  - id: P3.KF3.collision1
+    spec: "逐样本比较 allowed/forbidden contact pairs，并记录 signed distance"
+    disposition: clarified
+    where: evo_p0p3/p3/kf3.py::Session.forbidden_pairs
+    note: >
+      Measured at every sample as the specification says, but SCORED per pair. One deep
+      interpenetration among a thousand configurations is one broken pair; divided by the
+      sample count it reads 0.999, and the same defect would move by three orders of
+      magnitude with the sweep resolution. The configuration is evidence, not a
+      denominator.
+
+  - id: P3.KF3.collision2
+    spec: "报告最小间隙、最大穿透和首次失败 q；超过阈值的禁止穿透为硬失败"
+    disposition: literal
+    where: evo_p0p3/p3/kf3.py::Session.forbidden_pairs
+
+  - id: P3.KF3.collision3
+    spec: "显式处理 parent filtering、contype/conaffinity 与声明的齿面啮合接触"
+    disposition: clarified
+    where: evo_p0p3/p3/mjcf.py::geom_distance
+    reason: >
+      Handled by not being subject to them. Every Articraft geom compiles with
+      contype = conaffinity = 0, so mjData.ncon is always zero and contact-based detection
+      returns nothing at all. mj_geomDistance ignores both flags and the parent-child
+      filter, which is also the correct behaviour rather than a workaround: MuJoCo
+      disables collision between a parent and child joined by a joint, and that is exactly
+      the pair -- door against its own frame, drawer against its own carcass -- a swept
+      interference check most needs to see.
+
+  - id: P3.KF3.formula
+    spec: "KF3 = min(S_motion, S_collision)"
+    disposition: decided
+    replaced_by: "S_motion, S_forbidden and S_required reported separately"
+    reason: >
+      Neither sub-score is defined anywhere in the spec, and the denominator choice moves
+      the same defect by four orders of magnitude: one deep penetration at one of 32,768
+      grid samples scores 0.99997 per-sample and 0.0 per-pair. Per-pair was chosen. min
+      also contradicts the page's own instruction not to hide failures in one scalar --
+      KF3 = 0.3 does not say whether the thing cannot move or passes through itself, and
+      those have unrelated repairs.
+
+  - id: P3.KF3.sweep
+    spec: "确定性 feasible q-sweep"
+    disposition: clarified
+    where: evo_p0p3/p3/sweep.py
+    replaced_by: "a four-layer deterministic schedule: per-DOF scan, adjacency-gated pair grid, declared state combinations, Halton fill"
+    reason: >
+      No sampling rule is stated anywhere, and the example asset has three independent
+      DOFs where a full grid at 32 points is 32,768 configurations. Four layers: a per-DOF
+      1-D scan, a pair grid only for DOF pairs whose swept subtree AABBs intersect, all
+      declared semantic state combinations, and a scrambled-Sobol fill with a frozen seed.
+      Cost grows linearly rather than exponentially in the DOF count: the gold cabinet's
+      three joints come to 1,119 configurations against 35,937 for a full grid. The fill
+      layer uses a Halton sequence rather than a scrambled Sobol one -- Halton needs no
+      direction-number tables and no seed, since its k-th point is a fixed function of k,
+      and the fill supplements the structured layers rather than carrying the coverage
+      alone. Halton correlates badly above roughly ten dimensions, which is recorded here
+      rather than discovered later.
+
+  - id: P3.report.gate_pass_rate
+    spec: "报告 Gate Pass Rate 与三维 Kinematic Profile <KF1, KF2, KF3>"
+    disposition: literal
+    where: evo_p0p3/p3/report.py::RunReport
+
+  - id: P3.report.no_single_scalar
+    spec: "不输出隐藏失败的单一总分；优先报 per-joint claims、coupling residual、motion success、minimum clearance、maximum penetration 与 first failing q"
+    disposition: clarified
+    where: evo_p0p3/p3/report.py::validate
+    note: >
+      Extended: every report also carries the loader's provenance -- synthesised inertia,
+      translated mimics, distance backend -- so no reader mistakes a patch for the asset.
+
+  - id: P3.report.na_excluded
+    spec: "N/A 维度从适用项聚合中排除"
+    disposition: literal
+    where: evo_p0p3/p3/verdict.py::score
+
+  # ====================================================================================
+  # Rulings and open items, dated and attributed so they are not re-litigated
+  # ====================================================================================
+
+  - id: RULING.part_granularity
+    spec: "（试点中出现，规格未涵盖）"
+    disposition: added
+    where: evo_p0p3/p3/gate.py
+    replaced_by: "a required part the asset does not expose as a body is a G1 failure"
+    reason: >
+      Every one of the first three pilot assets models fewer parts than its prompt names.
+      The crankset prompt names a spindle, two crank arms and a chainring; the asset has
+      one link, crank_assembly, covering all four. The cooktop prompt says "four-burner"
+      and the asset has no burner links. The exercise bike prompt lists a flywheel housing
+      the asset does not expose.
+
+      Ruled 2026-08-19 by the project owner: this is a FAILURE, not an unevaluable case,
+      because the part count does not match what the prompt declared. G1 rejecting these
+      assets is therefore correct behaviour and stays the default.
+
+      The ruling also removes a false alarm rather than merely classifying one. Forced
+      through with an explicit binding table, the crankset produced KF1.parent failures on
+      both pedals -- the contract says each pedal hangs off its crank arm, the model hangs
+      them off the merged assembly -- while human annotators passed the asset, because
+      physically the pedal IS on the arm. Under the ruling that asset never reaches P3, so
+      P3 never emits the misleading verdict. The defect is attributed to the layer that
+      owns it.
+
+      --diagnostic exists to run P3 on what did bind when a Gate-level blocker would
+      otherwise make P3 unobservable. Its output is labelled NOT A SCORE and must not be
+      reported as one.
+
+  - id: OPEN.c5_physical_connection
+    spec: "（规格未涵盖，来自 ver3 讨论中 xuge 提出的 C5）"
+    disposition: decided
+    replaced_by: "deferred by the project owner on 2026-08-19; to be revisited as a clearly labelled extension"
+    reason: >
+      C5 asks the one question P3 cannot: with the abstract joint constraint removed, does
+      the geometry itself hold the part? A door declared with a perfect revolute joint and
+      no hinge geometry at all passes every KF1, KF2 and KF3 predicate, because the solver
+      enforces the declared joint unconditionally whether or not a bearing exists.
+
+      This is not hypothetical. Of the 425 records with both compiled geometry and human
+      annotation, 103 fail on "活动零件是否具有可信的实体连接或支撑结构" -- more than any
+      other item, and ten times the next most common. The pilot confirmed it on a real
+      asset: rec_stove_top_0002 scores 1.00 on every P3 metric with zero failures while
+      human annotators fail it on exactly that item.
+
+      Two fragments of it already exist here. KF1.travel_scale catches a body that carries
+      the declared joint while owning almost no geometry. KF3.required_contact catches a
+      declared stop that no geometry realises. Neither asks C5's question.
+
+      The owner has deferred this deliberately and it is recorded so it is not lost. When
+      it is built it goes in as a named extension outside the Kinematic Profile, with two
+      tables reported side by side -- the specification as written, and the specification
+      plus the extension -- so the size of the gap is visible rather than argued.
+
+  - id: OPEN.anchor_threshold_uncalibrated
+    spec: "（试点中暴露；阈值 anchor_side_fraction_min 从未校准）"
+    disposition: replaced
+    where: evo_p0p3/p3/calibrate.py
+    where: evo_p0p3/p0/schema.py::Tolerances
+    replaced_by: "calibration by fault injection, before any of these numbers are reported as results"
+    reason: >
+      Across the ten pilot assets KF1.anchor fires on five of them and on ten of the twelve
+      hinges it could evaluate. That is not credible as a defect rate, and the measured
+      values say why: the gold cabinet's door scores 1.00 because its child frame sits
+      exactly ON the hinge line and the panel extends purely outward, which is an idealised
+      geometry nobody builds. Real hinges are inset, so part of the geometry always sits on
+      the far side of the axis plane -- 0.91 for the glove compartment door, 0.83 for its
+      limiter links, 0.80 for the drill-press table.
+
+      The threshold of 0.95 was written as a protocol starting value and never calibrated
+      against anything. It is almost certainly too strict.
+
+      What must NOT happen is tuning it until the pilot numbers look reasonable. That is
+      fitting the instrument to the sample, and it would destroy the one property this
+      pilot has: the code was frozen before it saw these assets.
+
+      The camcorder's two hinges at exactly 0.50 are a different matter and look like real
+      findings -- an axis through the middle of a door, which is what the predicate was
+      written for. A calibrated threshold should keep those and drop the 0.83-0.91 band,
+      and the way to find where it sits is deterministic fault injection on the gold
+      assets: displace a known-good hinge from its edge by a known fraction and read where
+      detection begins.
+
+      RESOLVED, and the answer was not a threshold. The injection ran and showed the
+      measure itself is a step function: displacing the gold door's hinge inward by 1% of
+      the panel width dropped it from 1.000 to 0.500, and every displacement from 1% to
+      50% also read 0.500. A box has four corners each side the moment the axis is inside,
+      so a vertex-count ratio carries no information about how far inside. The intermediate
+      values real assets produced -- 0.69, 0.75, 0.83, 0.91 -- came from how their geometry
+      was split into geoms, not from where their axes sat. No threshold could have worked.
+
+      Replaced by the axis's inset as a fraction of the part's own extent perpendicular to
+      it, which the injection confirms tracks displacement linearly to within 0.005 across
+      the whole range. The threshold of 0.15 comes from hardware rather than from the
+      sample: a hinge barrel is 15-25 mm on a door 400-800 mm wide, so 2-6% inset, and 25%
+      is visibly not an edge hinge.
+
+      The old measure had the ranking inverted, which is the specific failure an earlier
+      adversarial review predicted for a statistic of this shape. The camcorder read 0.50 --
+      worst in the set -- and is actually the cleanest hinge at 3.9% inset; the drill-press
+      read 0.80 and is genuinely near-centre at 27%. Human annotators failed the drill-press
+      on the axis item and passed the camcorder's parent item, so the corrected measure
+      agrees with them where the old one did not.
+
+      Effect on the pilot: KF1.anchor now fires on 2 of 10 assets instead of 5, and both
+      survivors are the ones measured near the middle.
+
