@@ -1,0 +1,56 @@
+{
+  "record_id": "rec_syringe_431220b09d204ba1a8937f8fb01386a8",
+  "overall_description": "Model Syringe as an industrial safety-first variant for heavy duty cycles. Start from a graduated barrel with linear plunger rod and nozzle tip, then add guards, lockouts, over-travel stops, and reinforcement at high-stress joints. Favor visible fastener logic and plate/brace load paths over decorative surfacing. Plunger motion should be linear, coaxial, and bounded by stop geometry. All subparts must remain connected to a parent support; no unsupported fragments. No floating parts.",
+  "required_parts": [
+    {
+      "id": "barrel_frame",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "plunger",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "safety_latch",
+      "count": 1,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "syringe",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "barrel_frame",
+      "geometry": "barrel frame of a syringe"
+    },
+    {
+      "id": "plunger",
+      "geometry": "plunger of a syringe"
+    },
+    {
+      "id": "safety_latch",
+      "geometry": "safety latch of a syringe"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "plunger",
+      "relation": "attached_to",
+      "object": "barrel_frame",
+      "source": "joint:plunger_slide"
+    },
+    {
+      "subject": "safety_latch",
+      "relation": "attached_to",
+      "object": "barrel_frame",
+      "source": "joint:latch_hinge"
+    }
+  ],
+  "proportion_claims": [],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

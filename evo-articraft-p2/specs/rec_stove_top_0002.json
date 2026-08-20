@@ -1,0 +1,86 @@
+{
+  "record_id": "rec_stove_top_0002",
+  "overall_description": "A flat four-burner gas cooktop set into a thin countertop cutout with no stove body below it. The cooktop slab is shallow and nearly flush with the counter, and four round rotary knobs run in a straight row along the front edge. Only the four knobs articulate, and each rotates continuously about a front-to-back revolute axis.",
+  "required_parts": [
+    {
+      "id": "countertop",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "cooktop",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "knob",
+      "count": 4,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "stove top",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "countertop",
+      "geometry": "countertop of a stove top"
+    },
+    {
+      "id": "cooktop",
+      "geometry": "cooktop of a stove top"
+    },
+    {
+      "id": "knob",
+      "geometry": "knob of a stove top"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "knob_1",
+      "relation": "attached_to",
+      "object": "cooktop",
+      "source": "joint:cooktop_to_knob_1"
+    },
+    {
+      "subject": "knob_2",
+      "relation": "attached_to",
+      "object": "cooktop",
+      "source": "joint:cooktop_to_knob_2"
+    },
+    {
+      "subject": "knob_3",
+      "relation": "attached_to",
+      "object": "cooktop",
+      "source": "joint:cooktop_to_knob_3"
+    },
+    {
+      "subject": "knob_4",
+      "relation": "attached_to",
+      "object": "cooktop",
+      "source": "joint:cooktop_to_knob_4"
+    }
+  ],
+  "proportion_claims": [
+    {
+      "parts": [
+        "knob_1",
+        "knob_2",
+        "knob_3",
+        "knob_4"
+      ],
+      "measure": "long",
+      "target_ratio": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": 0.1,
+      "source": "symmetry-naming"
+    }
+  ],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

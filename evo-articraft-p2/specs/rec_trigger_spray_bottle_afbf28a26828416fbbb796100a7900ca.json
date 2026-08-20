@@ -1,0 +1,95 @@
+{
+  "record_id": "rec_trigger_spray_bottle_afbf28a26828416fbbb796100a7900ca",
+  "overall_description": "Build a precision professional Trigger spray bottle tuned for calibration and repeatable alignment. Use a bottle plus trigger head with visible trigger-to-pump linkage with datum-friendly surfaces, index marks, adjustment features, and controlled gap language. Visual style can be minimal, but kinematics must be explicit. Trigger stroke should transmit through a visible lever-and-pump path. Keep a fully connected mechanical stack with no free-floating parts. No floating parts.",
+  "required_parts": [
+    {
+      "id": "bottle",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "head",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "trigger",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "pump_rod",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "nozzle_dial",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "stroke_knob",
+      "count": 1,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "trigger spray bottle",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "bottle",
+      "geometry": "bottle of a trigger spray bottle"
+    },
+    {
+      "id": "head",
+      "geometry": "head of a trigger spray bottle"
+    },
+    {
+      "id": "trigger",
+      "geometry": "trigger of a trigger spray bottle"
+    },
+    {
+      "id": "pump_rod",
+      "geometry": "pump rod of a trigger spray bottle"
+    },
+    {
+      "id": "nozzle_dial",
+      "geometry": "nozzle dial of a trigger spray bottle"
+    },
+    {
+      "id": "stroke_knob",
+      "geometry": "stroke knob of a trigger spray bottle"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "trigger",
+      "relation": "attached_to",
+      "object": "head",
+      "source": "joint:head_to_trigger"
+    },
+    {
+      "subject": "pump_rod",
+      "relation": "attached_to",
+      "object": "head",
+      "source": "joint:head_to_pump_rod"
+    },
+    {
+      "subject": "nozzle_dial",
+      "relation": "attached_to",
+      "object": "head",
+      "source": "joint:head_to_nozzle_dial"
+    },
+    {
+      "subject": "stroke_knob",
+      "relation": "attached_to",
+      "object": "head",
+      "source": "joint:head_to_stroke_knob"
+    }
+  ],
+  "proportion_claims": [],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

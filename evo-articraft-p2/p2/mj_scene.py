@@ -34,7 +34,13 @@ class Scene:
             xml = p.read_text(encoding="utf-8", errors="replace")
             if "<mujoco" not in xml:
                 meshdir = str(p.parent).replace("\\", "/")
-                inject = f'<mujoco><compiler fusestatic="false" meshdir="{meshdir}"/></mujoco>'
+                # discardvisual="false": MuJoCo's URDF importer defaults to keeping only
+                # <collision> geoms and dropping <visual> ones. Assets authored with only
+                # <visual> meshes and no <collision> primitives (common in this corpus, e.g.
+                # rec_office_chair_0004 has 69 <visual> / 0 <collision>) would compile to
+                # ngeom=0 -- an empty, unrenderable scene -- without this flag.
+                inject = (f'<mujoco><compiler fusestatic="false" meshdir="{meshdir}" '
+                          f'discardvisual="false"/></mujoco>')
                 m = re.search(r"<robot\b[^>]*>", xml)
                 if m:
                     xml = xml[: m.end()] + "\n  " + inject + xml[m.end():]

@@ -1,0 +1,118 @@
+{
+  "record_id": "rec_toaster_oven_3ff88f7083bc4d4a8b921ac942765f27",
+  "overall_description": "A countertop toaster oven with a broad door, two chrome knobs, a lower crumb tray, and a pull-out wire rack inside the cavity. The door rotates downward on a lower front hinge, the two knobs rotate continuously on their shafts, the crumb tray slides prismatically on its guides, and the wire rack slides prismatically on straight side runners. Appliance scale.",
+  "required_parts": [
+    {
+      "id": "body",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "knob",
+      "count": 2,
+      "role": "movable"
+    },
+    {
+      "id": "door",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "crumb_tray",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "rack",
+      "count": 1,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "toaster oven",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "body",
+      "geometry": "body of a toaster oven"
+    },
+    {
+      "id": "knob",
+      "geometry": "knob of a toaster oven"
+    },
+    {
+      "id": "door",
+      "geometry": "door of a toaster oven"
+    },
+    {
+      "id": "crumb_tray",
+      "geometry": "crumb tray of a toaster oven"
+    },
+    {
+      "id": "rack",
+      "geometry": "rack of a toaster oven"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "knob_0",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "joint:knob_0_spin"
+    },
+    {
+      "subject": "knob_1",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "joint:knob_1_spin"
+    },
+    {
+      "subject": "door",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "joint:door_hinge"
+    },
+    {
+      "subject": "crumb_tray",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "joint:crumb_tray_slide"
+    },
+    {
+      "subject": "crumb_tray",
+      "relation": "inside",
+      "object": "body",
+      "source": "name-heuristic:crumb_tray"
+    },
+    {
+      "subject": "rack",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "joint:rack_slide"
+    },
+    {
+      "subject": "rack",
+      "relation": "inside",
+      "object": "body",
+      "source": "name-heuristic:rack"
+    }
+  ],
+  "proportion_claims": [
+    {
+      "parts": [
+        "knob_0",
+        "knob_1"
+      ],
+      "measure": "long",
+      "target_ratio": [
+        1.0,
+        1.0
+      ],
+      "tolerance": 0.1,
+      "source": "symmetry-naming"
+    }
+  ],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

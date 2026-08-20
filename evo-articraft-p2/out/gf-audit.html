@@ -1,0 +1,215 @@
+<title>GF3/GF4 覆盖率审计</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap">
+<style>
+:root{
+  --paper:#f5f3ed; --card:#fffefa; --ink:#172337; --muted:#637186;
+  --navy:#15314e; --teal:#087f78; --teal-soft:#e1f3ef; --line:#d8d5cd;
+  --gold:#a56f18; --gold-soft:#f8efd9; --red:#a43f37; --red-soft:#f7e6e2;
+  --hero-a:#132e4b; --hero-b:#126862; --hero-ink:#eef6f4; --hero-sub:#c8dfda;
+  --mono:Consolas,Menlo,"IBM Plex Mono",monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#111a22; --card:#18242e; --ink:#e6edf1; --muted:#93a5b1;
+    --navy:#cddceb; --teal:#3cb8ac; --teal-soft:#12332f; --line:#2b3a45;
+    --gold:#d4a355; --gold-soft:#2e2413; --red:#d97f72; --red-soft:#3a1f1b;
+    --hero-a:#0d1f33; --hero-b:#0d4741; --hero-ink:#eef6f4; --hero-sub:#a7c5bf;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#111a22; --card:#18242e; --ink:#e6edf1; --muted:#93a5b1;
+  --navy:#cddceb; --teal:#3cb8ac; --teal-soft:#12332f; --line:#2b3a45;
+  --gold:#d4a355; --gold-soft:#2e2413; --red:#d97f72; --red-soft:#3a1f1b;
+  --hero-a:#0d1f33; --hero-b:#0d4741; --hero-ink:#eef6f4; --hero-sub:#a7c5bf;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);line-height:1.72;
+  font-family:Inter,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",ui-sans-serif,sans-serif}
+.hero{background:linear-gradient(120deg,var(--hero-a),var(--hero-b));color:var(--hero-ink);padding:36px 24px 28px}
+.hero-in,.main{max-width:1000px;margin:0 auto}
+.eyebrow{font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--hero-sub);margin-bottom:8px}
+h1{margin:0;font-family:Georgia,"Times New Roman","Songti SC",serif;font-weight:600;
+  font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.15;letter-spacing:-.02em;text-wrap:balance}
+.hero p{margin:10px 0 0;color:var(--hero-sub);max-width:74ch;font-size:.96rem}
+.hero .q{margin-top:14px;padding:10px 14px;border-left:3px solid var(--hero-sub);font-size:.92rem;
+  background:rgba(255,255,255,.06);border-radius:0 8px 8px 0}
+.main{padding:28px 24px 70px;display:grid;gap:34px}
+section{display:grid;gap:14px}
+h2{margin:0;font-family:Georgia,"Songti SC",serif;font-weight:600;color:var(--navy);font-size:1.32rem;
+  display:flex;align-items:baseline;gap:10px}
+h2 .tag{font-family:Inter,sans-serif;font-size:.68rem;font-weight:800;letter-spacing:.08em;
+  text-transform:uppercase;background:var(--teal);color:#fff;border-radius:7px;padding:2px 9px;
+  vertical-align:middle}
+.sec-note{margin:0;font-size:.9rem;color:var(--muted);max-width:78ch}
+p{margin:0 0 8px;max-width:78ch}
+
+.verdict{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;
+  display:grid;gap:6px}
+.verdict b{color:var(--navy)}
+
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.87rem}
+th,td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:.68rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td.num,th.num{font-variant-numeric:tabular-nums;font-family:var(--mono);white-space:nowrap}
+.case-id{font-family:var(--mono);font-size:.82rem}
+.read{font-size:.86rem;color:var(--muted)}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.stat b{display:block;font-size:1.5rem;font-weight:800;color:var(--teal);font-variant-numeric:tabular-nums;
+  font-family:var(--mono)}
+.stat span{font-size:.8rem;color:var(--muted)}
+
+.gf-grid{display:grid;gap:12px}
+.gf-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.gf-card .lbl{display:inline-flex;align-items:center;gap:6px;font-weight:800;
+  border-radius:8px;padding:2px 9px;font-size:.78rem;margin-bottom:8px;color:#fff}
+.gf-card .lbl.clean{background:var(--teal)}
+.gf-card .lbl.gap{background:var(--gold)}
+.gf-card h3{margin:0 0 6px;font-size:1rem;color:var(--navy)}
+.gf-card p{margin:6px 0;font-size:.9rem}
+.gf-card code{font-family:var(--mono);font-size:.86em;color:var(--navy);
+  background:rgba(0,0,0,.06);padding:.08em .35em;border-radius:5px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .gf-card code{color:var(--teal)}}
+:root[data-theme="dark"] .gf-card code{color:var(--teal)}
+.gf-card .found{margin-top:8px;padding:8px 10px;border-left:3px solid var(--gold);
+  background:var(--gold-soft);color:var(--ink);border-radius:6px;font-size:.86rem}
+.gf-card .found b{color:var(--gold)}
+.gf-card .clean-note{margin-top:8px;padding:8px 10px;border-left:3px solid var(--teal);
+  background:var(--teal-soft);color:var(--ink);border-radius:6px;font-size:.86rem}
+.gf-card .clean-note b{color:var(--teal)}
+
+.miniwrap{overflow-x:auto;margin-top:8px}
+.mini{border-collapse:collapse;width:100%;min-width:420px;font-size:.82rem}
+.mini th,.mini td{padding:5px 8px;border-bottom:1px solid var(--line);text-align:left}
+.mini th{font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.mini td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right}
+
+.legend{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;font-size:.87rem}
+.legend b{color:var(--navy)}
+
+footer{max-width:1000px;margin:0 auto;padding:0 24px 40px;color:var(--muted);font-size:.8rem}
+a{color:var(--teal)}
+</style>
+
+<div class="hero"><div class="hero-in">
+<div class="eyebrow">Evo-Articraft · P2 Geometry Fidelity 补充审查</div>
+<h1>整体形状为何不并入 GF1，以及 GF3/GF4 的覆盖率审计</h1>
+<p>针对两个追问的书面记录：为什么"整体形状(shape)判断"不合并进 GF1；以及 GF3/GF4 除已知的"世界坐标系 AABB 对旋转部件不准"之外，是否还有别的问题。两个结论都基于实测数据和代码通读，不是口头保证。</p>
+<div class="q">"整体形状判断为什么不放到 GF1？另外你确定 GF3 和 GF4 没有什么别的问题是吧？"</div>
+</div></div>
+
+<div class="main">
+
+<section id="shape">
+<h2>1. 为什么 shape 不并入 GF1 <span class="tag">设计取舍</span></h2>
+<p class="sec-note">GF1 和 shape 问的不是同一个问题。GF1 用 <code>global_form</code> 这条 P0 声明的具体描述做候选池，答的是"这个物体像不像作者写的那句话"；shape 用一份固定的 12 类粗粒度词表（cabinet / fan / chair / door-hatch / wheeled vehicle …）做候选池，答的是"抛开 P0 措辞，这东西看起来属于哪一类常见物体"。P2 报告本身的原则是"不要把不同维度的分数塞进一个数字里"——GF1 塞的是"符合作者声明"，shape 塞的是"符合常识类别"，合并会丢掉两者不一致时最有信息量的那部分信号。下表是三个 GF1 分数很低、但看起来物体本身没什么大问题的真实案例，用来验证这个取舍站不站得住：</p>
+
+<div class="tablewrap"><table>
+<thead><tr>
+<th>案例</th><th class="num">GF1 prob</th><th class="num">GF1 rank</th><th>shape 最佳猜测</th><th class="num">shape prob</th><th>解读</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="case-id">air_conditioning_machine</td>
+<td class="num">0.0016</td><td class="num">10 / 16</td>
+<td>door / hatch</td><td class="num">80.3%</td>
+<td class="read">GF1 判定"不像作者写的空调描述"，但 shape 认为它像一个带门/百叶的机箱——空调面板上的百叶窗确实容易被判成门，这是可以理解的误判，不是随机噪声。</td>
+</tr>
+<tr>
+<td class="case-id">dishwasher</td>
+<td class="num">0.0027</td><td class="num">5 / 16</td>
+<td>door / hatch</td><td class="num">74.9%</td>
+<td class="read">同理，下拉式洗碗机门本身就是"door"，shape 判断合理；GF1 分低是因为候选池里其他描述文本更贴近视觉特征，属于候选池竞争问题，不代表物体本身有几何缺陷。</td>
+</tr>
+<tr>
+<td class="case-id">wheelie_bin</td>
+<td class="num">0.9999</td><td class="num">1 / 16</td>
+<td>wheeled vehicle</td><td class="num">98.5%</td>
+<td class="read">GF1、shape 双双高分且一致，作为对照组：说明两个指标在"明显正确"的案例上不会互相打架，分歧只在边界案例出现。</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="verdict">
+<p><b>结论：</b>三个案例里 GF1 和 shape 有两个不一致、一个一致，而且不一致的两个都能给出合理解释（面板百叶 → 门，下拉门 → 门）。如果把两者合并成一个分数，air_conditioning_machine 和 dishwasher 这种"GF1 因候选池竞争偏低、但常识类别其实读得对"的情况会被完全掩盖，反而丢信息。保持分离，让 GF1 和 shape 各自作为独立诊断信号更符合 P2 的整体设计原则。</p>
+</div>
+</section>
+
+<section id="gf34">
+<h2>2. GF3 / GF4 审计 <span class="tag">代码通读 + 20 案例实测</span></h2>
+<p class="sec-note">审计范围：<code>gf34.py</code> 全部判定公式（attached_to / inside / above / aligned / 比例打分）+ <code>spec.py</code> 的 P0 替身起草规则，并对已生成的全部 20 个案例的 <code>specs/*.json</code> 做了统计。结论分两块：核心打分公式没查出 bug；但自动起草规则实际覆盖到的关系类型，比 schema 承诺的要窄。</p>
+
+<div class="stats">
+<div class="stat"><b>0</b><span>20 案例中 GF3/GF4 unmeasurable 数</span></div>
+<div class="stat"><b>144</b><span>attached_to 关系条数</span></div>
+<div class="stat"><b>12</b><span>inside 关系条数</span></div>
+<div class="stat"><b>8</b><span>above 关系条数</span></div>
+<div class="stat"><b>0</b><span>aligned 关系条数</span></div>
+</div>
+
+<div class="gf-grid">
+
+<div class="gf-card">
+<span class="lbl clean">核实无误</span>
+<h3>核心判定公式（AABB / signed-distance）</h3>
+<p>逐条检查了 <code>_eval_pair()</code> 里 <code>attached_to</code>（signed distance 三段式：penetration / contact / separated）、<code>inside</code>（AABB 体积占比 ≥ 0.7）、<code>above</code>（z 方向不穿透 + 水平投影重叠 ≥ 0.3）的实现，阈值相对场景尺度 <code>D</code>（AABB 对角线）归一化，没有发现单位换算或符号错误。20 个案例全部 <code>n_unmeasurable = 0</code>，说明目前跑到的关系没有因为引用解析失败被静默漏判。</p>
+<div class="clean-note"><b>结论：</b>已经被实际触发过的三种关系（attached_to / inside / above）+ 比例打分公式，逻辑是干净的。</div>
+</div>
+
+<div class="gf-card">
+<span class="lbl gap">覆盖缺口</span>
+<h3>aligned 关系从未被触发过</h3>
+<p><code>gf34.py</code> 实现了 <code>aligned</code>（沿指定轴的偏心检查），schema 文档也把它列为四种关系之一，但 <code>spec.py</code> 的自动起草规则 <code>draft_contract()</code> 根本不会生成这种 claim——它只会按关节拓扑生成 <code>attached_to</code>，再按命名关键词生成 <code>inside</code>/<code>above</code>。</p>
+<div class="miniwrap"><table class="mini">
+<thead><tr><th>关系类型</th><th class="num">出现次数（20案例）</th><th>触发条件</th></tr></thead>
+<tbody>
+<tr><td>attached_to</td><td class="num">144</td><td>每个可动关节自动生成一条</td></tr>
+<tr><td>inside</td><td class="num">12</td><td>child 名含 drawer/tray/rack/bucket/register/cartridge</td></tr>
+<tr><td>above</td><td class="num">8</td><td>child 名含 lid/cover/cap/top_panel</td></tr>
+<tr><td>aligned</td><td class="num">0</td><td>（起草规则里没有任何条件会生成它）</td></tr>
+</tbody>
+</table></div>
+<div class="found"><b>影响：</b>不是打分错误，是这条代码路径在 20 个案例上完全没被跑过、没被验证过对不对。真要用到 aligned（比如"两个轮子应该共轴"这类关系），需要先确认它的判定逻辑是可信的。</div>
+</div>
+
+<div class="gf-card">
+<span class="lbl gap">覆盖缺口</span>
+<h3>inside / above 靠硬编码英文关键词识别，召回率窄</h3>
+<p>144 条 attached_to 是"每个可动关节都测"，几乎无遗漏；但 inside/above 只有 child 部件名命中固定词表才会生成 claim。如果真实关系存在、但命名不在词表里（比如用 "basket" 而不是 "bucket"，或者非英文/不常见命名），这条关系会被<b>完全漏掉</b>——不会记成 unmeasurable 拉低分数，而是压根不会被起草出来，所以分数上完全看不出这个缺口。</p>
+<div class="found"><b>影响：</b>GF3 分数在这类案例上会偏"宽松"，因为该测的关系没被测到，谈不上"没问题"，只是没被发现问题。</div>
+</div>
+
+<div class="gf-card">
+<span class="lbl gap">覆盖缺口</span>
+<h3>抽象引用展开（多实例）没被验证过</h3>
+<p><code>eval_relation()</code> 支持 subject/object 解析成抽象 part id 后展开为全部实例、要求"全部实例都满足"才算通过；但自动起草的 claim 全部用具体的 joint child/parent 实例名，从不使用抽象 part id，所以这条多实例展开路径在 20 个案例上从未被实际触发。</p>
+</div>
+
+<div class="gf-card">
+<span class="lbl gap">理论边界，未验证是否会实际发生</span>
+<h3>above 没有"距离上限"</h3>
+<p><code>above</code> 的判定只要求不穿透（<code>gap ≥ -0.05·D</code>）+ 水平投影重叠 ≥ 0.3，没有上限——理论上一个悬浮得很远但投影对齐的部件也会被判定为"above"成立。因为实际 claim 来自真实的 joint 父子关系（几何上本来就应该挨得近），这个 20 案例里大概率没有实际触发，但公式本身确实没设这道防线。</p>
+</div>
+
+<div class="gf-card">
+<span class="lbl gap">范围局限，非公式 bug</span>
+<h3>GF4 比例 claim 100% 是命名对称组</h3>
+<p>目前所有 <code>proportion_claims</code> 都来自"同名重复部件应等大"这一条规则（比如左右轮、多个抽屉），从不测试绝对比例关系（例如"腿的高度应为机身高度的 1/3"）。这是自动起草替身天然的局限——没有真正的 P0 声明就没有这类 claim 的来源，不是打分公式写错了。</p>
+</div>
+
+</div>
+
+<div class="legend">
+<b>总结口径：</b>"GF3/GF4 没有别的问题"这句话不能直接打包票——更准确的说法是：<b>已经被实际触发、跑过 20 个案例的那部分逻辑（attached_to / inside / above 判定 + 比例打分公式）没查出错误</b>；但 schema 承诺的能力里，<code>aligned</code> 关系、抽象引用展开、以及 inside/above 更广的命名覆盖，都还停留在"代码写了但从未被验证过"的状态。这些和已知的"世界坐标系 AABB 对旋转部件不准"问题性质相同：都是自动起草替身（无真实 P0）阶段的局限，而不是判定公式本身算错了。
+</div>
+</section>
+
+</div>
+
+<footer>Evo-Articraft P2 · geo-xuge-patches · 与 <code>gt-review.html</code>（GT 标注）、<code>p2-xuge.html</code>（原始冒烟报告标注版）为同一轮审查的配套文档。</footer>

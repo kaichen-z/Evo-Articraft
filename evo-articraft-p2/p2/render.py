@@ -30,12 +30,13 @@ class RenderProtocol:
         self.renderer.close()
 
     # ---------- 内部 ----------
-    def _camera(self, lo: np.ndarray, hi: np.ndarray, azimuth: float) -> mujoco.MjvCamera:
+    def _camera(self, lo: np.ndarray, hi: np.ndarray, azimuth: float,
+                elevation: float | None = None) -> mujoco.MjvCamera:
         cam = mujoco.MjvCamera()
         cam.lookat[:] = (lo + hi) / 2.0
         diag = float(np.linalg.norm(hi - lo))
         cam.distance = max(consts.DIST_FACTOR * diag, 1e-3)
-        cam.elevation = consts.ELEVATION
+        cam.elevation = consts.ELEVATION if elevation is None else elevation
         cam.azimuth = azimuth
         return cam
 
@@ -78,6 +79,57 @@ class RenderProtocol:
             save_dir.mkdir(parents=True, exist_ok=True)
             for az, img in views.items():
                 Image.fromarray(img).save(save_dir / f"global_az{int(az):03d}.png")
+        return views
+
+    def _ortho_views(self, geom_ids: list[int] | None) -> dict[str, np.ndarray]:
+        """Front/side/top of geom_ids (None = whole object), engineering-drawing style.
+
+        Separate from AZIMUTHS (0/90/180/270 @ elev=-20, used by GF1/GF2's own
+        mean_cos/prob_vs_sibling_parts -- that frozen protocol is untouched)
+        -- these three are: front (elev=0, az=0), side (elev=0, az=90),
+        top (elev=89.9, az=0; 90 degrees is a gimbal-lock edge case in mujoco).
+        """
+        self.vopt.geomgroup[:] = 1
+        self.vopt.geomgroup[3] = 0
+        self.scene.set_visible_only(geom_ids)
+
+        target = geom_ids if geom_ids else list(range(self.scene.model.ngeom))
+        lo, hi = self.scene.world_aabb(target)
+
+        views = {
+            "front": self._render_one(self._camera(lo, hi, azimuth=0.0, elevation=0.0)),
+            "side": self._render_one(self._camera(lo, hi, azimuth=90.0, elevation=0.0)),
+            "top": self._render_one(self._camera(lo, hi, azimuth=0.0, elevation=89.9)),
+        }
+        self.scene.set_visible_only(None)   # 恢复
+        return views
+
+    def three_orthographic_views(self, save_dir: Path | None = None) -> dict[str, np.ndarray]:
+        """Front/side/top of the whole object, for the 3-direction shape check."""
+        views = self._ortho_views(None)
+        if save_dir:
+            save_dir.mkdir(parents=True, exist_ok=True)
+            for name, img in views.items():
+                Image.fromarray(img).save(save_dir / f"shape_{name}.png")
+        return views
+
+    def part_orthographic_views(self, link: str, save_dir: Path | None = None) -> dict[str, np.ndarray] | None:
+        """Front/side/top of one isolated part, for the dictionary lookup.
+
+        Reuses the same isolation mechanism as part_views (geom_group switch);
+        only the camera set differs (3 fixed engineering views vs 4 azimuths).
+        """
+        geoms = self.scene.body_geoms(link)
+        if not geoms:
+            return None
+        lo, hi = self.scene.world_aabb(geoms)
+        if float(np.linalg.norm(hi - lo)) < 1e-6:
+            return None
+        views = self._ortho_views(geoms)
+        if save_dir:
+            save_dir.mkdir(parents=True, exist_ok=True)
+            for name, img in views.items():
+                Image.fromarray(img).save(save_dir / f"{link}_shape_{name}.png")
         return views
 
     def part_views(self, link: str, save_dir: Path | None = None) -> dict[float, np.ndarray] | None:

@@ -1,0 +1,101 @@
+{
+  "record_id": "rec_stand_mixer_be6bff50e99b411bbc02c1627a3d5be5",
+  "overall_description": "A bowl-lift stand mixer with a tall column, a deep bowl, and a short side dial plus a front accessory-hub cap on a bayonet mount. The bowl rises vertically on the lift mechanism, the side dial rotates continuously on its shaft, the accessory-hub cap rotates on its short bayonet twist at the front hub, and the beater spins continuously on the drive axis. Kitchen appliance scale.",
+  "required_parts": [
+    {
+      "id": "body",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "carriage",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "bowl",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "side_dial",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "hub_cap",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "beater",
+      "count": 1,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "stand mixer",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "body",
+      "geometry": "body of a stand mixer"
+    },
+    {
+      "id": "carriage",
+      "geometry": "carriage of a stand mixer"
+    },
+    {
+      "id": "bowl",
+      "geometry": "bowl of a stand mixer"
+    },
+    {
+      "id": "side_dial",
+      "geometry": "side dial of a stand mixer"
+    },
+    {
+      "id": "hub_cap",
+      "geometry": "hub cap of a stand mixer"
+    },
+    {
+      "id": "beater",
+      "geometry": "beater of a stand mixer"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "carriage",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "joint:body_to_carriage"
+    },
+    {
+      "subject": "side_dial",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "joint:body_to_dial"
+    },
+    {
+      "subject": "hub_cap",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "joint:body_to_hub_cap"
+    },
+    {
+      "subject": "hub_cap",
+      "relation": "above",
+      "object": "body",
+      "source": "name-heuristic:hub_cap"
+    },
+    {
+      "subject": "beater",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "joint:body_to_beater"
+    }
+  ],
+  "proportion_claims": [],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

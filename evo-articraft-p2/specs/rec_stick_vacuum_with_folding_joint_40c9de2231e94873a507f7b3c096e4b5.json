@@ -1,0 +1,56 @@
+{
+  "record_id": "rec_stick_vacuum_with_folding_joint_40c9de2231e94873a507f7b3c096e4b5",
+  "overall_description": "A stick vacuum with a folding wand. A motor body connects to a straight wand and a floor head, with the fold joint placed between the body and the wand. Joints: the fold joint is revolute about a horizontal axis, and the floor head pitches on a second revolute hinge. Bias the design toward one dominant primary link and one shorter secondary link.",
+  "required_parts": [
+    {
+      "id": "body",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "wand",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "floor_head",
+      "count": 1,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "stick vacuum with folding joint",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "body",
+      "geometry": "body of a stick vacuum with folding joint"
+    },
+    {
+      "id": "wand",
+      "geometry": "wand of a stick vacuum with folding joint"
+    },
+    {
+      "id": "floor_head",
+      "geometry": "floor head of a stick vacuum with folding joint"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "wand",
+      "relation": "attached_to",
+      "object": "body",
+      "source": "joint:fold_joint"
+    },
+    {
+      "subject": "floor_head",
+      "relation": "attached_to",
+      "object": "wand",
+      "source": "joint:head_pitch"
+    }
+  ],
+  "proportion_claims": [],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

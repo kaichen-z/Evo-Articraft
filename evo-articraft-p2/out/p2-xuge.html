@@ -59,6 +59,18 @@ p{margin:8px 0;max-width:82ch}
 .gf-card p{margin:6px 0;font-size:.9rem}
 .gf-card .delta{margin-top:8px;padding:8px 10px;border-left:3px solid var(--gold);
   background:var(--gold-soft);color:var(--ink);border-radius:6px;font-size:.86rem}
+.gf-card .issue{margin-top:8px;padding:8px 10px;border-left:3px solid var(--red);
+  background:var(--red-soft);color:var(--ink);border-radius:6px;font-size:.86rem}
+.gf-card .issue b{color:var(--red)}
+.gf-card .issue code{font-family:Consolas,Menlo,monospace;font-size:.9em;color:var(--red);
+  background:rgba(0,0,0,.06);padding:.08em .3em;border-radius:5px}
+.gf-card .addition{margin-top:8px;padding:8px 10px;border-left:3px solid var(--teal);
+  background:var(--teal-soft);color:var(--ink);border-radius:6px;font-size:.86rem}
+.gf-card .addition b{color:var(--teal)}
+.gf-card .addition code{font-family:Consolas,Menlo,monospace;font-size:.9em;color:var(--teal);
+  background:rgba(0,0,0,.06);padding:.08em .3em;border-radius:5px}
+.gf-card .addition table{border-collapse:collapse;width:100%;margin-top:6px;font-size:.82rem}
+.gf-card .addition th,.gf-card .addition td{padding:3px 6px;border-bottom:1px solid rgba(0,0,0,.08);text-align:left}
 .legend{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;font-size:.9rem}
 .legend b{color:var(--navy)}
 .legend ul{margin:6px 0 0;padding-left:1.2rem}
@@ -141,12 +153,35 @@ footer code{background:none;color:var(--muted)}
       <h3>整体形态对齐</h3>
       <p>冻结渲染协议：统一中性灰材质、方位角 0/90/180/270、仰角 −20°、相机距离 1.7×AABB 对角线、分割通道把背景抠成浅灰。编码器冻结为 open_clip ViT-B-32 / laion2b_s34b_b79k，四视角图文余弦取均值。</p>
       <div class="delta"><b>补充</b>：我们加了 20 类干扰项 softmax——每个资产的照片在全部 20 个类别文本里去匹配，得到匹配的概率以及在20个案例里面的排名；另附最差视角 min_cos，防止单面坍塌被均值抹平。</div>
+      <div class="issue"><b>发现的问题（渲染管线，影响 GF1-GF4 全部四项）：</b>这批 URDF 资产只有 visual 网格、没有 collision 网格（实测 <code>&lt;collision&gt;</code> 标签 0 个，<code>&lt;visual&gt;</code> 标签 69 个），而 MuJoCo 编译 URDF 时默认只保留 collision、丢弃 visual——所以整个模型编译出来是空的（<code>ngeom=0</code>），渲染出来是一张纯灰色空白图，CLIP 是在瞎猜一张什么都没有的图片。<br><br>
+      修法是在 <code>mj_scene.py</code> 注入的 compiler 标签里加一个 <code>discardvisual="false"</code>：
+      <pre style="margin:8px 0 0;padding:8px 10px;border-radius:6px;background:rgba(0,0,0,.06);overflow-x:auto;font-size:.82rem;white-space:pre-wrap">inject = (f'&lt;mujoco&gt;&lt;compiler fusestatic="false" meshdir="{meshdir}" '
+          f'discardvisual="false"/&gt;&lt;/mujoco&gt;')</pre>
+      这个改动是安全的——如果资产本来就有 collision 网格，这个开关不会改变任何行为，只是多保留一份 visual 网格；只有对"只有 visual、没 collision"这种资产才会真正生效。修完之后，办公椅（<code>rec_office_chair_0004</code>）的 69 个 geom、7 个零件全部正确渲染出来了。<br><br>
+      <b>需要确认：</b>这个 bug 是在本地重新加载这批资产时触发的，不确定原始 20 条结果跑的时候，本地 URDF 缓存是否也缺 collision 网格——如果是，20 条结果里可能有一部分案例的渲染实际上是空白图，分数不可信，需要重新跑一遍验证。</div>
+      <div class="addition"><b>新增：三视图判形状。</b>这是一项独立于 GF1/GF2（4方位角环绕）的新检查——正视图（elev=0, az=0）、侧视图（elev=0, az=90）、俯视图（elev=89.9, az=0）三个固定工程制图角度，取三张图的平均特征，对一份粗粒度品类词表（cabinet/fan/chair/lamp/door/machine-housing/turbine/hvac/cutting-tool/wheeled-vehicle/linkage/handheld，共12类）做 zero-shot 分类，输出 top-3 猜测。已在办公椅（<code>rec_office_chair_0004</code>）上验证：正确判为 <code>chair</code>，置信度 99.07%（次优 lamp/light 仅 0.70%）。用途：给"这个物体整体形状对不对"提供一个和 GF1 裸余弦独立的交叉检查信号。代码在 <code>p2/render.py::three_orthographic_views</code> + <code>p2/dictionary.py::classify_shape_from_views</code>。</div>
     </div>
     <div class="gf-card">
       <span class="gf-id">GF2</span>
       <h3>部件及几何对齐</h3>
       <p>逐零件隔离渲染：其余 geom 移入隐藏组、相机按该零件自身 AABB 重新构图，同样四视角；按规格先聚合视角、再对零件宏平均。零件文本来自 part_geometry 的形状描述。</p>
       <div class="delta"><b>补充</b>：兄弟部件辨识——每张零件照片在本资产全部零件文本里做选择题，报告认对概率与实际最像谁（best_match），用于诊断"零件做得不像自己"；无几何、AABB 退化、被引擎融合的中间零件记不可测，不计入宏平均。</div>
+      <div class="addition"><b>新增：prob_vs_sibling_parts 除以瞎猜基线 1/N，得到 prob_vs_chance。</b>零件数 N 不同的物体，同样的原始概率含金量不一样——拿现成的 <code>results.json</code> 重新算了一遍，排序会反过来：
+        <table>
+          <thead><tr><th>案例</th><th>N</th><th>原始 macro_prob</th><th>÷ 瞎猜基线</th></tr></thead>
+          <tbody>
+            <tr><td>水轮</td><td>2</td><td>0.7903（看起来最高）</td><td>1.58×（其实一般）</td></tr>
+            <tr><td>台钳</td><td>2</td><td>0.5063</td><td>1.01×（约等于瞎猜）</td></tr>
+            <tr><td>眼镜</td><td>3</td><td>0.3337</td><td>1.00×（完全等于瞎猜）</td></tr>
+            <tr><td>收银机</td><td>25</td><td>0.0422（看起来最差）</td><td>1.05×（约等于瞎猜）</td></tr>
+            <tr><td>垃圾桶盖</td><td>5</td><td>0.5273</td><td><b>2.64×（实际最好）</b></td></tr>
+          </tbody>
+        </table>
+        台钳、眼镜两个案例原始数字看着还行，换算后发现 CLIP 其实完全分不清它们的零件，跟瞎猜没区别。代码在 <code>runner.py</code> 的 GF2 段，<code>chance = 1.0/len(links)</code>，已同步加进 <code>summary.csv</code>。</div>
+      <div class="addition"><b>新增：跨物体零件 dictionary（<code>p2/dictionary.py</code>）。</b>兄弟辨识测的是"这张照片像不像本资产的其他零件"，测不出"这个零件根本不像它这一类该有的样子"——尤其是零件少、没有兄弟可比的物体完全用不上。这里另建一份和具体资产无关的候选池：<b>18</b> 类常见零件文字描述（housing/body、base、arm、lid、door/panel、ring、dial、button/knob、jaw、bracket、wheel、drawer、handle、post/tube、frame、cap/cover、hinge/bearing、axle）。其中 <b>16</b> 类来自 <code>A1-6 for yiyun/data/contracts-300/</code> 里 <code>expected_parts</code> 名字的真实词频统计（98 份 contract，合并了单复数和近义词）；另外 <b>2</b> 类（hinge/bearing、axle）词频排不进前列，是照你最早举的"轴承"例子手动加的；词频表里另外几个高频词（carriage、head、barrel、plate、keys、flap）判断跟已有类别形状区分度不够，没有单独列出来，是我自己取舍的，不是全自动生成。跑法和 GF2 现有 softmax 代码完全复用，只是候选池从"本资产零件"换成这份固定词表。<br><br>
+        已在办公椅上验证：<code>base</code>、<code>wheel_1</code>–<code>wheel_4</code> 全部判对，唯独 <code>wheel_0</code> 被判成 <code>button/knob</code>（47.8%），"wheel"甚至没进它的 top-3——五个轮子理应长得差不多，这个不一致是自动测出来的、值得人工去看一眼这个具体轮子的疑点。文本 v1 是占位符，正式版可以换成从真实渲染图平均出来的图像原型（<code>build_image_prototypes</code> 已经预留了接口）。</div>
+      <div class="issue"><b>试过、又改回来的一个方案：dictionary 曾经改用正/侧/俯三视图渲染（而不是复用 GF2 已有的 4 方位角渲染），本意是让 dictionary 和"三视图判形状"用同一套拍摄方式。实测效果更差，已改回 4 方位角：</b>换成三视图后，5 个轮子里 0 个判对 wheel（含原来判对的 wheel_1–4，全部变成 button/knob）。原因是轮子这类轴对称零件，如果它装配后转轴方向刚好正对着"正视图"或"侧视图"这两个固定的世界坐标方向，拍出来就是一个圆柱截面（看着像纽扣），而不是能看出"这是个轮子"的滚动面；4 方位角因为角度多、又是斜着拍的，被这种"角度凑巧对齐"坑到的概率小得多。三视图仍然保留用于整体形状判断（这个尺度上没有遇到同样的轴对称问题，效果很好）和网页展示用的缩略图，只是不再用于零件 dictionary 的打分。<br><br>
+      过程中还顺手抓到一个变量名重复导致的 bug（循环里 <code>shape_views</code> 变量名和外层整体三视图变量重名，把返回值污染成了最后一个零件的照片）——已修复，不影响当前代码，记录下来是因为它一度让"整体三视图判断"的结果在两次运行之间完全不一致（99% chair vs 46% door/hatch），排查过程说明这类"看起来像模型不稳定"的问题，值得先怀疑变量名/数据流之类的低级错误，而不是先怀疑模型本身。</div>
     </div>
     <div class="gf-card">
       <span class="gf-id">GF3</span>

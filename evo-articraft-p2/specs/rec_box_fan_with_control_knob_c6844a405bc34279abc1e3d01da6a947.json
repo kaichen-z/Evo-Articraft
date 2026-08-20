@@ -1,0 +1,65 @@
+{
+  "record_id": "rec_box_fan_with_control_knob_c6844a405bc34279abc1e3d01da6a947",
+  "overall_description": "A square box fan with a flat plastic housing, a front wire grille, a multi-blade fan on a central revolute axle, and a rotary speed knob on the side panel.",
+  "required_parts": [
+    {
+      "id": "housing",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "front_grille",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "rotor",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "speed_knob",
+      "count": 1,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "box fan with control knob",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "housing",
+      "geometry": "housing of a box fan with control knob"
+    },
+    {
+      "id": "front_grille",
+      "geometry": "front grille of a box fan with control knob"
+    },
+    {
+      "id": "rotor",
+      "geometry": "rotor of a box fan with control knob"
+    },
+    {
+      "id": "speed_knob",
+      "geometry": "speed knob of a box fan with control knob"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "rotor",
+      "relation": "attached_to",
+      "object": "housing",
+      "source": "joint:fan_axle"
+    },
+    {
+      "subject": "speed_knob",
+      "relation": "attached_to",
+      "object": "housing",
+      "source": "joint:speed_selector"
+    }
+  ],
+  "proportion_claims": [],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

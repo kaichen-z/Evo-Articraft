@@ -1,0 +1,41 @@
+{
+  "record_id": "rec_revolving_door_2c4aadb9c546454fb61a1fc873553cb2",
+  "overall_description": "A frameless all-glass three-wing revolving door for a boutique storefront. A slim central steel post carries three full-height glass panel wings. The wing assembly rotates continuously about the vertical post axis.",
+  "required_parts": [
+    {
+      "id": "storefront",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "rotor",
+      "count": 1,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "revolving door",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "storefront",
+      "geometry": "storefront of a revolving door"
+    },
+    {
+      "id": "rotor",
+      "geometry": "rotor of a revolving door"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "rotor",
+      "relation": "attached_to",
+      "object": "storefront",
+      "source": "joint:storefront_to_rotor"
+    }
+  ],
+  "proportion_claims": [],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

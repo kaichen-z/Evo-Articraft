@@ -1,0 +1,47 @@
+{
+  "record_id": "rec_create-a-simple-articulated-wooden-treasure-ches_20260426_040009_057829_f1a1c34c",
+  "overall_description": "Create a simple articulated wooden treasure chest with a hinged lid and clear open/closed motion.",
+  "required_parts": [
+    {
+      "id": "base",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "lid",
+      "count": 1,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "treasure chest with hinged lid",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "base",
+      "geometry": "base of a treasure chest with hinged lid"
+    },
+    {
+      "id": "lid",
+      "geometry": "lid of a treasure chest with hinged lid"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "lid",
+      "relation": "attached_to",
+      "object": "base",
+      "source": "joint:lid_hinge"
+    },
+    {
+      "subject": "lid",
+      "relation": "above",
+      "object": "base",
+      "source": "name-heuristic:lid"
+    }
+  ],
+  "proportion_claims": [],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

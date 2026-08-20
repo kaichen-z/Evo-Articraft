@@ -1,0 +1,136 @@
+{
+  "record_id": "rec_stationary_exercise_bike_0006",
+  "overall_description": "A realistic, highly detailed Stationary Exercise Bike in a refined premium variant, with a stable frame, crank and flywheel housing, saddle support, and believable adjustment hardware. Add tighter seam management, cleaner interface breaks, restrained hardware, and a balanced mix of matte and satin material transitions. primary articulation should be obvious from the supporting pivots, axles, and linkage anchors. Keep the object polished, believable, and structurally clear.",
+  "required_parts": [
+    {
+      "id": "frame",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "flywheel",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "crank_assembly",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "pedal",
+      "count": 2,
+      "role": "movable"
+    },
+    {
+      "id": "saddle_assembly",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "handlebar_assembly",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "resistance_knob",
+      "count": 1,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "stationary exercise bike",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "frame",
+      "geometry": "frame of a stationary exercise bike"
+    },
+    {
+      "id": "flywheel",
+      "geometry": "flywheel of a stationary exercise bike"
+    },
+    {
+      "id": "crank_assembly",
+      "geometry": "crank assembly of a stationary exercise bike"
+    },
+    {
+      "id": "pedal",
+      "geometry": "pedal of a stationary exercise bike"
+    },
+    {
+      "id": "saddle_assembly",
+      "geometry": "saddle assembly of a stationary exercise bike"
+    },
+    {
+      "id": "handlebar_assembly",
+      "geometry": "handlebar assembly of a stationary exercise bike"
+    },
+    {
+      "id": "resistance_knob",
+      "geometry": "resistance knob of a stationary exercise bike"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "flywheel",
+      "relation": "attached_to",
+      "object": "frame",
+      "source": "joint:flywheel_spin"
+    },
+    {
+      "subject": "crank_assembly",
+      "relation": "attached_to",
+      "object": "frame",
+      "source": "joint:crank_spin"
+    },
+    {
+      "subject": "left_pedal",
+      "relation": "attached_to",
+      "object": "crank_assembly",
+      "source": "joint:left_pedal_spin"
+    },
+    {
+      "subject": "right_pedal",
+      "relation": "attached_to",
+      "object": "crank_assembly",
+      "source": "joint:right_pedal_spin"
+    },
+    {
+      "subject": "saddle_assembly",
+      "relation": "attached_to",
+      "object": "frame",
+      "source": "joint:saddle_height"
+    },
+    {
+      "subject": "handlebar_assembly",
+      "relation": "attached_to",
+      "object": "frame",
+      "source": "joint:handlebar_height"
+    },
+    {
+      "subject": "resistance_knob",
+      "relation": "attached_to",
+      "object": "frame",
+      "source": "joint:knob_turn"
+    }
+  ],
+  "proportion_claims": [
+    {
+      "parts": [
+        "left_pedal",
+        "right_pedal"
+      ],
+      "measure": "long",
+      "target_ratio": [
+        1.0,
+        1.0
+      ],
+      "tolerance": 0.1,
+      "source": "symmetry-naming"
+    }
+  ],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

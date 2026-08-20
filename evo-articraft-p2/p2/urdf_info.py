@@ -59,3 +59,25 @@ def parse_urdf(path: str | Path) -> UrdfInfo:
     root_link = roots[0] if roots else (links[0] if links else "")
 
     return UrdfInfo(links=links, joints=joints, root_link=root_link)
+
+
+def kinematic_role(info: UrdfInfo, link: str) -> dict:
+    """Structural (not visual) read of a link's role in the joint graph.
+
+    Shape alone cannot tell a short rigid connecting-rod apart from a hinge/
+    pivot component -- both are commonly modeled as a bare cylinder, and
+    "arm" is not required to look elongated (short links are normal in real
+    mechanisms: scissor lifts, articulated lamp arms). What shape can't
+    settle, topology can: a body that sits between two joints (one connecting
+    it to its parent, at least one more connecting a child to it) is playing
+    the role of a link/connecting-rod, whatever it happens to look like.
+    """
+    parent_joint = next((j for j in info.joints if j.child == link), None)
+    child_joints = [j for j in info.joints if j.parent == link]
+    return {
+        "is_root": link == info.root_link,
+        "parent_joint_type": parent_joint.jtype if parent_joint else None,
+        "n_child_joints": len(child_joints),
+        "child_joint_types": [j.jtype for j in child_joints],
+        "is_intermediate_link": bool(parent_joint is not None and child_joints),
+    }

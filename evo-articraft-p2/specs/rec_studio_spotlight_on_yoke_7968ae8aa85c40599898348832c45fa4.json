@@ -1,0 +1,99 @@
+{
+  "record_id": "rec_studio_spotlight_on_yoke_7968ae8aa85c40599898348832c45fa4",
+  "overall_description": "A photo-studio spotlight on a C-stand style base with three folding legs, a vertical column, and a yoke-mounted lamp body. The three legs rotate on hinges at the base crown, the yoke pans on a vertical joint at the top of the column, and the lamp body tilts on a horizontal hinge between the yoke arms. Photo-studio lighting scale.",
+  "required_parts": [
+    {
+      "id": "stand",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "leg",
+      "count": 3,
+      "role": "movable"
+    },
+    {
+      "id": "yoke",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "lamp",
+      "count": 1,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "studio spotlight on yoke",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "stand",
+      "geometry": "stand of a studio spotlight on yoke"
+    },
+    {
+      "id": "leg",
+      "geometry": "leg of a studio spotlight on yoke"
+    },
+    {
+      "id": "yoke",
+      "geometry": "yoke of a studio spotlight on yoke"
+    },
+    {
+      "id": "lamp",
+      "geometry": "lamp of a studio spotlight on yoke"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "leg_0",
+      "relation": "attached_to",
+      "object": "stand",
+      "source": "joint:stand_to_leg_0"
+    },
+    {
+      "subject": "leg_1",
+      "relation": "attached_to",
+      "object": "stand",
+      "source": "joint:stand_to_leg_1"
+    },
+    {
+      "subject": "leg_2",
+      "relation": "attached_to",
+      "object": "stand",
+      "source": "joint:stand_to_leg_2"
+    },
+    {
+      "subject": "yoke",
+      "relation": "attached_to",
+      "object": "stand",
+      "source": "joint:stand_to_yoke"
+    },
+    {
+      "subject": "lamp",
+      "relation": "attached_to",
+      "object": "yoke",
+      "source": "joint:yoke_to_lamp"
+    }
+  ],
+  "proportion_claims": [
+    {
+      "parts": [
+        "leg_0",
+        "leg_1",
+        "leg_2"
+      ],
+      "measure": "long",
+      "target_ratio": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": 0.1,
+      "source": "symmetry-naming"
+    }
+  ],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

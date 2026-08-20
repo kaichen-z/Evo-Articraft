@@ -1,0 +1,146 @@
+[
+  {
+    "record_id": "rec_box_fan_with_control_knob_c6844a405bc34279abc1e3d01da6a947",
+    "category": "Box fan with control knob",
+    "label": "1星 · Box fan with control knob",
+    "urdf_path": "articraft-data/cache/record_materialization/rec_box_fan_with_control_knob_c6844a405bc34279abc1e3d01da6a947/model.urdf",
+    "model_py_path": "articraft-data/records/rec_box_fan_with_control_knob_c6844a405bc34279abc1e3d01da6a947/revisions/rev_000001/model.py",
+    "rating": 1,
+    "prompt": "A square box fan with a flat plastic housing, a front wire grille, a multi-blade fan on a central revolute axle, and a rotary speed knob on the side panel."
+  },
+  {
+    "record_id": "rec_frontload_dryer_42eeb6585076482faca978263caba667",
+    "category": "Front-load dryer",
+    "label": "1星 · Front-load dryer",
+    "urdf_path": "articraft-data/cache/record_materialization/rec_frontload_dryer_42eeb6585076482faca978263caba667/model.urdf",
+    "model_py_path": "articraft-data/records/rec_frontload_dryer_42eeb6585076482faca978263caba667/revisions/rev_000001/model.py",
+    "rating": 1,
+    "prompt": "A compact travel dryer with a collapsible drum housing: the drum on a revolute axle inside a rectangular frame that collapses flat on revolute hinge joints a..."
+  },
+  {
+    "record_id": "rec_revolving_door_2c4aadb9c546454fb61a1fc873553cb2",
+    "category": "Revolving Door",
+    "label": "1星 · Revolving Door",
+    "urdf_path": "articraft-data/cache/record_materialization/rec_revolving_door_2c4aadb9c546454fb61a1fc873553cb2/model.urdf",
+    "model_py_path": "articraft-data/records/rec_revolving_door_2c4aadb9c546454fb61a1fc873553cb2/revisions/rev_000001/model.py",
+    "rating": 1,
+    "prompt": "A frameless all-glass three-wing revolving door for a boutique storefront. A slim central steel post carries three full-height glass panel wings. The wing as..."
+  },
+  {
+    "record_id": "rec_trigger_spray_bottle_afbf28a26828416fbbb796100a7900ca",
+    "category": "Trigger spray bottle",
+    "label": "1星 · Trigger spray bottle",
+    "urdf_path": "articraft-data/cache/record_materialization/rec_trigger_spray_bottle_afbf28a26828416fbbb796100a7900ca/model.urdf",
+    "model_py_path": "articraft-data/records/rec_trigger_spray_bottle_afbf28a26828416fbbb796100a7900ca/revisions/rev_000001/model.py",
+    "rating": 1,
+    "prompt": "Build a precision professional Trigger spray bottle tuned for calibration and repeatable alignment. Use a bottle plus trigger head with visible trigger-to-pu..."
+  },
+  {
+    "record_id": "rec_air_conditioning_machine_a1d144b8bc5147d096a336c7d1959b53",
+    "category": "Air conditioning machine",
+    "label": "2星 · Air conditioning machine",
+    "urdf_path": "articraft-data/cache/record_materialization/rec_air_conditioning_machine_a1d144b8bc5147d096a336c7d1959b53/model.urdf",
+    "model_py_path": "articraft-data/records/rec_air_conditioning_machine_a1d144b8bc5147d096a336c7d1959b53/revisions/rev_000001/model.py",
+    "rating": 2,
+    "prompt": "A window air conditioning machine with a boxy body, a front vent with adjustable louvers, and a right-side slider bank for fan and temperature. The main vent..."
+  },
+  {
+    "record_id": "rec_air_purifier_with_filter_door_758d9c7e1dc442fca70f28c9f5a6c4e2",
+    "category": "Air purifier with filter door",
+    "label": "2星 · Air purifier with filter door",
+    "urdf_path": "articraft-data/cache/record_materialization/rec_air_purifier_with_filter_door_758d9c7e1dc442fca70f28c9f5a6c4e2/model.urdf",
+    "model_py_path": "articraft-data/records/rec_air_purifier_with_filter_door_758d9c7e1dc442fca70f28c9f5a6c4e2/revisions/rev_000001/model.py",
+    "rating": 2,
+    "prompt": "An industrial floor-standing air scrubber with a tall rectangular cabinet on caster wheels, a large hinged front access door on two revolute hinge knuckles a..."
+  },
+  {
+    "record_id": "rec_arcade_machine_377993e5d19940898760ab97ee8aba05",
+    "category": "Arcade Machine",
+    "label": "2星 · Arcade Machine",
+    "urdf_path": "articraft-data/cache/record_materialization/rec_arcade_machine_377993e5d19940898760ab97ee8aba05/model.urdf",
+    "model_py_path": "articraft-data/records/rec_arcade_machine_377993e5d19940898760ab97ee8aba05/revisions/rev_000001/model.py",
+    "rating": 2,
+    "prompt": "A two-player upright arcade machine with a wide control panel, twin joystick positions, and a lower cashbox door beneath the screen, plus a small payout tray..."
+  },
+  {
+    "record_id": "rec_blender_0002",
+    "category": "Blender",
+    "label": "2星 · Blender",
+    "urdf_path": "articraft-data/cache/record_materialization/rec_blender_0002/model.urdf",
+    "model_py_path": "articraft-data/records/rec_blender_0002/revisions/rev_000001/model.py",
+    "rating": 2,
+    "prompt": "A personal single-serve blender with a compact tall motor base and a push-to-blend actuator on the base top, a narrow cylindrical jar threading onto the base..."
+  },
+  {
+    "record_id": "rec_stand_mixer_be6bff50e99b411bbc02c1627a3d5be5",
+    "category": "Stand Mixer",
+    "label": "3星 · Stand Mixer",
+    "urdf_path": "articraft-data/cache/record_materialization/rec_stand_mixer_be6bff50e99b411bbc02c1627a3d5be5/model.urdf",
+    "model_py_path": "articraft-data/records/rec_stand_mixer_be6bff50e99b411bbc02c1627a3d5be5/revisions/rev_000001/model.py",
+    "rating": 3,
+    "prompt": "A bowl-lift stand mixer with a tall column, a deep bowl, and a short side dial plus a front accessory-hub cap on a bayonet mount. The bowl rises vertically o..."
+  },
+  {
+    "record_id": "rec_stationary_exercise_bike_0006",
+    "category": "Stationary exercise bike",
+    "label": "3星 · Stationary exercise bike",
+    "urdf_path": "articraft-data/cache/record_materialization/rec_stationary_exercise_bike_0006/model.urdf",
+    "model_py_path": "articraft-data/records/rec_stationary_exercise_bike_0006/revisions/rev_000001/model.py",
+    "rating": 3,
+    "prompt": "A realistic, highly detailed Stationary Exercise Bike in a refined premium variant, with a stable frame, crank and flywheel housing, saddle support, and beli..."
+  },
+  {
+    "record_id": "rec_stick_vacuum_with_folding_joint_40c9de2231e94873a507f7b3c096e4b5",
+    "category": "Stick vacuum with folding joint",
+    "label": "3星 · Stick vacuum with folding joint",
+    "urdf_path": "articraft-data/cache/record_materialization/rec_stick_vacuum_with_folding_joint_40c9de2231e94873a507f7b3c096e4b5/model.urdf",
+    "model_py_path": "articraft-data/records/rec_stick_vacuum_with_folding_joint_40c9de2231e94873a507f7b3c096e4b5/revisions/rev_000001/model.py",
+    "rating": 3,
+    "prompt": "A stick vacuum with a folding wand. A motor body connects to a straight wand and a floor head, with the fold joint placed between the body and the wand. Join..."
+  },
+  {
+    "record_id": "rec_stove_top_0002",
+    "category": "Stove top",
+    "label": "3星 · Stove top",
+    "urdf_path": "articraft-data/cache/record_materialization/rec_stove_top_0002/model.urdf",
+    "model_py_path": "articraft-data/records/rec_stove_top_0002/revisions/rev_000001/model.py",
+    "rating": 3,
+    "prompt": "A flat four-burner gas cooktop set into a thin countertop cutout with no stove body below it. The cooktop slab is shallow and nearly flush with the counter,..."
+  },
+  {
+    "record_id": "rec_studio_spotlight_on_yoke_7968ae8aa85c40599898348832c45fa4",
+    "category": "Studio spotlight on yoke",
+    "label": "4星 · Studio spotlight on yoke",
+    "urdf_path": "articraft-data/cache/record_materialization/rec_studio_spotlight_on_yoke_7968ae8aa85c40599898348832c45fa4/model.urdf",
+    "model_py_path": "articraft-data/records/rec_studio_spotlight_on_yoke_7968ae8aa85c40599898348832c45fa4/revisions/rev_000001/model.py",
+    "rating": 4,
+    "prompt": "A photo-studio spotlight on a C-stand style base with three folding legs, a vertical column, and a yoke-mounted lamp body. The three legs rotate on hinges at..."
+  },
+  {
+    "record_id": "rec_create-a-simple-articulated-wooden-treasure-ches_20260426_040009_057829_f1a1c34c",
+    "category": "Treasure chest with hinged lid",
+    "label": "4星 · Treasure chest with hinged lid",
+    "urdf_path": "articraft-data/cache/record_materialization/rec_create-a-simple-articulated-wooden-treasure-ches_20260426_040009_057829_f1a1c34c/model.urdf",
+    "model_py_path": "articraft-data/records/rec_create-a-simple-articulated-wooden-treasure-ches_20260426_040009_057829_f1a1c34c/revisions/rev_000001/model.py",
+    "rating": 4,
+    "prompt": "Create a simple articulated wooden treasure chest with a hinged lid and clear open/closed motion."
+  },
+  {
+    "record_id": "rec_syringe_431220b09d204ba1a8937f8fb01386a8",
+    "category": "Syringe",
+    "label": "4星 · Syringe",
+    "urdf_path": "articraft-data/cache/record_materialization/rec_syringe_431220b09d204ba1a8937f8fb01386a8/model.urdf",
+    "model_py_path": "articraft-data/records/rec_syringe_431220b09d204ba1a8937f8fb01386a8/revisions/rev_000001/model.py",
+    "rating": 4,
+    "prompt": "Model Syringe as an industrial safety-first variant for heavy duty cycles. Start from a graduated barrel with linear plunger rod and nozzle tip, then add gua..."
+  },
+  {
+    "record_id": "rec_toaster_oven_3ff88f7083bc4d4a8b921ac942765f27",
+    "category": "Toaster oven",
+    "label": "4星 · Toaster oven",
+    "urdf_path": "articraft-data/cache/record_materialization/rec_toaster_oven_3ff88f7083bc4d4a8b921ac942765f27/model.urdf",
+    "model_py_path": "articraft-data/records/rec_toaster_oven_3ff88f7083bc4d4a8b921ac942765f27/revisions/rev_000001/model.py",
+    "rating": 4,
+    "prompt": "A countertop toaster oven with a broad door, two chrome knobs, a lower crumb tray, and a pull-out wire rack inside the cavity. The door rotates downward on a..."
+  }
+]

@@ -1,0 +1,74 @@
+{
+  "record_id": "rec_blender_0002",
+  "overall_description": "A personal single-serve blender with a compact tall motor base and a push-to-blend actuator on the base top, a narrow cylindrical jar threading onto the base on a bayonet collar, and a snap-lock lid with two side tab locks and a center push-release button. The bayonet collar and push-actuator geometry are clearly readable.",
+  "required_parts": [
+    {
+      "id": "base",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "actuator",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "jar",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "lid",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "release_button",
+      "count": 1,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "blender",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "base",
+      "geometry": "base of a blender"
+    },
+    {
+      "id": "actuator",
+      "geometry": "actuator of a blender"
+    },
+    {
+      "id": "jar",
+      "geometry": "jar of a blender"
+    },
+    {
+      "id": "lid",
+      "geometry": "lid of a blender"
+    },
+    {
+      "id": "release_button",
+      "geometry": "release button of a blender"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "actuator",
+      "relation": "attached_to",
+      "object": "base",
+      "source": "joint:base_to_actuator"
+    },
+    {
+      "subject": "release_button",
+      "relation": "attached_to",
+      "object": "lid",
+      "source": "joint:lid_to_release_button"
+    }
+  ],
+  "proportion_claims": [],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

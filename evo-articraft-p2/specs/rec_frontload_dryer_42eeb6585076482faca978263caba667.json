@@ -1,0 +1,121 @@
+{
+  "record_id": "rec_frontload_dryer_42eeb6585076482faca978263caba667",
+  "overall_description": "A compact travel dryer with a collapsible drum housing: the drum on a revolute axle inside a rectangular frame that collapses flat on revolute hinge joints at the four frame corners for storage, and a small porthole door on a revolute hinge at the frame front.",
+  "required_parts": [
+    {
+      "id": "rear_module",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "frame",
+      "count": 2,
+      "role": "movable"
+    },
+    {
+      "id": "top_frame",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "bottom_right_corner",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "drum",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "door",
+      "count": 1,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "front-load dryer",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "rear_module",
+      "geometry": "rear module of a front-load dryer"
+    },
+    {
+      "id": "frame",
+      "geometry": "frame of a front-load dryer"
+    },
+    {
+      "id": "top_frame",
+      "geometry": "top frame of a front-load dryer"
+    },
+    {
+      "id": "bottom_right_corner",
+      "geometry": "bottom right corner of a front-load dryer"
+    },
+    {
+      "id": "drum",
+      "geometry": "drum of a front-load dryer"
+    },
+    {
+      "id": "door",
+      "geometry": "door of a front-load dryer"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "left_frame",
+      "relation": "attached_to",
+      "object": "rear_module",
+      "source": "joint:rear_module_to_left_frame"
+    },
+    {
+      "subject": "top_frame",
+      "relation": "attached_to",
+      "object": "left_frame",
+      "source": "joint:left_frame_to_top_frame"
+    },
+    {
+      "subject": "right_frame",
+      "relation": "attached_to",
+      "object": "top_frame",
+      "source": "joint:top_frame_to_right_frame"
+    },
+    {
+      "subject": "bottom_right_corner",
+      "relation": "attached_to",
+      "object": "right_frame",
+      "source": "joint:right_frame_to_bottom_right_corner"
+    },
+    {
+      "subject": "drum",
+      "relation": "attached_to",
+      "object": "rear_module",
+      "source": "joint:rear_module_to_drum"
+    },
+    {
+      "subject": "door",
+      "relation": "attached_to",
+      "object": "left_frame",
+      "source": "joint:left_frame_to_door"
+    }
+  ],
+  "proportion_claims": [
+    {
+      "parts": [
+        "left_frame",
+        "right_frame"
+      ],
+      "measure": "long",
+      "target_ratio": [
+        1.0,
+        1.0
+      ],
+      "tolerance": 0.1,
+      "source": "symmetry-naming"
+    }
+  ],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}

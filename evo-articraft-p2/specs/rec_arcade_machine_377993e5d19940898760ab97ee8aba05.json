@@ -1,0 +1,62 @@
+{
+  "record_id": "rec_arcade_machine_377993e5d19940898760ab97ee8aba05",
+  "overall_description": "A two-player upright arcade machine with a wide control panel, twin joystick positions, and a lower cashbox door beneath the screen, plus a small payout tray flap near the lower front. the lower cabinet remains tall and boxy enough for a believable coin-op silhouette, and the tray flap reads as a supported door in the lower cabinet face. The cashbox door rotates on a vertical hinge at one side of the lower cabinet, and the payout tray flap rotates on a small lower hinge. Commercial arcade scale.",
+  "required_parts": [
+    {
+      "id": "cabinet",
+      "count": 1,
+      "role": "fixed"
+    },
+    {
+      "id": "cashbox",
+      "count": 1,
+      "role": "movable"
+    },
+    {
+      "id": "tray_flap",
+      "count": 1,
+      "role": "movable"
+    }
+  ],
+  "global_form": {
+    "category": "arcade machine",
+    "geometry": "",
+    "coarse_structure": ""
+  },
+  "part_geometry": [
+    {
+      "id": "cabinet",
+      "geometry": "cabinet of a arcade machine"
+    },
+    {
+      "id": "cashbox",
+      "geometry": "cashbox of a arcade machine"
+    },
+    {
+      "id": "tray_flap",
+      "geometry": "tray flap of a arcade machine"
+    }
+  ],
+  "part_relations": [
+    {
+      "subject": "cashbox",
+      "relation": "attached_to",
+      "object": "cabinet",
+      "source": "joint:cabinet_to_cashbox"
+    },
+    {
+      "subject": "tray_flap",
+      "relation": "attached_to",
+      "object": "cabinet",
+      "source": "joint:cabinet_to_tray_flap"
+    },
+    {
+      "subject": "tray_flap",
+      "relation": "inside",
+      "object": "cabinet",
+      "source": "name-heuristic:tray_flap"
+    }
+  ],
+  "proportion_claims": [],
+  "_standin_note": "P0 替身：由 URDF 命名/拓扑与 prompt 自动起草；正式 P0 契约可直接整体替换本文件"
+}
